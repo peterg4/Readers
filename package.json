@@ -1,0 +1,27 @@
+{
+  "name": "meanboilerplate",
+  "version": "1.0.0",
+  "description": "template for mean stack apps",
+  "dependencies": {
+    "alphavantage": "^2.0.1",
+    "express": "^4.10.2",
+    "fs": "0.0.1-security",
+    "mongoose": "^5.9.1",
+    "nodemon": "^2.0.2",
+    "request": "^2.88.2"
+  },
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evanlazaro/THWOMP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterg4/MEAN-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/peterg4/MEAN-Boilerplate/#README"
+}
