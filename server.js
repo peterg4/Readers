@@ -12,8 +12,13 @@ const uri = "mongodb+srv://gpeterson:popper42@readers-csf57.mongodb.net/test?ret
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
+  const db = client.db("test");
+  db.collection("TestIn").insertOne({username: "steve"}, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    client.close();
+  })
   console.log('Connected to DataBase', collection);
-  client.close();
 });
 
 app.use(express.static('public'));
