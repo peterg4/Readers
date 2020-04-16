@@ -20,7 +20,7 @@
 	<script type="text/javascript" src="js/index.js"></script>
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
 </head>
-<body ng-controller="mainController" class="bg-dark" ng-init="user();refreshPlaylist(0);getWeather();setKnobs();getStocks()">
+<body ng-controller="mainController" class="bg-dark" ng-init="">
 	<!-- Navigation bar -->
 		<nav class="navbar navbar-expand-lg navbar-dark text-light bg-dark">
 			<a class="navbar-brand" href="#">Navbar</a>
@@ -68,8 +68,28 @@
 			  <h1 class="display-3 text-dark">Welcome</h1>
 		  </div>
 		</div>
-		<button ng-click="register()">Register</button>
-		<button ng-click="addBook()">add Book!</button>
+	<form name="registerForm" ng-submit="register()">
+		<input type="text" ng-model="user.firstName" name="firstName" required>
+		<span ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">*Required</span>
+		<input type="text" ng-model="user.lastName" name="lastName" required>
+		<span ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">*Required</span>
+		<input type="text" ng-model="user.username" name= "username" required>
+		<span ng-show="registerForm.username.$touched && registerForm.username.$invalid">*Required</span>
+		<input type="password" ng-model="user.password" name="password" required>
+		<span ng-show="registerForm.password.$touched && registerForm.password.$invalid">*Required</span>
+		<input type="email" ng-model="user.email" name="email" required>
+		<span ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
+		<input type="submit" value="Register" >
+	</form>
+	<h1>{{registerForm.$valid}}</h1>
+	<br>
+	<form ng-submit="addBook()">
+		<input type="text" ng-model="book.title" name="text" required>
+		<input type="text" ng-model="book.author" name="text" required>
+		<input type="text" ng-model="book.genre" name="text" required>
+		<input type="text" ng-model="book.isbn" name="text" required>
+		<input type="submit" value="Add Book" >
+	</form>
 	  </main>
 
 	<!-- Profile page -->

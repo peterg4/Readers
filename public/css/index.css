@@ -3,6 +3,7 @@ html {
 }
 body {
   color: #111111;
+  color: white;
 }
 nav{
   color: white;
@@ -10,4 +11,8 @@ nav{
 }
 .bg-dark{
   background-color: #141414!important;
+}
+form{
+  margin: 0 auto;
+  text-align: center;
 }

@@ -25,16 +25,16 @@ async function main() {
     console.log("Client Connected")
     //Register a user
     socket.on('register', function(packet) {
-      db.collection("users").findOne({username: "gpeterson"}, function(err, results) {
+      db.collection("users").findOne({username: packet.username}, function(err, results) {
         if(results || err) console.log("username taken");
         else {
           db.collection("users").insertOne(
             {
-              firstName: "Grant",
-              lastName: "Peterson",
-              username: "gpeterson",
-              password: "password123",
-              email: "gpeterson707@gmail.com",
+              firstName: packet.firstName,
+              lastName: packet.lastName,
+              username: packet.username,
+              password: packet.password,
+              email: packet.email,
               admin: true
             }, function(err, res) {
               if (err) throw err;
@@ -46,16 +46,16 @@ async function main() {
     });
     //Add a book to review Database
     socket.on('insert', function(packet) {
-      db.collection("review").findOne({isbn: 1234567890123}, function(err, results) {
-        if(results || err) console.log("book already entered");
+      db.collection("review").findOne({isbn: packet.isbn}, function(err, results) {
+        if(results || err) console.log(results);
         else {
           db.collection("review").insertOne(
             {
-              title: "The Magicians",
-              author: "Lev Grossman",
-              genres: ["Fantasy"],
+              title: packet.title,
+              author: packet.author,
+              genres: packet.genre,
               rating: null,
-              isbn: 1234567890123,
+              isbn: packet.isbn,
               reviewers: []
             }, function(err, res) {
               if (err) throw err;
