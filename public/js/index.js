@@ -5,6 +5,7 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
   $scope.currid = "home";
   $scope.user = {};
   $scope.book = {};
+  $scope.credentials = {};
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -18,7 +19,8 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
     var packet = $scope.book;
     socket.emit('insert', packet);
   }
-  $scope.save = function() {
-    console.log($scope.user);
+  $scope.login = function() {
+    var packet = $scope.credentials;
+    socket.emit('login', packet);
   }
 }]);

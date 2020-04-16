@@ -64,6 +64,12 @@ async function main() {
         }
       });
     });
+    socket.on('login', function(packet) {
+      db.collection("users").findOne({username: packet.username, password: packet.password}, function(err, results) {
+        if(results) console.log(results);
+        else console.log("invalid credentials");
+      });
+    });
   });
 
 

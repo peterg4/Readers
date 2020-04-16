@@ -81,7 +81,6 @@
 		<span ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
 		<input type="submit" value="Register" >
 	</form>
-	<h1 class="text-center">{{registerForm.$valid}}</h1>
 	<br>
 	<form name="bookForm" ng-submit="addBook()">
 		<input type="text" ng-model="book.title" name="title" required>
@@ -93,6 +92,14 @@
 		<input type="text" ng-model="book.isbn" name="isbn" required>
 		<span ng-show="bookForm.isbn.$touched && bookForm.isbn.$invalid">*Required</span>
 		<input type="submit" value="Add Book" >
+	</form>
+	<br>
+	<form name="loginForm" ng-submit="login()">
+		<input type="text" ng-model="credentials.username" name="username" required>
+		<span ng-show="loginForm.username.$touched && loginForm.username.$invalid">*Required</span>
+		<input type="password" ng-model="credentials.password" name="password" required>
+		<span ng-show="loginForm.password.$touched && loginForm.password.$invalid">*Required</span>
+		<input type="submit" value="Login" >
 	</form>
 	</main>
 
