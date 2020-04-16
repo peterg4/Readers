@@ -101,6 +101,7 @@
 		<span ng-show="loginForm.password.$touched && loginForm.password.$invalid">*Required</span>
 		<input type="submit" value="Login" >
 	</form>
+	<h1 class="text-center" ng-if="logged">{{credentials.userinfo.firstName}}</h1>
 	</main>
 
 	<!-- Profile page -->

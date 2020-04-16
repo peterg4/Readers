@@ -39,6 +39,7 @@ async function main() {
             }, function(err, res) {
               if (err) throw err;
               console.log("1 user inserted");
+              socket.emit('register_response', packet);
           });
         }
       });
@@ -60,14 +61,20 @@ async function main() {
             }, function(err, res) {
               if (err) throw err;
               console.log("1 book inserted");
+              socket.emit('book_response', packet.title);
           });
         }
       });
     });
     socket.on('login', function(packet) {
       db.collection("users").findOne({username: packet.username, password: packet.password}, function(err, results) {
-        if(results) console.log(results);
-        else console.log("invalid credentials");
+        if(results) {
+           console.log(results);
+           socket.emit('login_response', results);
+        } else {
+          console.log("invalid credentials");
+          socket.emit('login_response', "Invalid Credentials");
+        }
       });
     });
   });
