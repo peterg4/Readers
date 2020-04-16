@@ -26,7 +26,7 @@ async function main() {
     //Register a user
     socket.on('register', function(packet) {
       db.collection("users").findOne({username: "gpeterson"}, function(err, results) {
-        if(results || err) console.log("username taken")
+        if(results || err) console.log("username taken");
         else {
           db.collection("users").insertOne(
             {
@@ -39,26 +39,31 @@ async function main() {
             }, function(err, res) {
               if (err) throw err;
               console.log("1 user inserted");
-          })
+          });
         }
-      })
+      });
 
-    })
+    });
     //Add a book to review Database
     socket.on('insert', function(packet) {
-      db.collection("review").insertOne(
-        {
-          title: "The Magicians",
-          author: "Lev Grossman",
-          genres: ["Fantasy"],
-          rating: null,
-          isbn: 1234567890123,
-          reviewers: []
-        }, function(err, res) {
-          if (err) throw err;
-          console.log("1 book inserted");
-      })
-    })
+      db.collection("review").findOne({isbn: 1234567890123}, function(err, results) {
+        if(results || err) console.log("book already entered");
+        else {
+          db.collection("review").insertOne(
+            {
+              title: "The Magicians",
+              author: "Lev Grossman",
+              genres: ["Fantasy"],
+              rating: null,
+              isbn: 1234567890123,
+              reviewers: []
+            }, function(err, res) {
+              if (err) throw err;
+              console.log("1 book inserted");
+          });
+        }
+      });
+    });
   });
 
 
