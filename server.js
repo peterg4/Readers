@@ -22,9 +22,7 @@ async function main() {
     console.log("connected to DB");
   }); 
   
-
-  io.on('connection', function(socket) {  
-    console.log("Client Connected");
+  io.on('connection', function(socket) {
     //Register a user
     socket.on('register', function(packet) {
       db.collection("users").findOne({username: packet.username}, function(err, results) {
