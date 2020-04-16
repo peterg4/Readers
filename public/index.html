@@ -34,7 +34,10 @@
 						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home')" href="#">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="profile" ng-click="view=1;changeActive('profile');getStats()" href="#">Profile</a>
+						<a class="nav-link" id="review" ng-click="view=1;changeActive('review');getInReview()" href="#">Review</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="books" ng-click="view=2;changeActive('books');getBooks()" href="#">Books</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -105,13 +108,23 @@
 	<h1 class="text-center" ng-if="!credentials.userinfo.firstName && logged">Invalid Credentials</h1>
 	</main>
 
-	<!-- Profile page -->
-	<main role="main" ng-show="view==1" ng-init="getInReview()">
+	<!-- Review page -->
+	<main role="main" ng-show="view==1">
 		<div class="jumbotron theme over">
-      <h3>Hello</h3>
+      <h3 class="text-dark">Review</h3>
 		</div>
 		<div ng-repeat="book in books">
-			{{book}} <button ng-click="approve(book);getInReview()">Approve</button>
+			{{book}} <button ng-click="approve(book)">Approve</button>
+		</div>
+	</main>
+
+	<!-- Review page -->
+	<main role="main" ng-show="view==2">
+		<div class="jumbotron theme over">
+			<h3 class="text-dark">Books</h3>
+		</div>
+		<div ng-repeat="book in books">
+			{{book}}
 		</div>
 	</main>
 

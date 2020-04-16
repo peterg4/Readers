@@ -94,18 +94,25 @@ async function main() {
           db.collection("items").insertOne(results, function(err, res) {
               if (err) throw err;
               console.log("1 book inserted");
-              socket.emit('approve_response', packet.title);
               db.collection("review").deleteOne(results, function(err, res) {
                 if (err) throw err;
                 console.log("1 document deleted");
+                socket.emit('approve_response', packet.title);
               });
           });
         }
       });
     });
-    //
+    //get books in review
     app.get('/review', function(req, res) {
       db.collection("review").find({}).toArray(function(err, result) {
+        if(err) throw err;
+        res.json({data: result});
+      })
+    })
+    //get books in public db
+    app.get('/books', function(req, res) {
+      db.collection("items").find({}).toArray(function(err, result) {
         if(err) throw err;
         res.json({data: result});
       })
