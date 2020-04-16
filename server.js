@@ -5,6 +5,8 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var io = require('socket.io')(http);
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -28,18 +30,20 @@ async function main() {
       db.collection("users").findOne({username: packet.username}, function(err, results) {
         if(results || err) console.log("username taken");
         else {
-          db.collection("users").insertOne(
-            {
-              firstName: packet.firstName,
-              lastName: packet.lastName,
-              username: packet.username,
-              password: packet.password,
-              email: packet.email,
-              admin: true
-            }, function(err, res) {
-              if (err) throw err;
-              console.log("1 user inserted");
-              socket.emit('register_response', packet);
+          bcrypt.hash(packet.password, saltRounds, function(err, hash) {
+            db.collection("users").insertOne(
+              {
+                firstName: packet.firstName,
+                lastName: packet.lastName,
+                username: packet.username,
+                password: hash,
+                email: packet.email,
+                admin: true
+              }, function(err, res) {
+                if (err) throw err;
+                console.log("1 user inserted");
+                socket.emit('register_response', packet);
+            });
           });
         }
       });
@@ -67,10 +71,16 @@ async function main() {
       });
     });
     socket.on('login', function(packet) {
-      db.collection("users").findOne({username: packet.username, password: packet.password}, function(err, results) {
+      db.collection("users").findOne({username: packet.username}, function(err, results) {
         if(results) {
-           console.log(results);
-           socket.emit('login_response', results);
+          bcrypt.compare(packet.password, results.password, function(err, result) {
+            if(results)
+              socket.emit('login_response', results);
+              else {
+                console.log("invalid credentials");
+                socket.emit('login_response', "Invalid Credentials");
+              }
+          });
         } else {
           console.log("invalid credentials");
           socket.emit('login_response', "Invalid Credentials");

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "template for mean stack apps",
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "express": "^4.10.2",
     "fs": "0.0.1-security",
     "mongoose": "^5.9.1",
