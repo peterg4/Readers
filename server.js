@@ -25,18 +25,24 @@ async function main() {
     console.log("Client Connected")
     //Register a user
     socket.on('register', function(packet) {
-      db.collection("users").insertOne(
-        {
-          firstName: "Grant",
-          lastName: "Peterson",
-          username: "gpeterson",
-          password: "password123",
-          email: "gpeterson707@gmail.com",
-          admin: true
-        }, function(err, res) {
-          if (err) throw err;
-          console.log("1 user inserted");
+      db.collection("users").findOne({username: "gpeterson"}, function(err, results) {
+        if(results || err) console.log("username taken")
+        else {
+          db.collection("users").insertOne(
+            {
+              firstName: "Grant",
+              lastName: "Peterson",
+              username: "gpeterson",
+              password: "password123",
+              email: "gpeterson707@gmail.com",
+              admin: true
+            }, function(err, res) {
+              if (err) throw err;
+              console.log("1 user inserted");
+          })
+        }
       })
+
     })
     //Add a book to review Database
     socket.on('insert', function(packet) {
