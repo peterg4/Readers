@@ -69,20 +69,25 @@ async function main() {
     //Add a book to review Database
     socket.on('insert', function(packet) {
       db.collection("review").findOne({isbn: packet.isbn}, function(err, results) {
-        if(results || err) console.log(results);
+        if(results || err) console.log('Duplicate Book entry: ISBN found in review');
         else {
-          db.collection("review").insertOne(
-            {
-              title: packet.title,
-              author: packet.author,
-              genres: packet.genre,
-              rating: null,
-              isbn: packet.isbn,
-              reviewers: []
-            }, function(err, res) {
-              if (err) throw err;
-              console.log("1 book inserted to items");
-              socket.emit('book_response', packet.title);
+          db.collection("items").findOne({isbn: packet.isbn}, function(err, results) {
+            if(results || err) console.log('Duplicate Book entry: ISBN found in items');
+            else {
+              db.collection("review").insertOne(
+                {
+                  title: packet.title,
+                  author: packet.author,
+                  genres: packet.genre,
+                  rating: null,
+                  isbn: packet.isbn,
+                  reviewers: []
+                }, function(err, res) {
+                  if (err) throw err;
+                  console.log("1 book inserted to review");
+                  socket.emit('book_response', packet.title);
+              });
+            }
           });
         }
       });
@@ -91,14 +96,19 @@ async function main() {
     socket.on('approve', function(packet) {
       db.collection("review").findOne({isbn: packet.isbn}, function(err, results) {
         if(results) {
-          db.collection("items").insertOne(results, function(err, res) {
-              if (err) throw err;
-              console.log("1 book inserted");
-              db.collection("review").deleteOne(results, function(err, res) {
-                if (err) throw err;
-                console.log("1 document deleted");
-                socket.emit('approve_response', packet.title);
+          db.collection("items").findOne({isbn: packet.isbn}, function(err, res) {
+            if(res || err) console.log("Duplicate Book entry: ISBN found in items," + res);
+            else {
+              db.collection("items").insertOne(results, function(err, res) {
+                  if (err) throw err;
+                  console.log("1 book inserted to items");
+                  db.collection("review").deleteOne(results, function(err, res) {
+                    if (err) throw err;
+                    console.log("1 document deleted from review");
+                    socket.emit('approve_response', packet.title);
+                  });
               });
+            }
           });
         }
       });

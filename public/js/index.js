@@ -31,7 +31,6 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
     var packet = $scope.credentials;
     socket.emit('login', packet);
     socket.on('login_response', function(res) {
-      console.log(res);
       $scope.$apply(function () {
         $scope.logged = true;
         $scope.credentials.userinfo = res;
@@ -41,7 +40,6 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
   $scope.getInReview = function() {
     $scope.books = [];
     $http.get("/review").then(function(data) {
-      console.log(data.data.data);
       for(var i = 0; i < data.data.data.length; i++) {
         $scope.books.push(data.data.data[i]);
       }
@@ -50,19 +48,20 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
   $scope.getBooks = function() {
     $scope.books = [];
     $http.get("/books").then(function(data) {
-      console.log(data.data.data);
       for(var i = 0; i < data.data.data.length; i++) {
         $scope.books.push(data.data.data[i]);
       }
     });
   }
   $scope.approve = function(packet) {
-    console.log(packet);
     socket.emit('approve', packet);
     socket.on('book_response', function(res) {
       console.log(res);
       $scope.getInReview();
-    })
+    });
+  }
+  $scope.quickRemove = function(i) {
+    $scope.books[i] = "Approved!"
   }
 
 }]);
