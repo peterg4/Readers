@@ -24,7 +24,7 @@ async function main() {
   
 
   io.on('connection', function(socket) {  
-    console.log("Client Connected")
+    console.log("Client Connected");
     //Register a user
     socket.on('register', function(packet) {
       db.collection("users").findOne({username: packet.username}, function(err, results) {
@@ -47,7 +47,24 @@ async function main() {
           });
         }
       });
-
+    });
+    //login a user
+    socket.on('login', function(packet) {
+      db.collection("users").findOne({username: packet.username}, function(err, results) {
+        if(results) {
+          bcrypt.compare(packet.password, results.password, function(err, result) {
+            if(results)
+              socket.emit('login_response', results);
+            else {
+              console.log("invalid credentials");
+              socket.emit('login_response', "Invalid Credentials");
+            }
+          });
+        } else {
+          console.log("invalid credentials");
+          socket.emit('login_response', "Invalid Credentials");
+        }
+      });
     });
     //Add a book to review Database
     socket.on('insert', function(packet) {
@@ -64,29 +81,31 @@ async function main() {
               reviewers: []
             }, function(err, res) {
               if (err) throw err;
-              console.log("1 book inserted");
+              console.log("1 book inserted to items");
               socket.emit('book_response', packet.title);
           });
         }
       });
     });
-    socket.on('login', function(packet) {
-      db.collection("users").findOne({username: packet.username}, function(err, results) {
+    //approve a book and move to viewable database
+    socket.on('approve', function(packet) {
+      db.collection("review").findOne({isbn: packet.isbn}, function(err, results) {
         if(results) {
-          bcrypt.compare(packet.password, results.password, function(err, result) {
-            if(results)
-              socket.emit('login_response', results);
-              else {
-                console.log("invalid credentials");
-                socket.emit('login_response', "Invalid Credentials");
-              }
+          db.collection("items").insertOne(results, function(err, res) {
+              if (err) throw err;
+              console.log("1 book inserted");
+              socket.emit('approve_response', packet.title);
           });
-        } else {
-          console.log("invalid credentials");
-          socket.emit('login_response', "Invalid Credentials");
         }
       });
     });
+    //
+    app.get('/review', function(req, res) {
+      db.collection("review").find({}).toArray(function(err, result) {
+        if(err) throw err;
+        res.json({data: result});
+      })
+    })
   });
 
 

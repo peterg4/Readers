@@ -7,6 +7,7 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
   $scope.book = {};
   $scope.credentials = {};
   $scope.logged = false;
+  $scope.books = [];
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -37,4 +38,21 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
       })
     })
   }
+  $scope.getInReview= function() {
+    $scope.books = [];
+    $http.get("/review").then(function(data) {
+      console.log(data.data.data);
+      for(var i = 0; i < data.data.data.length; i++) {
+        $scope.books.push(data.data.data[i]);
+      }
+    });
+  }
+  $scope.approve = function(packet) {
+    console.log(packet);
+    socket.emit('approve', packet);
+    socket.on('book_response', function(res) {
+      console.log(res);
+    })
+  }
+
 }]);

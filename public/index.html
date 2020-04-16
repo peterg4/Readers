@@ -62,7 +62,7 @@
 		</nav>
 
 	  <!-- Home page  -->
-	  <main role="main" ng-show="view==0">
+	<main role="main" ng-show="view==0">
 		<div class="jumbotron theme over slide">
 		  <div class="container">
 			  <h1 class="display-3 text-dark">Welcome</h1>
@@ -101,13 +101,17 @@
 		<span ng-show="loginForm.password.$touched && loginForm.password.$invalid">*Required</span>
 		<input type="submit" value="Login" >
 	</form>
-	<h1 class="text-center" ng-if="logged">{{credentials.userinfo.firstName}}</h1>
+	<h1 class="text-center" ng-if="credentials.userinfo.firstName && logged">Welcome back {{credentials.userinfo.firstName}}</h1>
+	<h1 class="text-center" ng-if="!credentials.userinfo.firstName && logged">Invalid Credentials</h1>
 	</main>
 
 	<!-- Profile page -->
-	<main role="main" ng-show="view==1">
+	<main role="main" ng-show="view==1" ng-init="getInReview()">
 		<div class="jumbotron theme over">
       <h3>Hello</h3>
+		</div>
+		<div ng-repeat="book in books">
+			{{book}} <button ng-click="approve(book)">Approve</button>
 		</div>
 	</main>
 
