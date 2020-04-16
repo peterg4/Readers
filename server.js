@@ -95,6 +95,10 @@ async function main() {
               if (err) throw err;
               console.log("1 book inserted");
               socket.emit('approve_response', packet.title);
+              db.collection("review").deleteOne(results, function(err, res) {
+                if (err) throw err;
+                console.log("1 document deleted");
+              });
           });
         }
       });
