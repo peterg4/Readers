@@ -37,6 +37,10 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
       })
     })
   }
+  $scope.logout = function() {
+    $scope.credentials = {};
+    $scope.logged = false;
+  }
   $scope.getInReview = function() {
     $scope.books = [];
     $http.get("/review").then(function(data) {
