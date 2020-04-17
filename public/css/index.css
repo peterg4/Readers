@@ -73,7 +73,7 @@ h5{
 }
 .card{
   margin: 0 auto;
-  width: 520px;
+  width: 100%;
   margin-bottom: 20px;
 }
 .btn-search{
@@ -91,6 +91,10 @@ h5{
   height: 50px;
   width: 50px;
 }
-h1{
+h4{
+  margin: 25px 10px;
   font-weight: 400;
+}
+.header{
+  margin-top: 20px;
 }
