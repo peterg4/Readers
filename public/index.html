@@ -34,56 +34,110 @@
 						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home')" href="#">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="review" ng-click="view=1;changeActive('review');getInReview()" href="#">Review</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" id="books" ng-click="view=2;changeActive('books');getBooks()" href="#">Books</a>
+						<a class="nav-link" id="books" ng-click="view=2;changeActive('books');getBooks()" href="#">My Books</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Dropdown
+						<a class="nav-link dropdown-toggle" href="#" id="navbarBrowse" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Browse
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
+							<a class="dropdown-item" href="#">Recomendations</a>
+							<a class="dropdown-item" href="#">Genres</a>
+							<a class="dropdown-item" href="#">Explore</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarCommunity" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Community
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">Groups</a>
+							<a class="dropdown-item" href="#">Discussions</a>
+							<a class="dropdown-item" href="#">Ask a Teacher</a>
 						</div>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link disabled" href="#">Disabled</a>
+						<a class="nav-link" id="review" ng-click="view=1;changeActive('review');getInReview()" href="#">Review</a>
 					</li>
 				</ul>
-				<form class="form-inline my-2 my-lg-0" ng-if="!userInfo" ng-submit="login()">
-					<input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Login">
-				</form>
-				<span class="pr-2" ng-if="userInfo">Welcome {{userInfo.display_name}} </span>
-				<form class="form-inline my-2 my-lg-0" ng-if="userInfo" ng-submit="logout()">
-					<input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Logout">
-				</form>
+				<span class="pr-2" ng-if="userInfo">Welcome {{credentials.userinfo.firstName}} </span>
+				<div class="form-inline my-2 my-lg-0 right">
+          <a ng-if="!userdata" href="#" data-toggle="modal" data-target="#register" class="nav-link">Sign Up</a><p class="nav-name" ng-if="userdata">Welcome {{userdata.username}}</p>| <button class="login" ng-if="!logged" data-toggle="modal" data-target="#login">Log in</button><button class="login" ng-if="logged" ng-click="logout()">Log Out</button>
+      </div>
 			</div>
 		</nav>
 
-	  <!-- Home page  -->
+		<!--Register Modal-->
+		<div class="modal fade" id="register" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Welcome to Readers!</h5>
+						<button type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+
+						<form name="registerForm" ng-submit="register()">
+							<input type="text" ng-model="user.firstName" name="firstName" placeholder="First name" required>
+							<span ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">*Required</span>
+							<input type="text" ng-model="user.lastName" name="lastName" placeholder="Last name" required>
+							<span ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">*Required</span>
+							<input type="text" ng-model="user.username" name= "username" placeholder="Username" required>
+							<span ng-show="registerForm.username.$touched && registerForm.username.$invalid">*Required</span>
+							<input type="password" ng-model="user.password" name="password" placeholder="Password" required>
+							<span ng-show="registerForm.password.$touched && registerForm.password.$invalid">*Required</span>
+							<input type="email" ng-model="user.email" name="email" placeholder="Email" required>
+							<span ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
+							<input type="submit" value="Register" >
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--Login Modal-->
+		<div class="modal fade" id="login" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Welcome back to Readers!</h5>
+						<button type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+
+						<form name="loginForm" ng-submit="login()">
+							<input type="text" ng-model="credentials.username" name="username" placeholder="Username" required>
+							<span ng-show="loginForm.username.$touched && loginForm.username.$invalid">*Required</span>
+							<input type="password" ng-model="credentials.password" name="password" placeholder="Password" required>
+							<span ng-show="loginForm.password.$touched && loginForm.password.$invalid">*Required</span>
+							<input type="submit" value="Login" >
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	<!-- Home page  -->
 	<main role="main" ng-show="view==0">
 		<div class="jumbotron theme over slide">
 		  <div class="container">
 			  <h1 class="display-3 text-dark">Welcome</h1>
 		  </div>
 		</div>
-	<form name="registerForm" ng-submit="register()">
-		<input type="text" ng-model="user.firstName" name="firstName" placeholder="First name" required>
-		<span ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">*Required</span>
-		<input type="text" ng-model="user.lastName" name="lastName" placeholder="Last name" required>
-		<span ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">*Required</span>
-		<input type="text" ng-model="user.username" name= "username" placeholder="Username" required>
-		<span ng-show="registerForm.username.$touched && registerForm.username.$invalid">*Required</span>
-		<input type="password" ng-model="user.password" name="password" placeholder="Password" required>
-		<span ng-show="registerForm.password.$touched && registerForm.password.$invalid">*Required</span>
-		<input type="email" ng-model="user.email" name="email" placeholder="Password" required>
-		<span ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
-		<input type="submit" value="Register" >
-	</form>
+
 	<br>
 	<form name="bookForm" ng-submit="addBook()">
 		<input type="text" ng-model="book.title" name="title" placeholder="Title" required>
@@ -97,13 +151,6 @@
 		<input type="submit" value="Add Book" >
 	</form>
 	<br>
-	<form name="loginForm" ng-submit="login()">
-		<input type="text" ng-model="credentials.username" name="username" placeholder="Username" required>
-		<span ng-show="loginForm.username.$touched && loginForm.username.$invalid">*Required</span>
-		<input type="password" ng-model="credentials.password" name="password" placeholder="Password" required>
-		<span ng-show="loginForm.password.$touched && loginForm.password.$invalid">*Required</span>
-		<input type="submit" value="Login" >
-	</form>
 	<h1 class="text-center" ng-if="credentials.userinfo.firstName && logged">Welcome back {{credentials.userinfo.firstName}}</h1>
 	<h1 class="text-center" ng-if="!credentials.userinfo.firstName && logged">Invalid Credentials</h1>
 	</main>
