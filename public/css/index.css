@@ -86,3 +86,11 @@ h5{
 .card-subtitle{
   color: rgba(0,0,0,.5)
 }
+.brand{
+  margin-left: 18px;
+  height: 50px;
+  width: 50px;
+}
+h1{
+  font-weight: 400;
+}

@@ -16,12 +16,12 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/index.css"/>
 	<script type="text/javascript" src="js/index.js"></script>
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+	<link rel="icon" type="image/png" sizes="16x16" href="css/images/favicon.png">
 </head>
 <body ng-controller="mainController" class="bg-light" ng-init="getBooks()">
 	<!-- Navigation bar -->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Readers</a>
+			<a class="navbar-brand" href="#"><img class="brand" src="css/images/favicon.png"></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -208,7 +208,7 @@
 
 	<!-- Home page  -->
 	<main role="main" ng-show="view==0">
-		<h1> Recent Books </h1>
+		<h1> Most Recent Books </h1>
 		<div ng-repeat="book in books">
 			<div class="card">
 				<div class="card-body">
