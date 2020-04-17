@@ -28,8 +28,8 @@
 		
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home')" href="#">Home</a>
+					<li class="nav-item">
+						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home');getBooks()" href="#">Home</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="books" ng-click="view=2;changeActive('books');getBooks()" href="#">My Books</a>
@@ -169,7 +169,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title">Welcome to Readers!</h5>
+						<h5 class="modal-title">Upload a book!</h5>
 						<button class="btn btn-outline-secondary btn-close" type="button" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -194,7 +194,11 @@
 								<span class="text-muted" ng-show="bookForm.isbn.$touched && bookForm.isbn.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input class="btn btn-outline-primary" type="submit" value="Add Book">
+								<input type="file" id="myFile" fileread="book.cover" accept="image/jpeg,image/png"  name="filename">
+								<span class="text-muted" ng-show="bookForm.filename.$touched && bookForm.filename.$invalid">*Required</span>
+							</div>
+							<div class="form-group">
+								<input class="btn btn-outline-primary" type="submit" value="Upload">
 							</div>
 						</form>
 
@@ -221,6 +225,7 @@
 				<div ng-repeat="book in books">
 					<div class="card">
 						<div class="card-body">
+							<img src="{{book.cover}}">
 							<h5 class="card-title">{{book.title}}</h5>
 							<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
 							<p class="card-text">{{book.genres}}</p>
@@ -236,9 +241,30 @@
 
 	<!-- Review page -->
 	<main role="main" ng-show="view==1">
-
-		<div ng-repeat="book in books">
-			{{book}} <button ng-click="approve(book);quickRemove($index)">Approve</button>
+		<div class="row">
+			<div class="col-sm"></div>
+			<div class="col-sm">
+				<div class="card header">
+					<img class="card-img-top" src="css/images/header.png" alt="Card image cap">
+					<div class="card-body">
+						<p class="card-text">Get started with our curated reccomendations!</p>
+					</div>
+				</div>
+				<h4> Most Recent Books </h4>
+				<div ng-repeat="book in books">
+					<div class="card">
+						<div class="card-body">
+							<img src="{{book.cover}}">
+							<h5 class="card-title">{{book.title}}</h5>
+							<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
+							<p class="card-text">{{book.genres}}</p>
+							<p ng-if="!book.rating" class="card-text">No Ratings</p>
+							<button class="btn btn-outline-primary" ng-click="approve(book);quickRemove($index)">Approve</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm"></div>
 		</div>
 	</main>
 
@@ -252,6 +278,7 @@
 
 
 </body>
+<script src="js/angular-base64.js"></script>
 <script src="js/index.js"></script>
 
 </html>

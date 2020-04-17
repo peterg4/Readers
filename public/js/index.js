@@ -1,8 +1,8 @@
 jQuery.noConflict();
 
-var app = angular.module("myApp", []);
+var app = angular.module("myApp", ['base64']);
 var socket = io();
-app.controller("mainController", ['$scope','$http','$sce', function($scope, $http, $sce) {
+app.controller("mainController", ['$scope','$http','$sce','$base64', function($scope, $http, $sce, $base64) {
   $scope.view = 0;
   $scope.currid = "home";
   $scope.user = {};
@@ -24,6 +24,7 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
   }
   $scope.addBook = function() {
     var packet = $scope.book;
+    console.log(packet);
     socket.emit('insert', packet);
     socket.on('book_response', function(res) {
       console.log(res);
@@ -70,7 +71,27 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
     });
   }
   $scope.quickRemove = function(i) {
-    $scope.books[i] = "Approved!"
+    $scope.books[i].title = "Approved!";
+    $scope.books[i].author = $scope.credentials.firstName + " " + $scope.credentials.lastName;
   }
 
+}]);
+
+app.directive("fileread", [function () {
+  return {
+      scope: {
+          fileread: "="
+      },
+      link: function (scope, element, attributes) {
+          element.bind("change", function (changeEvent) {
+              var reader = new FileReader();
+              reader.onload = function (loadEvent) {
+                  scope.$apply(function () {
+                      scope.fileread = loadEvent.target.result;
+                  });
+              }
+              reader.readAsDataURL(changeEvent.target.files[0]);
+          });
+      }
+  }
 }]);
