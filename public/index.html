@@ -16,7 +16,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/index.css"/>
-	
 	<script type="text/javascript" src="js/index.js"></script>
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
 </head>
@@ -58,6 +57,9 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="review" ng-click="view=1;changeActive('review');getInReview()" href="#">Review</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="books" data-toggle="modal" data-target="#upload" href="#">Upload</a>
 					</li>
 				</ul>
 				<span class="pr-2" ng-if="userInfo">Welcome {{credentials.userinfo.firstName}} </span>
@@ -158,30 +160,65 @@
 			</div>
 		</div>
 
+		<!--Upload Modal-->
+		<div class="modal fade" id="upload" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Welcome to Readers!</h5>
+						<button class="btn btn-outline-secondary btn-close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+
+						<form name="bookForm" ng-submit="addBook()">
+							<div class="form-group">
+								<input class="form-control" type="text" ng-model="book.title" name="title" placeholder="Title" required>
+								<span class="text-muted" ng-show="bookForm.title.$touched && bookForm.title.$invalid">*Required</span>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" ng-model="book.author" name="author" placeholder="Author" required>
+								<span class="text-muted" ng-show="bookForm.author.$touched && bookForm.author.$invalid">*Required</span>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" ng-model="book.genre" name="genre" placeholder="Genre" required>
+								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid">*Required</span>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" ng-model="book.isbn" name="isbn" placeholder="ISBN" required>
+								<span class="text-muted" ng-show="bookForm.isbn.$touched && bookForm.isbn.$invalid">*Required</span>
+							</div>
+							<div class="form-group">
+								<input class="btn btn-outline-primary" type="submit" value="Add Book">
+							</div>
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	<!-- Home page  -->
 	<main role="main" ng-show="view==0">
-
-	<form name="bookForm" ng-submit="addBook()">
-		<input class="form-control" type="text" ng-model="book.title" name="title" placeholder="Title" required>
-		<span ng-show="bookForm.title.$touched && bookForm.title.$invalid">*Required</span>
-		<input class="form-control" type="text" ng-model="book.author" name="author" placeholder="Author" required>
-		<span ng-show="bookForm.author.$touched && bookForm.author.$invalid">*Required</span>
-		<input class="form-control" type="text" ng-model="book.genre" name="genre" placeholder="Genre" required>
-		<span ng-show="bookForm.genre.$touched && bookForm.genre.$invalid">*Required</span>
-		<input class="form-control" type="text" ng-model="book.isbn" name="isbn" placeholder="ISBN" required>
-		<span ng-show="bookForm.isbn.$touched && bookForm.isbn.$invalid">*Required</span>
-		<input class="form-control" type="submit" value="Add Book" >
-	</form>
+		<div class="card">
+			<img class="card-img-top" src="css/images/header.png" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">Card title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<a href="#" class="btn btn-primary">Go somewhere</a>
+			</div>
+		</div>
 	<h1 class="text-center" ng-if="credentials.userinfo.firstName && logged">Welcome back {{credentials.userinfo.firstName}}</h1>
 	<h1 class="text-center" ng-if="!credentials.userinfo.firstName && logged">Invalid Credentials</h1>
 	</main>
 
 	<!-- Review page -->
 	<main role="main" ng-show="view==1">
-		<div class="jumbotron theme over">
-      <h3 class="text-dark">Review</h3>
-		</div>
+
 		<div ng-repeat="book in books">
 			{{book}} <button ng-click="approve(book);quickRemove($index)">Approve</button>
 		</div>
@@ -189,9 +226,7 @@
 
 	<!-- Review page -->
 	<main role="main" ng-show="view==2">
-		<div class="jumbotron theme over">
-			<h3 class="text-dark">Books</h3>
-		</div>
+
 		<div ng-repeat="book in books">
 			{{book}}
 		</div>
