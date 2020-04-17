@@ -5,7 +5,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
 	<meta charset="utf-8">
 	<!-- Angular, bootstrap, jquery, fonts, and style -->
-	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
@@ -61,6 +60,10 @@
 					<li class="nav-item">
 						<a class="nav-link" id="books" data-toggle="modal" data-target="#upload" href="#">Upload</a>
 					</li>
+					<form class="form-inline">
+						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
+					</form>
 				</ul>
 				<span class="pr-2" ng-if="userInfo">Welcome {{credentials.userinfo.firstName}} </span>
 				<div class="form-inline my-2 my-lg-0 right text">
@@ -149,6 +152,7 @@
 							</div>
 							<div class="form-group">
 								<input class="btn btn-outline-primary" type="submit" value="Login">
+								<span class="text-muted" ng-if="!credentials.userinfo.firstName && logged">Invalid Credentials</h1>
 							</div>
 						</form>
 
@@ -205,15 +209,12 @@
 	<!-- Home page  -->
 	<main role="main" ng-show="view==0">
 		<div class="card">
-			<img class="card-img-top" src="css/images/header.png" alt="Card image cap">
 			<div class="card-body">
 				<h5 class="card-title">Card title</h5>
 				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 				<a href="#" class="btn btn-primary">Go somewhere</a>
 			</div>
 		</div>
-	<h1 class="text-center" ng-if="credentials.userinfo.firstName && logged">Welcome back {{credentials.userinfo.firstName}}</h1>
-	<h1 class="text-center" ng-if="!credentials.userinfo.firstName && logged">Invalid Credentials</h1>
 	</main>
 
 	<!-- Review page -->
@@ -235,4 +236,5 @@
 
 </body>
 <script src="js/index.js"></script>
+
 </html>

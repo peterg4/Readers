@@ -74,3 +74,10 @@ h5{
   margin: 0 auto;
   width: 520px;
 }
+.btn-search{
+  background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 0px 3px 3px 0px;
+    margin-left: -11px;
+    border-left: 0px;
+}

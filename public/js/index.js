@@ -1,3 +1,5 @@
+jQuery.noConflict();
+
 var app = angular.module("myApp", []);
 var socket = io();
 app.controller("mainController", ['$scope','$http','$sce', function($scope, $http, $sce) {
@@ -34,6 +36,9 @@ app.controller("mainController", ['$scope','$http','$sce', function($scope, $htt
       $scope.$apply(function () {
         $scope.logged = true;
         $scope.credentials.userinfo = res;
+        if($scope.credentials.userinfo.firstName) {
+          jQuery('#login').modal('hide');
+        }
       })
     })
   }
