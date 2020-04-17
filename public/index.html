@@ -20,9 +20,9 @@
 	<script type="text/javascript" src="js/index.js"></script>
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
 </head>
-<body ng-controller="mainController" class="bg-dark" ng-init="">
+<body ng-controller="mainController" class="bg-light" ng-init="">
 	<!-- Navigation bar -->
-		<nav class="navbar navbar-expand-lg navbar-dark text-light bg-dark">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<a class="navbar-brand" href="#">Readers</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -61,8 +61,8 @@
 					</li>
 				</ul>
 				<span class="pr-2" ng-if="userInfo">Welcome {{credentials.userinfo.firstName}} </span>
-				<div class="form-inline my-2 my-lg-0 right">
-          <a ng-if="!userdata" href="#" data-toggle="modal" data-target="#register" class="nav-link">Sign Up</a><p class="nav-name" ng-if="userdata">Welcome {{userdata.username}}</p>| <button class="login" ng-if="!logged" data-toggle="modal" data-target="#login">Log in</button><button class="login" ng-if="logged" ng-click="logout()">Log Out</button>
+				<div class="form-inline my-2 my-lg-0 right text">
+          <a ng-if="!credentials.userinfo.firstName" href="#" data-toggle="modal" data-target="#register" class="nav-link">Sign Up</a><p class="nav-name" ng-if="credentials.userinfo.firstName">Welcome {{credentials.userinfo.firstName}}</p>| <button class="btn btn-link login" ng-if="!logged" data-toggle="modal" data-target="#login">Log in</button><button class="btn nav-link login" ng-if="logged" ng-click="logout()">Log Out</button>
       </div>
 			</div>
 		</nav>
@@ -132,11 +132,6 @@
 
 	<!-- Home page  -->
 	<main role="main" ng-show="view==0">
-		<div class="jumbotron theme over slide">
-		  <div class="container">
-			  <h1 class="display-3 text-dark">Welcome</h1>
-		  </div>
-		</div>
 
 	<br>
 	<form name="bookForm" ng-submit="addBook()">

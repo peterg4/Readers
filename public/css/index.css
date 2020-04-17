@@ -3,10 +3,9 @@ html {
 }
 body {
   color: #111111;
-  color: white;
+  background-color: #f8f9fa;
 }
 nav{
-  color: white;
   box-shadow: 0 2px 4px rgba(0,0,0,.08);
 }
 .bg-dark{
