@@ -10,6 +10,8 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.credentials = {};
   $scope.logged = false;
   $scope.books = [];
+  $scope.specificBook = {};
+  $scope.review = {};
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -74,7 +76,22 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $scope.books[i].title = "Approved!";
     $scope.books[i].author = $scope.credentials.firstName + " " + $scope.credentials.lastName;
   }
-
+  $scope.getBookDetails = function(book) {
+    $scope.view=3;
+    $scope.specificBook = book;
+  }
+  $scope.publishReview = function() {
+    $scope.view=3;
+    $scope.review.username = $scope.credentials.username;
+    $scope.review.book = $scope.specificBook.isbn;
+    if($scope.credentials.username) {
+      console.log($scope.review);
+      var packet = $scope.review;
+      socket.emit('publish', packet);
+    } else {
+      jQuery('#login').modal('toggle');
+    }
+  }
 }]);
 
 app.directive("fileread", [function () {

@@ -104,6 +104,16 @@ h4{
 }
 .book-data{
   display: inline-block;
-  vertical-align: -4px;
   padding-left: 3px;
+  vertical-align: middle;
+}
+.review-link:hover{
+  text-decoration: underline;
+}
+.specific-book-header{
+  width: fit-content;
+  margin: 25px 0px;
+}
+.container{
+  width: 50%;
 }

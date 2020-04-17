@@ -121,6 +121,16 @@ async function main() {
         }
       });
     });
+    //approve a book and move to viewable database
+    socket.on('publish', function(packet) {
+      console.log(packet);
+      var query =  { isbn: packet.book};
+      var review = { $push: {reviewers: packet} };
+      db.collection("items").updateOne(query, review, function(err, res) {
+        if (err) throw err;
+        console.log("Review added");
+      });
+    });
     //get books in review
     app.get('/review', function(req, res) {
       db.collection("review").find({}).toArray(function(err, result) {
