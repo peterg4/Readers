@@ -14,6 +14,7 @@ nav{
 p{
   margin: 0;
   margin-right: 16px;
+  color: rgba(0,0,0,.5);
 }
 .btn-link{
   color: rgba(0,0,0,.5);
@@ -73,11 +74,15 @@ h5{
 .card{
   margin: 0 auto;
   width: 520px;
+  margin-bottom: 20px;
 }
 .btn-search{
   background-color: white;
-    border: 1px solid #ced4da;
-    border-radius: 0px 3px 3px 0px;
-    margin-left: -11px;
-    border-left: 0px;
+  border: 1px solid #ced4da;
+  border-radius: 0px 3px 3px 0px;
+  margin-left: -11px;
+  border-left: 0px;
+}
+.card-subtitle{
+  color: rgba(0,0,0,.5)
 }
