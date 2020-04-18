@@ -131,3 +131,9 @@ h4{
   bottom: 3px;
   right: 3px;
 }
+.fa-star{
+  color: yellow;
+}
+.complement {
+   color: gray;
+}

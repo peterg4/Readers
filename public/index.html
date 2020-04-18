@@ -267,7 +267,7 @@
 					<h5 class="card-title">{{specificBook.title}}</h5>
 					<h6 class="card-subtitle mb-2">by {{specificBook.author}}</h6>
 					<p class="card-text">{{specificBook.genres}}</p>
-					<p ng-if="!book.rating" class="card-text">No Ratings</p>
+					<p ng-if="!book.rating" class="card-text"><i ng-repeat="star in [].constructor(rating) track by $index" class="fa fa-star"></i><i ng-repeat="star in [].constructor(ratingComplement) track by $index" class="complement fa fa-star"></i></p>
 				</div>
 			</div>
 			<form name="reviewForm" ng-submit="publishReview()">
