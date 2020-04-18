@@ -133,7 +133,57 @@ h4{
 }
 .fa-star{
   color: yellow;
+  padding-right: 3px;
 }
 .complement {
    color: gray;
+}
+.form-check-inline {
+  margin-right: 0px;
+}
+input[type=radio] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.form-star{
+  color: grey
+}
+.lcontainer {
+  display: inline-block;
+}
+.lcontainer:hover input ~ .form-star {
+  color: yellow;
+}
+
+/* When the checkbox is checked, add a blue background */
+.lcontainer input:checked ~ .form-star {
+  color: yellow;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.lcheckmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.lcontainer input:checked ~ .form-star:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.lcontainer .form-star:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

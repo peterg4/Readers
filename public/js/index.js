@@ -115,13 +115,25 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $scope.view=3;
     $scope.review.username = $scope.credentials.username;
     $scope.review.book = $scope.specificBook.isbn;
+    socket.on('publish_response', function(res) {
+      console.log(res);
+      $scope.getBookDetails();
+    });
     if($scope.credentials.username) {
       console.log($scope.review);
       var packet = $scope.review;
       socket.emit('publish', packet);
+      socket.on('publish_response', function(res) {
+        console.log(res);
+        $scope.getBookDetails();
+      });
     } else {
       jQuery('#login').modal('toggle');
     }
+    socket.on('publish_response', function(res) {
+      console.log(res);
+      $scope.getBookDetails();
+    });
   }
 }]);
 

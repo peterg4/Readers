@@ -145,6 +145,7 @@ async function main() {
       db.collection("items").updateOne(query, review, function(err, res) {
         if (err) throw err;
         console.log("Review added");
+        socket.emit('publish_response', "Submitted!");
       });
     });
     //get books in review
