@@ -83,7 +83,7 @@ async function main() {
                       title: packet.title,
                       author: packet.author,
                       genres: packet.genre,
-                      rating: null,
+                      rating: 0,
                       isbn: packet.isbn,
                       cover: json.data.link,
                       reviewers: []

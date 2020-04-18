@@ -1,6 +1,6 @@
 jQuery.noConflict();
 
-var app = angular.module("myApp", ['base64']);
+var app = angular.module("myApp", ['base64','ngRateIt']);
 var socket = io();
 app.controller("mainController", ['$scope','$http','$sce','$base64', function($scope, $http, $sce, $base64) {
   $scope.view = 0;
@@ -13,8 +13,6 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.specificBook = {};
   $scope.review = {};
   $scope.taken = 0;
-  $scope.rating = 3;
-  $scope.ratingComplement = 5 - $scope.rating;
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -115,10 +113,6 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $scope.view=3;
     $scope.review.username = $scope.credentials.username;
     $scope.review.book = $scope.specificBook.isbn;
-    socket.on('publish_response', function(res) {
-      console.log(res);
-      $scope.getBookDetails();
-    });
     if($scope.credentials.username) {
       console.log($scope.review);
       var packet = $scope.review;
@@ -130,10 +124,6 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     } else {
       jQuery('#login').modal('toggle');
     }
-    socket.on('publish_response', function(res) {
-      console.log(res);
-      $scope.getBookDetails();
-    });
   }
 }]);
 

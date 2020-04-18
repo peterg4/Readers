@@ -13,6 +13,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:800&display=swap" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+	<link rel="stylesheet" href="css/ng-rateit.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/index.css"/>
 	<script type="text/javascript" src="js/index.js"></script>
@@ -234,12 +235,12 @@
 								<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
 								<p class="card-text">{{book.genres}}</p>
 								<p class="card-text">{{book.isbn}}</p>
-								<p class="card-text"><i ng-repeat="star in [].constructor(rating) track by $index" class="fa fa-star"></i><i ng-repeat="star in [].constructor(ratingComplement) track by $index" class="complement fa fa-star"></i></p>
+								<ng-rate-it ng-model="book.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it>
 								<a ng-click="view=3;getBookDetails(book)" class="review-link" href="#">Review &raquo;</a>
 							</div>
 							<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
 							<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
-							<button ng-if="credentials.userinfo.admin" class="btn btn-outline-danger btn-deny" ng-click="delete(book);quickRemove($index, 'Deleted')">Delete</button>
+							<button ng-if="credentials.userinfo.admin && view==0" class="btn btn-outline-danger btn-deny" ng-click="delete(book);quickRemove($index, 'Deleted')">Delete</button>
 						</div>
 					</div>
 				</div>
@@ -269,7 +270,7 @@
 					<h6 class="card-subtitle mb-2">by {{specificBook.author}}</h6>
 					<p class="card-text">{{specificBook.genres}}</p>
 					<p class="card-text">{{specificBook.isbn}}</p>
-					<p class="card-text"><i ng-repeat="star in [].constructor(rating) track by $index" class="fa fa-star"></i><i ng-repeat="star in [].constructor(ratingComplement) track by $index" class="complement fa fa-star"></i></p>
+					<ng-rate-it ng-model="specificBook.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it>
 				</div>
 			</div>
 			<form name="reviewForm" ng-submit="publishReview()">
@@ -277,36 +278,7 @@
 					<textarea class="form-control" type="textarea" ng-model="review.text" name="review" placeholder="Leave a review!" required></textarea>
 					<span class="text-muted" ng-show="reviewForm.review.$touched && reviewForm.review.$invalid">*Required</span>
 				</div>
-				<div class="form-check form-check-inline">
-					<label class="lcontainer">
-						<input class="form-check-input" type="radio" ng-model="review.rating" name="starRating" id="1star" value="1" required>
-						<i class="fa fa-star form-star"></i>
-					</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<label class="lcontainer">
-						<input class="form-check-input" type="radio" ng-model="review.rating" name="starRating" id="2star" value="2" required>
-						<i class="fa fa-star form-star"></i>
-					</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<label class="lcontainer">
-						<input class="form-check-input" type="radio" ng-model="review.rating" name="starRating" id="3star" value="3" required>
-						<i class="fa fa-star form-star"></i>
-					</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<label class="lcontainer">
-						<input class="form-check-input" type="radio" ng-model="review.rating" name="starRating" id="4star" value="4" required>
-						<i class="fa fa-star form-star"></i>
-					</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<label class="lcontainer">
-						<input class="form-check-input" type="radio" ng-model="review.rating" name="starRating" id="5star" value="5" required>
-						<i class="fa fa-star form-star"></i>
-					</label>
-				</div>
+				<ng-rate-it ng-model="review.rating" min="0" max="5" step="0.5" resetable="false"></ng-rate-it>
 				<div class="form-group">
 					<input class="btn btn-outline-primary" type="submit" value="Upload">
 				</div>
@@ -320,6 +292,7 @@
 
 </body>
 <script src="js/angular-base64.js"></script>
+<script src="js/ng-rateit.js"></script>
 <script src="js/index.js"></script>
 
 </html>
