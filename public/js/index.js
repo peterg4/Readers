@@ -12,6 +12,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.books = [];
   $scope.specificBook = {};
   $scope.review = {};
+  $scope.taken = 0;
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -19,17 +20,30 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   }
   $scope.register = function() {
     var packet = $scope.user;
+    $scope.taken = 0;
     socket.emit('register', packet);
     socket.on('register_response', function(res) {
-      console.log(res);
+      if(res.username) {
+        jQuery('#register').modal('hide');
+        jQuery('#login').modal('show');
+      } else {
+        console.log(res);
+        $scope.$apply(function () {
+          $scope.taken = res;
+        })
+      }
     })
   }
   $scope.addBook = function() {
+    $scope.processing = "css/images/loading.gif";
     var packet = $scope.book;
     console.log(packet);
     socket.emit('insert', packet);
     socket.on('book_response', function(res) {
       console.log(res);
+      $scope.$apply(function () {
+        $scope.processing = "css/images/done.png";
+      })
     })
   }
   $scope.login = function() {
@@ -50,6 +64,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $scope.logged = false;
   }
   $scope.getInReview = function() {
+    $scope.view = 1;
     $scope.books = [];
     $http.get("/review").then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {

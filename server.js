@@ -30,7 +30,7 @@ async function main() {
     //Register a user
     socket.on('register', function(packet) {
       db.collection("users").findOne({username: packet.username}, function(err, results) {
-        if(results || err) console.log("username taken");
+        if(results || err) {console.log("username taken"); socket.emit('register_response', "Username taken");}
         else {
           bcrypt.hash(packet.password, saltRounds, function(err, hash) {
             db.collection("users").insertOne(
@@ -40,7 +40,7 @@ async function main() {
                 username: packet.username,
                 password: hash,
                 email: packet.email,
-                admin: true
+                admin: false
               }, function(err, res) {
                 if (err) throw err;
                 console.log("1 user inserted");
