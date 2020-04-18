@@ -129,7 +129,15 @@ async function main() {
           socket.emit('deny_response', packet.title);
       });
     });
-    //approve a book and move to viewable database
+    //delete a book from the items database
+    socket.on('delete', function(packet) {
+      db.collection("items").deleteOne({isbn: packet.isbn}, function(err, results) {
+        if (err) throw err;
+        console.log("1 document deleted from items");
+        socket.emit('delete_response', packet.title);
+      });
+    });
+    //publish a review on a book
     socket.on('publish', function(packet) {
       console.log(packet);
       var query =  { isbn: packet.book};

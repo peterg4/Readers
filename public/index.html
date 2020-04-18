@@ -238,6 +238,7 @@
 							</div>
 							<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
 							<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
+							<button ng-if="credentials.userinfo.admin" class="btn btn-outline-danger btn-deny" ng-click="delete(book);quickRemove($index, 'Deleted')">Delete</button>
 						</div>
 					</div>
 				</div>

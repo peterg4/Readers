@@ -94,9 +94,16 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       $scope.getInReview();
     });
   }
+  $scope.delete = function(packet) {
+    socket.emit('delete', packet);
+    socket.on('delete_response', function(res) {
+      console.log(res);
+      $scope.getBooks();
+    });
+  }
   $scope.quickRemove = function(i, decision) {
     $scope.books[i].title = decision;
-    $scope.books[i].author = $scope.credentials.firstName + " " + $scope.credentials.lastName;
+    $scope.books[i].author = $scope.credentials.userinfo.firstName + " " + $scope.credentials.userinfo.lastName;
   }
   $scope.getBookDetails = function(book) {
     $scope.view=3;
