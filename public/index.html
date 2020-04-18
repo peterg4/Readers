@@ -236,7 +236,8 @@
 								<p ng-if="!book.rating" class="card-text">No Ratings</p>
 								<a ng-click="view=3;getBookDetails(book)" class="review-link" href="#">Review &raquo;</a>
 							</div>
-							<button ng-if="view==1" class="btn btn-outline-primary" ng-click="approve(book);quickRemove($index)">Approve</button>
+							<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
+							<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 						</div>
 					</div>
 				</div>

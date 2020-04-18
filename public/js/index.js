@@ -87,8 +87,15 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       $scope.getInReview();
     });
   }
-  $scope.quickRemove = function(i) {
-    $scope.books[i].title = "Approved!";
+  $scope.deny = function(packet) {
+    socket.emit('deny', packet);
+    socket.on('deny_response', function(res) {
+      console.log(res);
+      $scope.getInReview();
+    });
+  }
+  $scope.quickRemove = function(i, decision) {
+    $scope.books[i].title = decision;
     $scope.books[i].author = $scope.credentials.firstName + " " + $scope.credentials.lastName;
   }
   $scope.getBookDetails = function(book) {

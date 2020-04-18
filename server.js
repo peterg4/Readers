@@ -112,13 +112,21 @@ async function main() {
                   console.log("1 book inserted to items");
                   db.collection("review").deleteOne(results, function(err, res) {
                     if (err) throw err;
-                    console.log("1 document deleted from review");
+                    console.log("1 document approved from review");
                     socket.emit('approve_response', packet.title);
                   });
               });
             }
           });
         }
+      });
+    });
+    //deny a book and delete it from the review database
+    socket.on('deny', function(packet) {
+        db.collection("review").deleteOne({isbn: packet.isbn}, function(err, results) {
+          if (err) throw err;
+          console.log("1 document deleted from review");
+          socket.emit('deny_response', packet.title);
       });
     });
     //approve a book and move to viewable database

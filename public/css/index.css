@@ -121,3 +121,13 @@ h4{
   height: 20px;
   width: 20px;
 }
+.btn-approve {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+.btn-deny {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+}
