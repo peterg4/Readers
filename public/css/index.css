@@ -212,3 +212,17 @@ input[type=radio] {
   display: flex;
   padding-left: 8px;
 }
+.rater{
+  cursor: pointer;
+}
+.card-rating{
+  display: flex;
+}
+.card-rating-text{
+  display: flex;
+  cursor: pointer;
+}
+.card-rating-text:hover{
+  color:black;
+  text-decoration: underline;
+}
