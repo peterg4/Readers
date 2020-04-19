@@ -243,9 +243,6 @@ input[type=radio] {
 .btn-save:hover{
   text-decoration: underline;
 }
-.col-first{
-  margin-left: 36px;
-}
 h4{
   text-align: center;
 }

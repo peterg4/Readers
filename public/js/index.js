@@ -142,6 +142,14 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       });
     })
   }
+  $scope.saveToLibrary = function(book) {
+    var packet = {}
+    packet.book = book;
+    delete packet.book.$$hashKey;  
+    packet.username = $scope.credentials.username;
+    console.log(packet);
+    socket.emit('save', packet);
+  }
 }]);
 
 app.directive("fileread", [function () {

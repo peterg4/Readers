@@ -40,6 +40,7 @@ async function main() {
                 username: packet.username,
                 password: hash,
                 email: packet.email,
+                saved: [],
                 admin: false
               }, function(err, res) {
                 if (err) throw err;
@@ -155,6 +156,7 @@ async function main() {
         });
       });
     });
+    //search for book/author/isbn/genre
     socket.on('search', function(query){
       var regex = new RegExp("^.*"+query+".*$", "i");
       var search = {$or: [
@@ -169,6 +171,15 @@ async function main() {
         socket.emit('search_response', result);
       });
     })
+    //save a book to user
+    socket.on('save', function(packet) {
+      var user = { username: packet.username }
+      var book = { $push: {saved: packet} }
+      db.collection("users").updateOne(user, book, function(err, res) {
+        if (err) throw err;
+        console.log("Book saved");
+      });
+    });
     //get books in review
     app.get('/review', function(req, res) {
       db.collection("review").find({}).toArray(function(err, result) {
