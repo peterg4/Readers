@@ -210,11 +210,11 @@
 		</div>
 
 	<!-- Home page / Review page  -->
-	<main role="main" ng-if="view==0 || view==1">
+	<main role="main" ng-if="view==0 || view==1 || view==4">
 		<div class="row">
 			<div class="col-sm"></div>
 			<div class="col-sm">
-				<div ng-if="view==0" class="card header">
+				<div ng-if="view==0 || view==4" class="card header">
 					<img class="card-img-top" src="css/images/header.png" alt="Card image cap">
 					<div class="card-body">
 						<p class="card-text text-center mb-2">Get started with our curated reccomendations!</p>
@@ -224,6 +224,7 @@
 						</form>
 					</div>
 				</div>
+				<h4 ng-if="view==4"> Search Results:</h4>
 				<h4 ng-if="view==0"> Most Recent Books </h4>
 				<h4 ng-if="view==1"> Books to Approve: </h4>
 				<div ng-repeat="book in books">

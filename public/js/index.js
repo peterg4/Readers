@@ -127,8 +127,20 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     }
   }
   $scope.search = function(query) {
+    $scope.view = 4;
     console.log(query);
     socket.emit('search', query);
+    socket.on('search_response', function(res) {
+      $scope.books = [];
+      var temp = [];
+      for(var i = 0; i < res.length; i++) {
+        temp.push(res[i]);
+      }
+      $scope.$apply(function () {
+        $scope.books = temp;
+        console.log(temp);
+      });
+    })
   }
 }]);
 

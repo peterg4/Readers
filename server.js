@@ -166,6 +166,7 @@ async function main() {
       db.collection("items").find(search).toArray(function(err, result) {
         if (err) throw err;
         console.log(result);
+        socket.emit('search_response', result);
       });
     })
     //get books in review
