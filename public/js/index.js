@@ -10,6 +10,8 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.credentials = {};
   $scope.logged = false;
   $scope.books = [];
+  $scope.reading = [];
+  $scope.willRead = [];
   $scope.specificBook = {};
   $scope.review = {};
   $scope.taken = 0;
@@ -149,6 +151,11 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     packet.username = $scope.credentials.username;
     console.log(packet);
     socket.emit('save', packet);
+  }
+  $scope.getLibrary = function() {
+    $scope.reading = [];
+    $scope.willRead = [];
+    
   }
 }]);
 

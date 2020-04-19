@@ -131,13 +131,13 @@ h4{
 }
 .btn-approve {
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 8px;
+  right: 8px;
 }
 .btn-deny {
   position: absolute;
-  bottom: 3px;
-  right: 3px;
+  bottom: 8px;
+  right: 8px;
 }
 .fa-star{
   color: yellow;
@@ -236,8 +236,8 @@ input[type=radio] {
 }
 .btn-save{
   position: absolute;
-  top:3px;
-  right: 3px;
+  top:11px;
+  right: 9px;
   cursor: pointer;
 }
 .btn-save:hover{
@@ -245,4 +245,16 @@ input[type=radio] {
 }
 h4{
   text-align: center;
+}
+.col-sm{
+  min-width: 450px;
+}
+@media only screen and (max-width: 1336px) {
+  .col-sm {
+    width: 100%;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    min-width: 100%;
+  }
 }
