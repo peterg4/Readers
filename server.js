@@ -145,7 +145,14 @@ async function main() {
       db.collection("items").updateOne(query, review, function(err, res) {
         if (err) throw err;
         console.log("Review added");
-        socket.emit('publish_response', "Submitted!");
+        db.collection("items").findOne(query, function(err, res) {
+          var len = res.reviewers.length;
+          var r = (res.rating*len + packet.rating)/(len+1);
+          var rating = { $set: {rating: r}}
+          db.collection("items").updateOne(query, rating, function(err, res){
+            socket.emit('publish_response', "Submitted!");
+          });
+        });
       });
     });
     //get books in review
