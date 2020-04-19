@@ -234,3 +234,18 @@ input[type=radio] {
   width: fit-content;
   border-bottom: 1px black solid;
 }
+.btn-save{
+  position: absolute;
+  top:3px;
+  right: 3px;
+  cursor: pointer;
+}
+.btn-save:hover{
+  text-decoration: underline;
+}
+.col-first{
+  margin-left: 36px;
+}
+h4{
+  text-align: center;
+}

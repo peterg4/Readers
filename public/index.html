@@ -212,7 +212,10 @@
 	<!-- Home page / Review page  -->
 	<main role="main" ng-if="view==0 || view==1 || view==4">
 		<div class="row">
-			<div class="col-sm"></div>
+			<div class="col-sm">
+				<h4>Currently Reading</h4>
+				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
+			</div>
 			<div class="col-sm">
 				<div ng-if="view==0 || view==4" class="card header">
 					<img class="card-img-top" src="css/images/header.png" alt="Card image cap">
@@ -225,7 +228,7 @@
 					</div>
 				</div>
 				<h4 ng-if="view==4"> Search Results:</h4>
-				<h4 ng-if="view==0"> Most Recent Books </h4>
+				<h4 ng-if="view==0"> Recently Added </h4>
 				<h4 ng-if="view==1"> Books to Approve: </h4>
 				<div ng-repeat="book in books">
 					<div class="card">
@@ -245,11 +248,15 @@
 							<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
 							<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 							<button ng-if="credentials.userinfo.admin && view==0" class="btn btn-outline-danger btn-deny" ng-click="delete(book);quickRemove($index, 'Deleted')">Delete</button>
+							<p ng-if="view==0 || view==4" class="btn-save" ng-click="saveToLibrary(book)">Save &raquo;</p>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm"></div>
+			<div class="col-sm">
+				<h4>Want to Read</h4>
+				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
+			</div>
 		
 		</div>
 	</main>
