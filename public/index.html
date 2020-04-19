@@ -286,8 +286,12 @@
 				</div>
 			</form>
 			<h4>Reviews</h4>
-			<div ng-repeat="review in specificBook.reviewers">
-				{{review}}
+			<div class="review-box" ng-repeat="review in specificBook.reviewers">
+				<div class="review-header">
+					<p class="review-username">{{review.username}} <ng-rate-it class="review-rating" ng-model="review.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+					
+				</div>
+				{{review.text}}
 			</div>
 		</div>
 	</main>
