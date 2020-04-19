@@ -33,7 +33,7 @@
 						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home');getBooks()" href="#">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="books" ng-click="view=2;changeActive('books');getBooks()" href="#">My Books</a>
+						<a class="nav-link" id="books" ng-click="view=2;changeActive('books');getBooks()" href="#">My Library</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarBrowse" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -217,7 +217,7 @@
 				<div ng-if="view==0 || view==4" class="card header">
 					<img class="card-img-top" src="css/images/header.png" alt="Card image cap">
 					<div class="card-body">
-						<p class="card-text text-center mb-2">Get started with our curated reccomendations!</p>
+						<p class="card-text text-center mb-2">Get started by searching for authors, books, genres, or ISBNs!</p>
 						<form ng-submit="search(query)" class="form-group form-inline form-search">
 							<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">
 							<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
@@ -232,7 +232,7 @@
 						<div class="card-body">
 							<img class="cover-img" ng-src="{{book.cover}}">
 							<div class="book-data">
-								<h5 class="card-title">{{book.title}}</h5>
+								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
 								<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
 								<p class="card-text">{{book.genres}}</p>
 								<p class="card-text">{{book.isbn}}</p>

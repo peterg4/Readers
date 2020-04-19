@@ -90,6 +90,10 @@ h5{
 .card-subtitle{
   color: rgba(0,0,0,.5)
 }
+.card-title{
+  border-bottom: 1px solid transparent;
+  width: fit-content;
+}
 .brand{
   margin-left: 18px;
   height: 50px;
@@ -225,4 +229,8 @@ input[type=radio] {
 .card-rating-text:hover{
   color:black;
   text-decoration: underline;
+}
+.card-title:hover{
+  width: fit-content;
+  border-bottom: 1px black solid;
 }
