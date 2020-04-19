@@ -61,10 +61,6 @@
 					<li class="nav-item">
 						<a class="nav-link" id="books" data-toggle="modal" data-target="#upload" href="#">Upload</a>
 					</li>
-					<form class="form-inline">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
-					</form>
 				</ul>
 				<span class="pr-2" ng-if="userInfo">Welcome {{credentials.userinfo.firstName}} </span>
 				<div class="form-inline my-2 my-lg-0 right text">
@@ -221,7 +217,11 @@
 				<div ng-if="view==0" class="card header">
 					<img class="card-img-top" src="css/images/header.png" alt="Card image cap">
 					<div class="card-body">
-						<p class="card-text">Get started with our curated reccomendations!</p>
+						<p class="card-text text-center mb-2">Get started with our curated reccomendations!</p>
+						<form class="form-group form-inline form-search">
+							<input class="form-control mr-sm-2 form-search" type="search" placeholder="Search" aria-label="Search">
+							<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
+						</form>
 					</div>
 				</div>
 				<h4 ng-if="view==0"> Most Recent Books </h4>
@@ -278,6 +278,7 @@
 					<textarea class="form-control" type="textarea" ng-model="review.text" name="review" placeholder="Leave a review!" required></textarea>
 					<span class="text-muted" ng-show="reviewForm.review.$touched && reviewForm.review.$invalid">*Required</span>
 				</div>
+				Leave a Rating!
 				<ng-rate-it ng-model="review.rating" min="0" max="5" step="0.5" resetable="false"></ng-rate-it>
 				<div class="form-group">
 					<input class="btn btn-outline-primary" type="submit" value="Upload">
