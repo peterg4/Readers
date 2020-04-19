@@ -155,6 +155,19 @@ async function main() {
         });
       });
     });
+    socket.on('search', function(query){
+      var regex = new RegExp("^.*"+query+".*$", "i");
+      var search = {$or: [
+                      {title: regex },
+                      {author: regex },
+                      {genres: regex },
+                      {isbn: query}
+                   ]};
+      db.collection("items").find(search).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+      });
+    })
     //get books in review
     app.get('/review', function(req, res) {
       db.collection("review").find({}).toArray(function(err, result) {

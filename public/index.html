@@ -192,7 +192,7 @@
 								<span class="text-muted" ng-show="bookForm.isbn.$touched && bookForm.isbn.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input type="file" id="myFile" fileread="book.cover" accept="image/jpeg,image/png"  name="filename">
+								<input type="file" id="myFile" fileread="book.cover" accept="image/jpeg,image/png" name="filename">
 								<span class="text-muted" ng-show="bookForm.filename.$touched && bookForm.filename.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
@@ -218,8 +218,8 @@
 					<img class="card-img-top" src="css/images/header.png" alt="Card image cap">
 					<div class="card-body">
 						<p class="card-text text-center mb-2">Get started with our curated reccomendations!</p>
-						<form class="form-group form-inline form-search">
-							<input class="form-control mr-sm-2 form-search" type="search" placeholder="Search" aria-label="Search">
+						<form ng-submit="search(query)" class="form-group form-inline form-search">
+							<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">
 							<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
 						</form>
 					</div>

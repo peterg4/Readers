@@ -13,6 +13,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.specificBook = {};
   $scope.review = {};
   $scope.taken = 0;
+  $scope.query = "";
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -124,6 +125,10 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     } else {
       jQuery('#login').modal('toggle');
     }
+  }
+  $scope.search = function(query) {
+    console.log(query);
+    socket.emit('search', query);
   }
 }]);
 
