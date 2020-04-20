@@ -5,8 +5,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
 	<meta charset="utf-8">
 	<!-- Angular, bootstrap, jquery, fonts, and style -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
@@ -266,7 +268,17 @@
 							<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
 							<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 							<button ng-if="credentials.userinfo.admin && view==0" class="btn btn-outline-danger btn-deny" ng-click="delete(book);quickRemove($index, 'Deleted')">Delete</button>
-							<p ng-if="view==0 || view==4" class="btn-save" ng-click="saveToLibrary(book)">Save &raquo;</p>
+							<p ng-if="view==0 || view==4" class="btn-save" ng-click="saveToLibrary(book)"></p>
+							<div>
+								<a class="btn-save nav-link dropdown-toggle" href="#" role="button" ng-if="credentials.userinfo.username" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Save
+								</a>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="#" ng-click="saveToLibrary(book, 0)">Currently Reading</a>
+									<a class="dropdown-item" href="#" ng-click="saveToLibrary(book, 1)">Want to Read</a>
+									<a class="dropdown-item" href="#" ng-click="saveToLibrary(book, 2)">Have Read</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -274,6 +286,24 @@
 			<div class="col-sm">
 				<h4>Want to Read</h4>
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
+				<div ng-repeat="book in willRead">
+					<div class="card">
+						<div class="card-body">
+							<img class="cover-img" ng-src="{{book.cover}}">
+							<div class="book-data">
+								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
+								<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
+								<p class="card-text">{{book.genres}}</p>
+								<p class="card-text">{{book.isbn}}</p>
+								<div class="card-rating">
+									<p class="card-rating-text"> <ng-rate-it ng-model="book.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+									<p ng-click="view=3;getBookDetails(book)" class="card-rating-text">{{book.reviewers.length}} reviews</p>
+								</div>
+								<a ng-click="view=3;getBookDetails(book)" class="review-link" href="#">Review &raquo;</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		
 		</div>

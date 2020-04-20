@@ -194,7 +194,7 @@ async function main() {
         res.json({data: result});
       })
     })
-    //get books in public db
+    //get books from library
     app.get('/library', function(req, res) {
       console.log(req.query.username);
       db.collection("users").find({username: req.query.username}).toArray(function(err, result) {

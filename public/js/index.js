@@ -145,11 +145,12 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       });
     })
   }
-  $scope.saveToLibrary = function(book) {
+  $scope.saveToLibrary = function(book, saveChoice) {
     var packet = {}
     packet.book = book;
     delete packet.book.$$hashKey;  
     packet.username = $scope.credentials.username;
+    packet.saveChoice = saveChoice;
     console.log(packet);
     socket.emit('save', packet);
   }
@@ -159,7 +160,12 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $http.get("/library?username="+$scope.credentials.userinfo.username).then(function(data) {
       console.log(data);
       for(var i = 0; i < data.data.data.length; i++) {
-        $scope.reading.push(data.data.data[i].book);
+        if(data.data.data[i].saveChoice === 0)
+          $scope.reading.push(data.data.data[i].book);
+        else if(data.data.data[i].saveChoice === 1)
+          $scope.willRead.push(data.data.data[i].book)
+        else
+          console.log("have read");
       }
     });
   }
