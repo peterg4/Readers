@@ -247,14 +247,14 @@ h4{
   text-align: center;
 }
 .col-sm{
-  min-width: 450px;
+/*  min-width: 450px;*/
 }
 @media only screen and (max-width: 1336px) {
   .col-sm {
-    width: 100%;
+    width: 80%;
     flex-basis: 0;
     -ms-flex-positive: 1;
     flex-grow: 1;
-    min-width: 100%;
+    min-width: 80%;
   }
 }

@@ -33,7 +33,7 @@
 						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home');getBooks()" href="#">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="books" ng-click="view=2;changeActive('books');getBooks()" href="#">My Library</a>
+						<a class="nav-link" id="books" ng-click="view=2;changeActive('books');getLibrary()" href="#">My Library</a>
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarBrowse" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -215,6 +215,24 @@
 			<div class="col-sm">
 				<h4>Currently Reading</h4>
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
+				<div ng-repeat="book in reading">
+					<div class="card">
+						<div class="card-body">
+							<img class="cover-img" ng-src="{{book.cover}}">
+							<div class="book-data">
+								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
+								<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
+								<p class="card-text">{{book.genres}}</p>
+								<p class="card-text">{{book.isbn}}</p>
+								<div class="card-rating">
+									<p class="card-rating-text"> <ng-rate-it ng-model="book.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+									<p ng-click="view=3;getBookDetails(book)" class="card-rating-text">{{book.reviewers.length}} reviews</p>
+								</div>
+								<a ng-click="view=3;getBookDetails(book)" class="review-link" href="#">Review &raquo;</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="col-sm">
 				<div ng-if="view==0 || view==4" class="card header">
@@ -266,7 +284,7 @@
 	<!-- Personal Page -->
 	<main role="main" ng-if="view==2">
 
-		<div ng-repeat="book in books">
+		<div ng-repeat="book in reading">
 			{{book}}
 		</div>
 	</main>

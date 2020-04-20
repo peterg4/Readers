@@ -194,6 +194,15 @@ async function main() {
         res.json({data: result});
       })
     })
+    //get books in public db
+    app.get('/library', function(req, res) {
+      console.log(req.query.username);
+      db.collection("users").find({username: req.query.username}).toArray(function(err, result) {
+        if(err) throw err;
+        console.log(result[0].saved);
+        res.json({data: result[0].saved});
+      })
+    })
   });
 
 
