@@ -17,6 +17,7 @@ imgur.setClientId(clientId);
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const PORT = process.env.PORT || 3000
 main();
 async function main() { 
   var db;
@@ -214,7 +215,7 @@ async function main() {
 
   app.use(express.static('public'));
 
-  http.listen(3000, function(){
+  http.listen(PORT, function(){
       console.log('\nServer up on *:3000');
   });
 }
