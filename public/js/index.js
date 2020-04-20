@@ -12,6 +12,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.books = [];
   $scope.reading = [];
   $scope.willRead = [];
+  $scope.haveRead = [];
   $scope.specificBook = {};
   $scope.review = {};
   $scope.taken = 0;
@@ -157,6 +158,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.getLibrary = function() {
     $scope.reading = [];
     $scope.willRead = [];
+    $scope.haveRead = [];
     $http.get("/library?username="+$scope.credentials.userinfo.username).then(function(data) {
       console.log(data);
       for(var i = 0; i < data.data.data.length; i++) {
@@ -165,7 +167,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
         else if(data.data.data[i].saveChoice === 1)
           $scope.willRead.push(data.data.data[i].book)
         else
-          console.log("have read");
+          $scope.haveRead.push(data.data.data[i].book)
       }
     });
   }

@@ -247,6 +247,13 @@ input[type=radio] {
 h4{
   text-align: center;
 }
+.row{
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: auto;
+  margin-left: auto;
+}
 @media only screen and (max-width: 1336px) {
   .col-sm {
     width: 80%;
