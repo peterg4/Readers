@@ -17,16 +17,16 @@
   },
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evanlazaro/THWOMP.git"
+    "url": "git+https://github.com/peterg4/Readers.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/peterg4/MEAN-Boilerplate/issues"
+    "url": "https://github.com/peterg4/Readers/issues"
   },
-  "homepage": "https://github.com/peterg4/MEAN-Boilerplate/#README"
+  "homepage": "https://github.com/peterg4/Readers/#README"
 }
