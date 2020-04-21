@@ -84,6 +84,7 @@ h5{
 }
 .card-body{
   text-align: center;
+  padding: 0px;
 }
 .btn-search{
   background-color: white;
@@ -114,7 +115,10 @@ h5{
 }
 h4{
   margin: 25px 10px;
-  font-weight: 400;
+  text-align: center;
+  font-weight: 100;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 .header{
   margin-top: 20px;
@@ -274,7 +278,7 @@ h4{
 }
 
 .col{
-  width: 250px;
+  max-width: 180px;
   height: 350px;
   flex-basis: initial;
 }
