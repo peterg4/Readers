@@ -76,6 +76,11 @@ h5{
   width: 100%;
   margin-bottom: 20px;
   border-radius: 0px;
+  background-color: transparent;
+  border: 0px;
+}
+.card-body{
+  text-align: center;
 }
 .btn-search{
   background-color: white;
@@ -92,8 +97,9 @@ h5{
   color: rgba(0,0,0,.5)
 }
 .card-title{
+  text-align: center;
   border-bottom: 1px solid transparent;
-  width: fit-content;
+  cursor: pointer;
 }
 .brand{
   margin-left: 18px;
@@ -108,13 +114,11 @@ h4{
   margin-top: 20px;
 }
 .cover-img{
-  width: 120px;
+  height: 230px;
   display: inline-block;
 }
 .book-data{
-  display: inline-block;
-  padding-left: 3px;
-  vertical-align: middle;
+  text-align: center;
 }
 .review-link:hover{
   text-decoration: underline;
@@ -222,6 +226,8 @@ input[type=radio] {
 }
 .card-rating{
   display: flex;
+  width: fit-content;
+  margin: 0 auto;
 }
 .card-rating-text{
   display: flex;
@@ -232,8 +238,8 @@ input[type=radio] {
   text-decoration: underline;
 }
 .card-title:hover{
-  width: fit-content;
-  border-bottom: 1px black solid;
+  color: blue;
+  text-decoration: underline;
 }
 .btn-save{
   line-height: 8px;
@@ -257,8 +263,8 @@ h4{
 }
 
 .col{
-  width: 450px;
-  height: 250px;
+  width: 250px;
+  height: 350px;
   flex-basis: initial;
 }
 @media only screen and (max-width: 1336px) {
