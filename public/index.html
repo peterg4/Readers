@@ -198,9 +198,24 @@
 		</div>
 
 	<!-- Home page / Review page  -->
-	<main role="main" ng-if="view==0 || view==1 || view==4 || view==2">
+	<main role="main" ng-if="view==0 || view==1 || view==4">
+		<div class="col-sm">
+			<div ng-if="view==0 || view==4" class="card header">
+				<div class="card-body">
+					<p class="card-text text-center mb-2">Get started by searching for authors, books, genres, or ISBNs!</p>
+					<form ng-submit="search(query)" class="form-group form-inline form-search">
+						<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
+					</form>
+				</div>
+			</div>
+			<h4 ng-if="view==4"> Search Results</h4>
+			<h4 ng-if="view==0"> Recently Added </h4>
+			<h4 ng-if="view==1"> Books to Approve </h4>
+			<h4 ng-if="view==2"> Books I've Read </h4>
+		</div>
 		<div class="row">
-			<div class="col-sm">
+		<!--	<div class="col-sm">
 				<h4>Currently Reading</h4>
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
 				<div ng-repeat="book in reading">
@@ -221,23 +236,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-sm">
-				<div ng-if="view==0 || view==4" class="card header">
-					<img class="card-img-top" src="css/images/header.png" alt="Card image cap">
-					<div class="card-body">
-						<p class="card-text text-center mb-2">Get started by searching for authors, books, genres, or ISBNs!</p>
-						<form ng-submit="search(query)" class="form-group form-inline form-search">
-							<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">
-							<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
-						</form>
-					</div>
-				</div>
-				<h4 ng-if="view==4"> Search Results</h4>
-				<h4 ng-if="view==0"> Recently Added </h4>
-				<h4 ng-if="view==1"> Books to Approve </h4>
-				<h4 ng-if="view==2"> Books I've Read </h4>
-				<div ng-if="view==0  || view==1 || view==4" ng-repeat="book in books">
+			</div> -->
+				<div class="col" ng-if="view==0  || view==1 || view==4" ng-repeat="book in books">
 					<div class="card">
 						<div class="card-body">
 							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
@@ -286,8 +286,8 @@
 					</div>
 				</div>
 			</div>
-			</div>
-			<div class="col-sm">
+			<!-- </div> -->
+			<!-- <div class="col-sm">
 				<h4>Want to Read</h4>
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
 				<div ng-repeat="book in willRead">
@@ -308,11 +308,15 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		
+			</div> -->
 		</div>
 	</main>
 
+	<!-- My Library -->
+	<main role="main" ng-if="view==2">
+		<div class="role">
+
+		</div>
 	</main>
 
 	<!-- Book Details Page -->

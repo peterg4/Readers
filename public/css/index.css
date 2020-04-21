@@ -75,6 +75,7 @@ h5{
   margin: 0 auto;
   width: 100%;
   margin-bottom: 20px;
+  border-radius: 0px;
 }
 .btn-search{
   background-color: white;
@@ -253,6 +254,12 @@ h4{
   flex-wrap: wrap;
   margin-right: auto;
   margin-left: auto;
+}
+
+.col{
+  width: 450px;
+  height: 250px;
+  flex-basis: initial;
 }
 @media only screen and (max-width: 1336px) {
   .col-sm {
