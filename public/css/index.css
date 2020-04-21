@@ -337,6 +337,20 @@ h4{
 .card-title-detail{
   text-align: left;
 }
+.card-rating-detail{
+  width: auto;
+  margin-bottom: 14px;
+}
+.card-rating-text-detail{
+  cursor: normal;
+}
+.card-rating-text-detail:hover{
+  text-decoration: none;
+  color: grey;
+}
+.description{
+  margin-bottom: 10px;
+}
 @media only screen and (max-width: 1336px) {
   .col-sm {
     width: 80%;
