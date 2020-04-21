@@ -361,12 +361,3 @@ h4{
 .description{
   margin-bottom: 10px;
 }
-@media only screen and (max-width: 1336px) {
-  .col-sm {
-    width: 80%;
-    flex-basis: 0;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    min-width: 80%;
-  }
-}
