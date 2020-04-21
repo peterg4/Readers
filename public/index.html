@@ -217,27 +217,23 @@
 				<div class="col" ng-if="view==0  || view==1 || view==4" ng-repeat="book in books">
 					<div class="card">
 						<div class="card-body">
-							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
+							<div class="icontainer">
+								<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
+								<div class="imiddle overlay">
+									<div class="itext" href="#" ng-click="saveToLibrary(book, 0)">Reading</div>
+									<div class="itext" href="#" ng-click="saveToLibrary(book, 1)">Will Read</div>
+									<div class="itext" href="#" ng-click="saveToLibrary(book, 2)">Read</div>
+								</div>
+							</div>
 							<div class="book-data">
 								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
 								<div class="card-rating">
 									<p class="card-rating-text"> <ng-rate-it ng-model="book.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
-									<p ng-click="view=3;getBookDetails(book)" class="card-rating-text">{{book.reviewers.length}} reviews</p>
+									<p ng-click="view=3;getBookDetails(book)" class="card-rating-text">{{book.reviewers.length}}</p>
 								</div>
 							</div>
 							<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
 							<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
-							<button ng-if="credentials.userinfo.admin && view==0" class="btn btn-outline-danger btn-deny" ng-click="delete(book);quickRemove($index, 'Deleted')">Delete</button>
-							<div>
-								<a class="btn-save nav-link dropdown-toggle" href="#" role="button" ng-if="credentials.userinfo.username" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Save
-								</a>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="#" ng-click="saveToLibrary(book, 0)">Currently Reading</a>
-									<a class="dropdown-item" href="#" ng-click="saveToLibrary(book, 1)">Want to Read</a>
-									<a class="dropdown-item" href="#" ng-click="saveToLibrary(book, 2)">Have Read</a>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -263,7 +259,7 @@
 								<p class="card-text">{{book.isbn}}</p>
 								<div class="card-rating">
 									<p class="card-rating-text"> <ng-rate-it ng-model="book.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
-									<p ng-click="view=3;getBookDetails(book)" class="card-rating-text">{{book.reviewers.length}} reviews</p>
+									<p ng-click="view=3;getBookDetails(book)" class="card-rating-text">{{book.reviewers.length}}</p>
 								</div>
 								<a ng-click="view=3;getBookDetails(book)" class="review-link" href="#">Review &raquo;</a>
 							</div>
