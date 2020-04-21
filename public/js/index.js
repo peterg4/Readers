@@ -112,9 +112,11 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   }
   $scope.getBookDetails = function(book) {
     $scope.view=3;
+    $scope.processing = 0;
     $scope.specificBook = book;
   }
   $scope.publishReview = function() {
+    $scope.processing = "css/images/loading.gif";
     $scope.view=3;
     $scope.review.username = $scope.credentials.username;
     $scope.review.book = $scope.specificBook.isbn;
@@ -124,7 +126,11 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       socket.emit('publish', packet);
       socket.on('publish_response', function(res) {
         console.log(res);
-        $scope.getBookDetails();
+        $scope.specificBook = res;
+        $scope.$apply(function () {
+          $scope.specificBook = res;
+          $scope.processing = "css/images/done.png";
+        });
       });
     } else {
       jQuery('#login').modal('toggle');

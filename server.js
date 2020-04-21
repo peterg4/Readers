@@ -155,7 +155,9 @@ async function main() {
           var r = (res.rating*len + packet.rating)/(len+1);
           var rating = { $set: {rating: r}}
           db.collection("items").updateOne(query, rating, function(err, res){
-            socket.emit('publish_response', "Submitted!");
+            db.collection("items").findOne(query, function(err, res) {
+              socket.emit('publish_response', res);
+            });
           });
         });
       });
