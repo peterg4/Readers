@@ -197,8 +197,8 @@
 			</div>
 		</div>
 
-	<!-- Home page / Review page  -->
-	<main role="main" ng-if="view==0 || view==1 || view==4">
+	<!-- Home Page  -->
+	<main role="main" ng-if="view==0 || view==4">
 		<div class="col-sm">
 			<div ng-if="view==0 || view==4" class="card header">
 				<div class="card-body">
@@ -211,7 +211,6 @@
 			</div>
 			<h4 ng-if="view==4"> Search Results</h4>
 			<h4 ng-if="view==0"> Recently Added </h4>
-			<h4 ng-if="view==1"> Books to Approve </h4>
 		</div>
 		<div class="row">
 				<div class="col" ng-if="view==0  || view==1 || view==4" ng-repeat="book in books">
@@ -236,8 +235,6 @@
 									<p ng-click="view=3;getBookDetails(book)" class="card-rating-text rate-num">{{book.reviewers.length}}</p>
 								</div>
 							</div>
-							<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
-							<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 						</div>
 					</div>
 				</div>
@@ -323,7 +320,7 @@
 					<textarea class="form-control" type="textarea" ng-model="review.text" name="review" placeholder="Leave a review!" required></textarea>
 					<span class="text-muted" ng-show="reviewForm.review.$touched && reviewForm.review.$invalid">*Required</span>
 				</div>
-				<div class="card-rating card-rating-detail">
+				<div class="card-rating card-rating-entry">
 					<p class="card-rating-text card-rating-text-detail">Rate it: </p>
 					<p class="card-rating-text"> 	<ng-rate-it class="rater" ng-model="review.rating" min="0" max="5" step="0.5" read-only="false" resetable="false"></ng-rate-it></p>
 				</div>
@@ -339,6 +336,32 @@
 				</div>
 				{{review.text}}
 			</div>
+		</div>
+	</main>
+
+	<!-- Book Review Page -->
+	<main role="main" ng-if="view==1">
+		<div class="container" ng-repeat="book in books">
+			<div class="specific-book-header"> 
+				<img class="cover-img detail" ng-src="{{book.googleData.thumbnail}}">
+				<div class="book-data-detail">
+					<h5 class="card-title card-title-detail">{{book.title}}</h5>
+					<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
+					<p class="card-text">{{book.genres}}</p>
+					<p class="card-text">{{book.isbn}}</p>
+					<div class="card-rating card-rating-detail">
+						<p class="card-rating-text"> <ng-rate-it ng-model="book.googleData.averageRating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+						<p class="card-rating-text rate-num">{{book.googleData.ratingsCount}}</p>
+					</div>
+					<div class="card-rating card-rating-detail">
+						<p class="card-rating-text"> <ng-rate-it ng-model="bBook.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+						<p class="card-rating-text">{{book.reviewers.length}}</p>
+					</div>
+				</div>
+			</div>
+			<p class="description">{{book.googleData.description}}</p>
+			<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
+			<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 		</div>
 	</main>
 

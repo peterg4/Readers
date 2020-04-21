@@ -143,6 +143,7 @@ h4{
 }
 .container{
   width: 50%;
+  position: relative;
 }
 .loader{
   height: 20px;
@@ -155,7 +156,7 @@ h4{
 }
 .btn-deny {
   position: absolute;
-  bottom: 8px;
+  top: 60px;
   right: 8px;
 }
 .fa-star{
@@ -343,6 +344,11 @@ h4{
 }
 .card-rating-detail{
   width: auto;
+  margin-bottom: -5px;
+}
+.card-rating-entry{
+  width: fit-content;
+  margin: 0;
   margin-bottom: 14px;
 }
 .card-rating-text-detail{
