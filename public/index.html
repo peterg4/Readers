@@ -184,10 +184,6 @@
 								<span class="text-muted" ng-show="bookForm.isbn.$touched && bookForm.isbn.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input type="file" id="myFile" fileread="book.cover" accept="image/jpeg,image/png" name="filename">
-								<span class="text-muted" ng-show="bookForm.filename.$touched && bookForm.filename.$invalid">*Required</span>
-							</div>
-							<div class="form-group">
 								<input class="btn btn-outline-primary" type="submit" value="Upload">
 								<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}></span>
 							</div>
@@ -210,7 +206,7 @@
 				<div ng-repeat="book in reading">
 					<div class="card">
 						<div class="card-body">
-							<img class="cover-img" ng-src="{{book.cover}}">
+							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
 							<div class="book-data">
 								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
 								<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
@@ -244,7 +240,7 @@
 				<div ng-if="view==0  || view==1 || view==4" ng-repeat="book in books">
 					<div class="card">
 						<div class="card-body">
-							<img class="cover-img" ng-src="{{book.cover}}">
+							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
 							<div class="book-data">
 								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
 								<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
@@ -275,7 +271,7 @@
 				<div ng-if="view==2" ng-repeat="book in haveRead">
 					<div class="card">
 						<div class="card-body">
-							<img class="cover-img" ng-src="{{book.cover}}">
+							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
 							<div class="book-data">
 								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
 								<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
@@ -297,7 +293,7 @@
 				<div ng-repeat="book in willRead">
 					<div class="card">
 						<div class="card-body">
-							<img class="cover-img" ng-src="{{book.cover}}">
+							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
 							<div class="book-data">
 								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
 								<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
@@ -323,7 +319,7 @@
 	<main role="main" ng-if="view==3">
 		<div class="container">
 			<div class="specific-book-header"> 
-				<img class="cover-img" ng-src="{{specificBook.cover}}">
+				<img class="cover-img" ng-src="{{specificBook.googleData.thumbnail}}">
 				<div class="book-data">
 					<h5 class="card-title">{{specificBook.title}}</h5>
 					<h6 class="card-subtitle mb-2">by {{specificBook.author}}</h6>

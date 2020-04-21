@@ -16,8 +16,9 @@ const clientSecret = process.env.CLIENT_SECRET;
 imgur.setClientId(clientId);
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO_URI;
+var books = require('google-books-search');
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 main();
 async function main() { 
   var db;
@@ -78,25 +79,27 @@ async function main() {
           db.collection("items").findOne({isbn: packet.isbn}, function(err, results) {
             if(results || err) console.log('Duplicate Book entry: ISBN found in items');
             else {
-              imgur.uploadBase64(packet.cover.split(',')[1]).then(function (json) {
-                  console.log(json.data.link);
-                  db.collection("review").insertOne(
-                    {
-                      title: packet.title,
-                      author: packet.author,
-                      genres: packet.genre,
-                      rating: 0,
-                      isbn: packet.isbn,
-                      cover: json.data.link,
-                      reviewers: []
-                    }, function(err, res) {
-                      if (err) throw err;
-                      console.log("1 book inserted to review");
-                      socket.emit('book_response', packet.title);
-                  });
-                }).catch(function (err) {
-                  console.error(err.message);
-                });
+              books.search(packet.isbn, function(error, results, apiResponse) {
+                  if ( ! error ) {
+                      console.log(results);
+                      db.collection("review").insertOne(
+                        {
+                          title: packet.title,
+                          author: packet.author,
+                          genres: packet.genre,
+                          rating: 0,
+                          isbn: packet.isbn,
+                          googleData: results[0],
+                          reviewers: []
+                        }, function(err, res) {
+                          if (err) throw err;
+                          console.log("1 book inserted to review");
+                          socket.emit('book_response', packet.title);
+                      });
+                  } else {
+                      console.log(error);
+                  }
+              });
             }
           });
         }
