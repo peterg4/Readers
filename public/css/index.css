@@ -100,6 +100,8 @@ h5{
   text-align: center;
   border-bottom: 1px solid transparent;
   cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 1px;
 }
 .brand{
   margin-left: 18px;
@@ -236,6 +238,7 @@ input[type=radio] {
 .card-rating-text{
   display: flex;
   cursor: pointer;
+  margin-right: 6px;
 }
 .card-rating-text:hover{
   color:black;
@@ -314,6 +317,9 @@ h4{
 }
 .itext:hover{
   text-decoration: underline;
+}
+.rate-num{
+  line-height: 20px;
 }
 @media only screen and (max-width: 1336px) {
   .col-sm {
