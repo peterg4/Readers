@@ -11,6 +11,9 @@ nav{
 .bg-dark{
   background-color: #141414!important;
 }
+.active{
+  color: #0033a0 !important;
+}
 p{
   margin: 0;
   margin-right: 16px;
@@ -94,7 +97,8 @@ h5{
   width: calc(100% - 48px)!important;
 }
 .card-subtitle{
-  color: rgba(0,0,0,.5)
+  color: rgba(0,0,0,.5);
+  margin-top: 5px;
 }
 .card-title{
   text-align: center;
@@ -245,7 +249,7 @@ input[type=radio] {
   text-decoration: underline;
 }
 .card-title:hover{
-  color: blue;
+  color: #0033a0 !important;
   text-decoration: underline;
 }
 .btn-save{
@@ -322,6 +326,16 @@ h4{
 }
 .rate-num{
   line-height: 20px;
+}
+.book-data-detail{
+  display: inline-block;
+  vertical-align: middle;
+}
+.detail{
+  display: inline-block;
+}
+.card-title-detail{
+  text-align: left;
 }
 @media only screen and (max-width: 1336px) {
   .col-sm {

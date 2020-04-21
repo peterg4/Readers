@@ -182,6 +182,7 @@ async function main() {
       db.collection("users").updateOne(user, book, function(err, res) {
         if (err) throw err;
         console.log("Book saved");
+        socket.emit('save_response');
       });
     });
     //get books in review

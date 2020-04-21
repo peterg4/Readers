@@ -147,15 +147,24 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     })
   }
   $scope.saveToLibrary = function(book, saveChoice) {
-    var packet = {}
-    packet.book = book;
-    delete packet.book.$$hashKey;  
-    packet.username = $scope.credentials.username;
-    packet.saveChoice = saveChoice;
-    console.log(packet);
-    socket.emit('save', packet);
+    if($scope.credentials.username) {
+      var packet = {}
+      packet.book = book;
+      delete packet.book.$$hashKey;  
+      packet.username = $scope.credentials.username;
+      packet.saveChoice = saveChoice;
+      console.log(packet);
+      socket.emit('save', packet);
+      socket.on('save_response', function() {
+        $scope.view = 2;
+        $scope.getLibrary();
+      });
+    } else {
+      jQuery('#login').modal('toggle');
+    }
   }
   $scope.getLibrary = function() {
+    $scope.view = 2;
     $scope.reading = [];
     $scope.willRead = [];
     $scope.haveRead = [];
