@@ -314,9 +314,11 @@ h4{
   margin-bottom: 21px;
   margin-top: 40px;
   cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 .itext:hover{
-  text-decoration: underline;
+  color: #ced4da;
 }
 .rate-num{
   line-height: 20px;
