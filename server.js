@@ -81,7 +81,6 @@ async function main() {
             else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
-                      console.log(results);
                       db.collection("review").insertOne(
                         {
                           title: packet.title,
@@ -144,7 +143,6 @@ async function main() {
     });
     //publish a review on a book
     socket.on('publish', function(packet) {
-      console.log(packet);
       var query =  { isbn: packet.book};
       var review = { $push: {reviewers: packet} };
       db.collection("items").updateOne(query, review, function(err, res) {
@@ -173,7 +171,6 @@ async function main() {
                    ]};
       db.collection("items").find(search).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
         socket.emit('search_response', result);
       });
     })
@@ -210,10 +207,8 @@ async function main() {
     })
     //get books from library
     app.get('/library', function(req, res) {
-      console.log(req.query.username);
       db.collection("users").find({username: req.query.username}).toArray(function(err, result) {
         if(err) throw err;
-        console.log(result[0].saved);
         res.json({data: result[0].saved});
       })
     })

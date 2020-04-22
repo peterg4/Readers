@@ -31,7 +31,6 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
         jQuery('#register').modal('hide');
         jQuery('#login').modal('show');
       } else {
-        console.log(res);
         $scope.$apply(function () {
           $scope.taken = res;
         })
@@ -41,10 +40,8 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.addBook = function() {
     $scope.processing = "css/images/loading.gif";
     var packet = $scope.book;
-    console.log(packet);
     socket.emit('insert', packet);
     socket.on('book_response', function(res) {
-      console.log(res);
       $scope.$apply(function () {
         $scope.processing = "css/images/done.png";
       })
@@ -88,21 +85,18 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.approve = function(packet) {
     socket.emit('approve', packet);
     socket.on('book_response', function(res) {
-      console.log(res);
       $scope.getInReview();
     });
   }
   $scope.deny = function(packet) {
     socket.emit('deny', packet);
     socket.on('deny_response', function(res) {
-      console.log(res);
       $scope.getInReview();
     });
   }
   $scope.delete = function(packet) {
     socket.emit('delete', packet);
     socket.on('delete_response', function(res) {
-      console.log(res);
       $scope.getBooks();
     });
   }
@@ -114,7 +108,6 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $scope.view=3;
     $scope.processing = 0;
     $http.get("/book/details?isbn="+book.isbn).then(function(data) {
-      console.log(data);
       $scope.specificBook = data.data.data[0];
     })
   }
@@ -124,11 +117,9 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $scope.review.username = $scope.credentials.username;
     $scope.review.book = $scope.specificBook.isbn;
     if($scope.credentials.username) {
-      console.log($scope.review);
       var packet = $scope.review;
       socket.emit('publish', packet);
       socket.on('publish_response', function(res) {
-        console.log(res);
         $scope.specificBook = res;
         $scope.$apply(function () {
           $scope.specificBook = res;
@@ -141,7 +132,6 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   }
   $scope.search = function(query) {
     $scope.view = 4;
-    console.log(query);
     socket.emit('search', query);
     socket.on('search_response', function(res) {
       $scope.books = [];
@@ -151,7 +141,6 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       }
       $scope.$apply(function () {
         $scope.books = temp;
-        console.log(temp);
       });
     })
   }
@@ -162,7 +151,6 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       delete packet.book.$$hashKey;  
       packet.username = $scope.credentials.username;
       packet.saveChoice = saveChoice;
-      console.log(packet);
       socket.emit('save', packet);
       socket.on('save_response', function() {
         $scope.view = 2;
@@ -178,7 +166,6 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $scope.willRead = [];
     $scope.haveRead = [];
     $http.get("/library?username="+$scope.credentials.userinfo.username).then(function(data) {
-      console.log(data);
       for(var i = 0; i < data.data.data.length; i++) {
         if(data.data.data[i].saveChoice === 0)
           $scope.reading.push(data.data.data[i].book);
