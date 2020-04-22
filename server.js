@@ -201,6 +201,13 @@ async function main() {
         res.json({data: result});
       })
     })
+    //get a specific book
+    app.get('/book/details', function(req, res) {
+      db.collection("items").find({isbn: req.query.isbn}).toArray(function(err, result) {
+        if(err) throw err;
+        res.json({data: result});
+      })
+    })
     //get books from library
     app.get('/library', function(req, res) {
       console.log(req.query.username);
@@ -216,12 +223,12 @@ async function main() {
   app.use(express.static('public'));
 
   app.get('/', function(req, res){
-      res.sendFile('/index.html');
+    res.sendFile('/index.html');
   });
 
   app.use(express.static('public'));
 
   http.listen(PORT, function(){
-      console.log('\nServer up on *:3000');
+    console.log('\nServer up on *:3000');
   });
 }

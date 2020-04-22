@@ -113,7 +113,10 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.getBookDetails = function(book) {
     $scope.view=3;
     $scope.processing = 0;
-    $scope.specificBook = book;
+    $http.get("/book/details?isbn="+book.isbn).then(function(data) {
+      console.log(data);
+      $scope.specificBook = data.data.data[0];
+    })
   }
   $scope.publishReview = function() {
     $scope.processing = "css/images/loading.gif";
