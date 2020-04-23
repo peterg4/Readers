@@ -66,6 +66,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $scope.logged = false;
   }
   $scope.getInReview = function() {
+    $scope.processing = 0;
     $scope.view = 1;
     $scope.books = [];
     $http.get("/review").then(function(data) {
@@ -167,7 +168,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     packet.saveChoice = saveChoice;
     packet.username = $scope.credentials.username;
     socket.emit('librarySwap', packet);
-    socket.on('swap_response', function(){
+    socket.on('swap_response', function() {
       $scope.getLibrary();
     });
   }
@@ -189,13 +190,17 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   }
   $scope.edit = function() { 
     var packet = {};
+    $scope.processing = "css/images/loading.gif";
     packet.title = $scope.book.title;
     packet.author = $scope.book.author;
     packet.genres = $scope.book.genres;
     packet.isbn = $scope.book.isbn;
     socket.emit('edit', packet);
-    socket.on('edit_reponse', function(res) {
+    socket.on('edit_reponse', function() {
       console.log('Edit Made');
+      $scope.$apply(function () {
+        $scope.processing = "css/images/done.png";
+      })
     });
   }
 }]);
