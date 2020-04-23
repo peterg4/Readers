@@ -81,11 +81,12 @@ async function main() {
             else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
+                      var g  = packet.genre.split(",");
                       db.collection("review").insertOne(
                         {
                           title: packet.title,
                           author: packet.author,
-                          genres: packet.genre,
+                          genres: g,
                           rating: 0,
                           isbn: packet.isbn,
                           googleData: results[0],
