@@ -75,6 +75,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     });
   }
   $scope.getBooks = function() {
+    $scope.view = 0;
     $scope.books = [];
     $http.get("/books").then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
@@ -166,6 +167,9 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     packet.saveChoice = saveChoice;
     packet.username = $scope.credentials.username;
     socket.emit('librarySwap', packet);
+    socket.on('swap_response', function(){
+      $scope.getLibrary();
+    });
   }
   $scope.getLibrary = function() {
     $scope.view = 2;
