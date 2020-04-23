@@ -154,9 +154,14 @@ h4{
   top: 8px;
   right: 8px;
 }
-.btn-deny {
+.btn-edit {
   position: absolute;
   top: 60px;
+  right: 8px;
+}
+.btn-deny {
+  position: absolute;
+  top: 110px;
   right: 8px;
 }
 .fa-star{

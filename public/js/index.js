@@ -187,6 +187,17 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       }
     });
   }
+  $scope.edit = function() { 
+    var packet = {};
+    packet.title = $scope.book.title;
+    packet.author = $scope.book.author;
+    packet.genres = $scope.book.genres;
+    packet.isbn = $scope.book.isbn;
+    socket.emit('edit', packet);
+    socket.on('edit_reponse', function(res) {
+      console.log('Edit Made');
+    });
+  }
 }]);
 
 app.directive("fileread", [function () {

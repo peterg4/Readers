@@ -383,9 +383,53 @@
 			</div>
 			<p class="description">{{book.googleData.description}}</p>
 			<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
+			<button ng-if="view==1" class="btn btn-outline-secondary btn-edit" data-toggle="modal" data-target="#edit">Edit</button>
 			<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 		</div>
 	</main>
+
+	<!--Edit Entry Modal-->
+	<div class="modal fade" id="edit" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Edit entry</h5>
+					<button class="btn btn-outline-secondary btn-close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form name="editForm" ng-submit="edit()">
+						<div class="form-group">
+							<input class="form-control" type="text" ng-model="book.title" name="title" placeholder="Title" required>
+							<span class="text-muted" ng-show="editForm.title.$touched && editForm.title.$invalid">*Required</span>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="text" ng-model="book.author" name="author" placeholder="Author" required>
+							<span class="text-muted" ng-show="editForm.author.$touched && editForm.author.$invalid">*Required</span>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="text" ng-model="book.genres" name="genre" placeholder="Genres (comma separated list)" required>
+							<span class="text-muted" ng-show="editForm.genre.$touched && editForm.genre.$invalid">*Required</span>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="text" ng-model="book.isbn" name="isbn" placeholder="isbn" required>
+							<span class="text-muted" ng-show="editForm.isbn.$touched && editForm.isbn.$invalid">*Required</span>
+						</div>
+						<div class="form-group">
+							<input class="btn btn-outline-primary" type="submit" value="Confirm Edit">
+							<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}></span>
+						</div>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 <script src="js/angular-base64.js"></script>

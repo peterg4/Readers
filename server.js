@@ -195,6 +195,16 @@ async function main() {
         socket.emit('swap_response');
       });
     });
+    //edit a book document in the review database
+    socket.on('edit', function(packet) {
+      var doc = { isbn: packet.isbn }
+      var edit = {$set: {author: packet.author, title: packet.title, genres: packet.genres}}
+      db.collection("review").updateOne(doc, edit, function(err, res) {
+        if (err) throw err;
+        console.log("Book entry edited");
+        socket.emit('edit_response');
+      });
+    });
     //get books in review
     app.get('/review', function(req, res) {
       db.collection("review").find({}).toArray(function(err, result) {
