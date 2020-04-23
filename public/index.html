@@ -252,7 +252,14 @@
 				<div ng-repeat="book in reading">
 					<div class="card">
 						<div class="card-body">
-							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
+							<div class="icontainer">
+								<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
+								<div class="imiddle overlay">
+									<div class="itext" href="#" ng-click="librarySwap(book, 0)">Reading</div>
+									<div class="itext" href="#" ng-click="librarySwap(book, 1)">Will Read</div>
+									<div class="itext" href="#" ng-click="librarySwap(book, 2)">Read</div>
+								</div>
+							</div>
 							<div class="book-data">
 								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
 							</div>
@@ -267,7 +274,14 @@
 				<div ng-repeat="book in haveRead">
 					<div class="card">
 						<div class="card-body">
-							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
+							<div class="icontainer">
+								<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
+								<div class="imiddle overlay">
+									<div class="itext" href="#" ng-click="librarySwap(book, 0)">Reading</div>
+									<div class="itext" href="#" ng-click="librarySwap(book, 1)">Will Read</div>
+									<div class="itext" href="#" ng-click="librarySwap(book, 2)">Read</div>
+								</div>
+							</div>
 							<div class="book-data">
 								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
 							</div>
@@ -282,7 +296,14 @@
 				<div ng-repeat="book in willRead">
 					<div class="card">
 						<div class="card-body">
-							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
+							<div class="icontainer">
+								<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
+								<div class="imiddle overlay">
+									<div class="itext" href="#" ng-click="librarySwap(book, 0)">Reading</div>
+									<div class="itext" href="#" ng-click="librarySwap(book, 1)">Will Read</div>
+									<div class="itext" href="#" ng-click="librarySwap(book, 2)">Read</div>
+								</div>
+							</div>
 							<div class="book-data">
 								<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
 							</div>

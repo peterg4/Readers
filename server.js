@@ -184,6 +184,16 @@ async function main() {
         socket.emit('save_response');
       });
     });
+    //swap a library shelf
+    socket.on('librarySwap', function(packet) {
+      var user = { username: packet.username, "saved.book.isbn": packet.isbn}
+      var book = { $set: {"saved.$.saveChoice": packet.saveChoice} }
+      db.collection("users").updateOne(user, book, function(err, res) {
+        if (err) throw err;
+        console.log("Shelf Swapped");
+        socket.emit('swap_response');
+      });
+    });
     //get books in review
     app.get('/review', function(req, res) {
       db.collection("review").find({}).toArray(function(err, result) {

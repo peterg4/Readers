@@ -160,6 +160,13 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       jQuery('#login').modal('toggle');
     }
   }
+  $scope.librarySwap = function(book, saveChoice) {
+    var packet = {};
+    packet.isbn = book.isbn;
+    packet.saveChoice = saveChoice;
+    packet.username = $scope.credentials.username;
+    socket.emit('librarySwap', packet);
+  }
   $scope.getLibrary = function() {
     $scope.view = 2;
     $scope.reading = [];
