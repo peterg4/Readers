@@ -222,6 +222,7 @@ input[type=radio] {
   transform: rotate(45deg);
 }
 .review-box {
+  position: relative;
   padding: 25px;
   border: 1px solid #ced4da;
   border-radius: 3px;

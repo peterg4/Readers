@@ -206,11 +206,18 @@ async function main() {
         socket.emit('edit_response');
       });
     });
-    //get books in review
+    //get books and reviews in review
     app.get('/review', function(req, res) {
+      var data = {};
       db.collection("review").find({}).toArray(function(err, result) {
         if(err) throw err;
-        res.json({data: result});
+        data.books = result;
+        db.collection("items").find({reviewers: {$elemMatch: {reviewed: false}}}).toArray(function(err, result) {
+          if(err) throw err;
+          console.log(result);
+          data.reviews = result;
+          res.json({data: data});
+        });
       })
     })
     //get books in public db

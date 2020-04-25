@@ -10,6 +10,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.credentials = {};
   $scope.logged = false;
   $scope.books = [];
+  $scope.reviewsInReview = [];
   $scope.reading = [];
   $scope.willRead = [];
   $scope.haveRead = [];
@@ -69,9 +70,14 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $scope.processing = 0;
     $scope.view = 1;
     $scope.books = [];
+    $scope.reviewsInReview = [];
     $http.get("/review").then(function(data) {
-      for(var i = 0; i < data.data.data.length; i++) {
-        $scope.books.push(data.data.data[i]);
+      console.log(data);
+      for(var i = 0; i < data.data.data.books.length; i++) {
+        $scope.books.push(data.data.data.books[i]);
+      }
+      for(var i = 0; i < data.data.data.reviews.length; i++) {
+        $scope.reviewsInReview.push(data.data.data.reviews[i]);
       }
     });
   }
@@ -89,6 +95,9 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     socket.on('book_response', function(res) {
       $scope.getInReview();
     });
+  }
+  $scope.approveReview = function(packet) {
+    socket.emit('approveReview', packet);
   }
   $scope.deny = function(packet) {
     socket.emit('deny', packet);

@@ -364,6 +364,7 @@
 
 	<!-- Book Review Page -->
 	<main role="main" ng-if="view==1">
+		<h4>Books in Review</h4>
 		<div class="container" ng-repeat="book in books">
 			<div class="specific-book-header"> 
 				<img class="cover-img detail" ng-src="{{book.googleData.thumbnail}}">
@@ -386,6 +387,35 @@
 			<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
 			<button ng-if="view==1" class="btn btn-outline-secondary btn-edit" data-toggle="modal" data-target="#edit">Edit</button>
 			<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
+		</div>
+		<h4>Reviews in Review</h4>
+		<div class="container" ng-repeat="book in reviewsInReview">
+			<div class="specific-book-header"> 
+				<img class="cover-img detail" ng-src="{{book.googleData.thumbnail}}">
+				<div class="book-data-detail">
+					<h5 class="card-title card-title-detail">{{book.title}}</h5>
+					<h6 class="card-subtitle mb-2">by {{book.author}}</h6>
+					<p class="card-text">{{book.genres}}</p>
+					<p class="card-text">{{book.isbn}}</p>
+					<div class="card-rating card-rating-detail">
+						<p class="card-rating-text"> <ng-rate-it ng-model="book.googleData.averageRating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+						<p class="card-rating-text rate-num">{{book.googleData.ratingsCount}}</p>
+					</div>
+					<div class="card-rating card-rating-detail">
+						<p class="card-rating-text"> <ng-rate-it ng-model="bBook.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+						<p class="card-rating-text">{{book.reviewers.length}}</p>
+					</div>
+				</div>
+			</div>
+			<h4>Reviews</h4>
+			<div class="review-box" ng-repeat="review in book.reviewers" ng-if="!review.reviewed">
+				<div class="review-header">
+					<p class="review-username">{{review.username}} <ng-rate-it class="review-rating" ng-model="review.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+				</div>
+				{{review.text}}
+				<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approveReview(review)">Approve</button>
+				<button ng-if="view==1" class="btn btn-outline-danger btn-edit" ng-click="denyReview(review)">Delete</button>
+			</div>
 		</div>
 	</main>
 
