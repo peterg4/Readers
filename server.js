@@ -144,6 +144,7 @@ async function main() {
     });
     //publish a review on a book
     socket.on('publish', function(packet) {
+      packet.reviewed = false;
       var query =  { isbn: packet.book};
       var review = { $push: {reviewers: packet} };
       db.collection("items").updateOne(query, review, function(err, res) {

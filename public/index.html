@@ -351,12 +351,13 @@
 				</div>
 			</form>
 			<h4>Reviews</h4>
-			<div class="review-box" ng-repeat="review in specificBook.reviewers">
-				<div class="review-header">
+			<div class="review-box" ng-repeat="review in specificBook.reviewers" ng-if="review.reviewed">
+				<div ng-if="review.reviewed" class="review-header">
 					<p class="review-username">{{review.username}} <ng-rate-it class="review-rating" ng-model="review.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
-					
 				</div>
+				<div ng-if="review.reviewed">
 				{{review.text}}
+				</div>
 			</div>
 		</div>
 	</main>
