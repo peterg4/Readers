@@ -98,6 +98,15 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   }
   $scope.approveReview = function(packet) {
     socket.emit('approveReview', packet);
+    socket.on('approveReview_response', function(res) {
+      $scope.getInReview();
+    });
+  }
+  $scope.denyReview = function(packet) {
+    socket.emit('denyReview', packet);
+    socket.on('denyReview_response', function(res) {
+      $scope.getInReview();
+    });
   }
   $scope.deny = function(packet) {
     socket.emit('deny', packet);

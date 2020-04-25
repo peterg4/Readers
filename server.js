@@ -126,6 +126,17 @@ async function main() {
         }
       });
     });
+    //approves a review to be viewed
+    socket.on('approveReview', function(packet) {
+      console.log(packet);
+      var query = {isbn: packet.book, "reviewers.text": packet.text };
+      var update = {$set: {"reviewers.$.reviewed": true}};
+      db.collection("items").updateOne(query, update, function(err, result){
+        if (err) throw err;
+        socket.emit("approveReview_response");
+        console.log("review approved");
+      })
+    })
     //deny a book and delete it from the review database
     socket.on('deny', function(packet) {
         db.collection("review").deleteOne({isbn: packet.isbn}, function(err, results) {
@@ -134,6 +145,17 @@ async function main() {
           socket.emit('deny_response', packet.title);
       });
     });
+    //deny a review and delete
+    socket.on("denyReview", function(packet) {
+      console.log(packet);
+      var query = { isbn: packet.book};
+      var update = {$pull: {reviewers: {text: packet.text}}};
+      db.collection("items").updateOne(query, update, function(err, results) {
+        if (err) throw err;
+        console.log("1 document deleted from review");
+        socket.emit('denyReview_response');
+      });
+    })
     //delete a book from the items database
     socket.on('delete', function(packet) {
       db.collection("items").deleteOne({isbn: packet.isbn}, function(err, results) {
@@ -214,7 +236,6 @@ async function main() {
         data.books = result;
         db.collection("items").find({reviewers: {$elemMatch: {reviewed: false}}}).toArray(function(err, result) {
           if(err) throw err;
-          console.log(result);
           data.reviews = result;
           res.json({data: data});
         });
