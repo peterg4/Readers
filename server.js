@@ -221,7 +221,8 @@ async function main() {
     //edit a book document in the review database
     socket.on('edit', function(packet) {
       var doc = { isbn: packet.isbn }
-      var edit = {$set: {author: packet.author, title: packet.title, genres: packet.genres}}
+      var genres = packet.genres.split(",");
+      var edit = {$set: {author: packet.author, title: packet.title, genres: genres}}
       db.collection("review").updateOne(doc, edit, function(err, res) {
         if (err) throw err;
         console.log("Book entry edited");
