@@ -141,7 +141,7 @@
 								<span class="text-muted" ng-show="loginForm.password.$touched && loginForm.password.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input class="btn btn-outline-primary" type="submit" value="Login">
+								<input class="btn btn-primary" type="submit" value="Login">
 								<span class="text-muted" ng-if="!credentials.userinfo.firstName && logged">Invalid Credentials</span>
 							</div>
 						</form>
@@ -184,7 +184,7 @@
 								<span class="text-muted" ng-show="bookForm.isbn.$touched && bookForm.isbn.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input class="btn btn-outline-primary" type="submit" value="Upload">
+								<input class="btn btn-primary" type="submit" value="Upload">
 								<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}></span>
 							</div>
 						</form>
@@ -346,7 +346,7 @@
 					<p class="card-rating-text"> 	<ng-rate-it class="rater" ng-model="review.rating" min="0" max="5" step="0.5" read-only="false" resetable="false"></ng-rate-it></p>
 				</div>
 				<div class="form-group">
-					<input class="btn btn-outline-primary" type="submit" value="Upload">
+					<input class="btn btn-primary" type="submit" value="Upload">
 					<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}></span>
 				</div>
 			</form>
@@ -384,9 +384,9 @@
 				</div>
 			</div>
 			<p class="description">{{book.googleData.description}}</p>
-			<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
-			<button ng-if="view==1" class="btn btn-outline-secondary btn-edit" data-toggle="modal" data-target="#edit">Edit</button>
-			<button ng-if="view==1" class="btn btn-outline-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
+			<button ng-if="view==1" class="btn btn-success btn-approve" ng-click="approve(book);quickRemove($index,'Approved!')">Approve</button>
+			<button ng-if="view==1" class="btn btn-secondary btn-edit" data-toggle="modal" data-target="#edit">Edit</button>
+			<button ng-if="view==1" class="btn btn-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 		</div>
 		<h4>Reviews in Review</h4>
 		<div class="container" ng-repeat="book in reviewsInReview">
@@ -413,8 +413,8 @@
 					<p class="review-username">{{review.username}} <ng-rate-it class="review-rating" ng-model="review.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
 				</div>
 				{{review.text}}
-				<button ng-if="view==1" class="btn btn-outline-primary btn-approve" ng-click="approveReview(review)">Approve</button>
-				<button ng-if="view==1" class="btn btn-outline-danger btn-edit" ng-click="denyReview(review)">Delete</button>
+				<button ng-if="view==1" class="btn btn-success btn-approve" ng-click="approveReview(review)">Approve</button>
+				<button ng-if="view==1" class="btn btn-danger btn-edit" ng-click="denyReview(review)">Delete</button>
 			</div>
 		</div>
 	</main>
