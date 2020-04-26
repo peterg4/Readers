@@ -112,6 +112,26 @@ async function main() {
           db.collection("items").findOne({isbn: packet.isbn}, function(err, res) {
             if(res || err) console.log("Duplicate Book entry: ISBN found in items," + res);
             else {
+              var req_c = 0;
+              for (var i = 0; i < results.genres.length; i++) {
+                db.collection("genres").findOne({genre: results.genres[req_c]}, function(err, gen){
+                  console.log(gen, results.genres[req_c]);
+                  if(gen) {
+                    var genre = { genre: results.genres[req_c] }
+                    var book = { $push: {books: packet.isbn} }
+                    db.collection("genres").updateOne(genre, book, function(err, res) {
+                      if (err) throw err;
+                      console.log("Existing genre updated");
+                    });
+                  } else {
+                   db.collection("genres").insertOne({genre: results.genres[req_c], books: [packet.isbn]}, function(err, res){
+                      if (err) throw err;
+                      console.log("new genre added");
+                    });
+                  }
+                  req_c++;
+                });
+              }
               db.collection("items").insertOne(results, function(err, res) {
                   if (err) throw err;
                   console.log("1 book inserted to items");
