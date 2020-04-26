@@ -214,7 +214,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     packet.genres = $scope.book.genres;
     packet.isbn = $scope.book.isbn;
     socket.emit('edit', packet);
-    socket.on('edit_reponse', function() {
+    socket.on('edit_response', function() {
       console.log('Edit Made');
       $scope.$apply(function () {
         $scope.processing = "css/images/done.png";
