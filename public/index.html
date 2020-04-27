@@ -333,23 +333,36 @@
 	<!-- Genres Page  -->
 	<main role="main" ng-if="view==6">
 		<div class="col-sm">
-			<h4>Genres</h4>
+			<h4>{{genre}}</h4>
 		</div>
 		<div class="row">
-				<div class="col" ng-repeat="book in genreBooks">
-					<div class="card">
-						<div class="card-body">
-							<div class="icontainer">
-								<img class="cover-img" ng-src="{{book.thumbnail}}">
+			<div class="col" ng-repeat="book in genreBooks">
+				<div class="card">
+					<div class="card-body">
+						<div class="icontainer">
+							<img class="cover-img" ng-src="{{book.googleData.thumbnail}}">
+							<div class="imiddle overlay">
+								<div class="itext" href="#" ng-click="saveToLibrary(book, 0)">Reading</div>
+								<div class="itext" href="#" ng-click="saveToLibrary(book, 1)">Will Read</div>
+								<div class="itext" href="#" ng-click="saveToLibrary(book, 2)">Read</div>
 							</div>
-							<div class="book-data">
-								<h5 class="card-title">{{book.genre}}</h5>
+						</div>
+						<div class="book-data">
+							<h5 ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</h5>
+							<div class="card-rating">
+								<p class="card-rating-text"> <ng-rate-it ng-model="book.googleData.averageRating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+								<p ng-click="view=3;getBookDetails(book)" class="card-rating-text rate-num">{{book.googleData.ratingsCount}}</p>
+							</div>
+							<div class="card-rating">
+								<p class="card-rating-text"> <ng-rate-it ng-model="book.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
+								<p ng-click="view=3;getBookDetails(book)" class="card-rating-text rate-num">{{book.reviewers.length}}</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</main>
 
 	<!-- Book Details Page -->

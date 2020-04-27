@@ -20,6 +20,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.query = "";
   $scope.genres = [];
   $scope.genreBooks = [];
+  $scope.genre = "";
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -234,12 +235,15 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   }
   $scope.getGenre = function(genre) {
     $scope.view = 6;
+    $scope.genre = genre.genre;
     $scope.genreBooks = [];
     $http.get("/genres/genre?genre="+genre.genre).then(function(data) {
       console.log(data);
+      console.log(data.data.data.length);
       for(var i = 0; i < data.data.data.length; i++) {
         $scope.genreBooks.push(data.data.data[i]);
       }
+      console.log($scope.genreBooks);
     });
   }
 }]);

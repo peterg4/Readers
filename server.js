@@ -297,15 +297,13 @@ async function main() {
         if(err) throw err;
         var data = {};
         var req_c = 0;
+        data.length = result[0].books.length;
         for(var i = 0; i < result[0].books.length; i++) {
-          console.log(result[0].books[i]);
           db.collection("items").find({isbn: result[0].books[i]}).toArray(function(err, resu) {
             if(err) throw err
-            console.log(resu[0].title);
             data[req_c] = resu[0];
             req_c++;
             if(req_c == result[0].books.length) {
-              console.log("printing");
               res.json({data: data});
             } 
           });
