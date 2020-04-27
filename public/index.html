@@ -321,7 +321,29 @@
 								<img class="cover-img" ng-src="{{genre.thumbnail}}">
 							</div>
 							<div class="book-data">
-								<h5 class="card-title">{{genre.genre}} ({{genre.books.length}})</h5>
+								<h5 ng-click="getGenre(genre)" class="card-title">{{genre.genre}} ({{genre.books.length}})</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- Genres Page  -->
+	<main role="main" ng-if="view==6">
+		<div class="col-sm">
+			<h4>Genres</h4>
+		</div>
+		<div class="row">
+				<div class="col" ng-repeat="book in genreBooks">
+					<div class="card">
+						<div class="card-body">
+							<div class="icontainer">
+								<img class="cover-img" ng-src="{{book.thumbnail}}">
+							</div>
+							<div class="book-data">
+								<h5 class="card-title">{{book.genre}}</h5>
 							</div>
 						</div>
 					</div>

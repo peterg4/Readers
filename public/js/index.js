@@ -19,6 +19,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.taken = 0;
   $scope.query = "";
   $scope.genres = [];
+  $scope.genreBooks = [];
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -228,6 +229,16 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     $http.get("/genres").then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
         $scope.genres.push(data.data.data[i]);
+      }
+    });
+  }
+  $scope.getGenre = function(genre) {
+    $scope.view = 6;
+    $scope.genreBooks = [];
+    $http.get("/genres/genre?genre="+genre.genre).then(function(data) {
+      console.log(data);
+      for(var i = 0; i < data.data.data.length; i++) {
+        $scope.genreBooks.push(data.data.data[i]);
       }
     });
   }

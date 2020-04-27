@@ -291,6 +291,27 @@ async function main() {
         res.json({data: result});
       })
     });
+    //
+    app.get('/genres/genre', function(req, res) {
+      db.collection("genres").find({genre: req.query.genre}).toArray(function(err, result) {
+        if(err) throw err;
+        var data = {};
+        var req_c = 0;
+        for(var i = 0; i < result[0].books.length; i++) {
+          console.log(result[0].books[i]);
+          db.collection("items").find({isbn: result[0].books[i]}).toArray(function(err, resu) {
+            if(err) throw err
+            console.log(resu[0].title);
+            data[req_c] = resu[0];
+            req_c++;
+            if(req_c == result[0].books.length) {
+              console.log("printing");
+              res.json({data: data});
+            } 
+          });
+        }
+      })
+    });
   });
 
 
