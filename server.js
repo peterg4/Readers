@@ -114,8 +114,9 @@ async function main() {
             else {
               var req_c = 0;
               for (var i = 0; i < results.genres.length; i++) {
-                db.collection("genres").findOne({genre: results.genres[req_c]}, function(err, gen){
-                  console.log(gen, results.genres[req_c]);
+                console.log(results.genres[req_c], results.genres[i]);
+                db.collection("genres").findOne({genre: results.genres[i]}, function(err, gen){
+                  console.log(gen, results.genres[req_c], results.genres[i]);
                   if(gen) {
                     var genre = { genre: results.genres[req_c] }
                     var book = { $push: {books: packet.isbn} }
