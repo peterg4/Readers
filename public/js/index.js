@@ -225,7 +225,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.getGenres = function() {
     $scope.view = 5;
     $scope.genres = [];
-    $http.get("/books").then(function(data) {
+    $http.get("/genres").then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
         $scope.genres.push(data.data.data[i]);
       }
