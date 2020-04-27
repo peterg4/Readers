@@ -115,17 +115,17 @@ async function main() {
               var req_c = 0;
               for (var i = 0; i < results.genres.length; i++) {
                 console.log(results.genres[req_c], results.genres[i]);
-                db.collection("genres").findOne({genre: results.genres[i]}, function(err, gen){
+                db.collection("genres").findOne({genre: results.genres[i].trim()}, function(err, gen){
                   console.log(gen, results.genres[req_c], results.genres[i]);
                   if(gen) {
-                    var genre = { genre: results.genres[req_c] }
+                    var genre = { genre: results.genres[req_c].trim() }
                     var book = { $push: {books: packet.isbn}, $set: {thumbnail: packet.googleData.thumbnail} }
                     db.collection("genres").updateOne(genre, book, function(err, res) {
                       if (err) throw err;
                       console.log("Existing genre updated");
                     });
                   } else {
-                   db.collection("genres").insertOne({genre: results.genres[req_c], books: [packet.isbn], thumbnail: packet.googleData.thumbnail }, function(err, res){
+                   db.collection("genres").insertOne({genre: results.genres[req_c].trim(), books: [packet.isbn], thumbnail: packet.googleData.thumbnail }, function(err, res){
                       if (err) throw err;
                       console.log("new genre added");
                     });
