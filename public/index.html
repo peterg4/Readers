@@ -317,7 +317,7 @@
 				<div class="col" ng-repeat="genre in genres">
 					<div class="card">
 						<div class="card-body">
-							<div class="icontainer">
+							<div ng-click="getGenre(genre)" class="icontainer igenre">
 								<img class="cover-img" ng-src="{{genre.thumbnail}}">
 							</div>
 							<div class="book-data">

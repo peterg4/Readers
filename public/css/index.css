@@ -381,3 +381,6 @@ h4{
 .description{
   margin-bottom: 10px;
 }
+.igenre{
+  cursor: pointer;
+}
