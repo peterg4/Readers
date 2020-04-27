@@ -18,6 +18,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.review = {};
   $scope.taken = 0;
   $scope.query = "";
+  $scope.genres = [];
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -219,6 +220,15 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       $scope.$apply(function () {
         $scope.processing = "css/images/done.png";
       })
+    });
+  }
+  $scope.getGenres = function() {
+    $scope.view = 5;
+    $scope.genres = [];
+    $http.get("/books").then(function(data) {
+      for(var i = 0; i < data.data.data.length; i++) {
+        $scope.genres.push(data.data.data[i]);
+      }
     });
   }
 }]);

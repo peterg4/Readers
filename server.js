@@ -119,13 +119,13 @@ async function main() {
                   console.log(gen, results.genres[req_c], results.genres[i]);
                   if(gen) {
                     var genre = { genre: results.genres[req_c] }
-                    var book = { $push: {books: packet.isbn} }
+                    var book = { $push: {books: packet.isbn}, $set: {thumbnail: packet.googleData.thumbnail} }
                     db.collection("genres").updateOne(genre, book, function(err, res) {
                       if (err) throw err;
                       console.log("Existing genre updated");
                     });
                   } else {
-                   db.collection("genres").insertOne({genre: results.genres[req_c], books: [packet.isbn]}, function(err, res){
+                   db.collection("genres").insertOne({genre: results.genres[req_c], books: [packet.isbn], thumbnail: packet.googleData.thumbnail }, function(err, res){
                       if (err) throw err;
                       console.log("new genre added");
                     });
@@ -284,6 +284,13 @@ async function main() {
         res.json({data: result[0].saved});
       })
     })
+    //get all genres data
+    app.get('/genres', function(req, res) {
+      db.collection("genres").find({}).toArray(function(err, result) {
+        if(err) throw err;
+        res.json({data: result});
+      })
+    });
   });
 
 
