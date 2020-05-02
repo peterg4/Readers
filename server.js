@@ -291,7 +291,7 @@ async function main() {
         res.json({data: result});
       })
     });
-    //
+    //get books pertaining to a certain genre
     app.get('/genres/genre', function(req, res) {
       db.collection("genres").find({genre: req.query.genre}).toArray(function(err, result) {
         if(err) throw err;
