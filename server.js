@@ -81,6 +81,9 @@ async function main() {
             else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
+                      if(packet.genre.trim()[packet.genre.length-1] == ',') {
+                        packet.genre[packet.genre.length-1] = ' ';
+                      }
                       var g  = packet.genre.split(",");
                       db.collection("review").insertOne(
                         {
