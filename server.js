@@ -1,4 +1,7 @@
 // server init + mods
+String.prototype.replaceAt=function(index, replacement) {
+  return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+}
 var app = require('express')();
 var http = require('http').Server(app);
 var express = require('express');
@@ -58,7 +61,7 @@ async function main() {
       db.collection("users").findOne({username: packet.username}, function(err, results) {
         if(results) {
           bcrypt.compare(packet.password, results.password, function(err, result) {
-            if(results)
+            if(result)
               socket.emit('login_response', results);
             else {
               console.log("invalid credentials");
@@ -81,8 +84,12 @@ async function main() {
             else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
-                      if(packet.genre.trim()[packet.genre.length-1] == ',') {
-                        packet.genre[packet.genre.length-1] = ' ';
+                      var g = packet.genre;
+                      g.trim();
+                      console.log(g, g[g.length-1]);
+                      if(g[g.length-1] == ',') {
+                        g.replaceAt(g.length-1, "");
+                        console.log(g[g.length-1]);
                       }
                       var g  = packet.genre.split(",");
                       db.collection("review").insertOne(
