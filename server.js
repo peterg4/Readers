@@ -1,4 +1,7 @@
 // server init + mods
+String.prototype.replaceAt=function(index, replacement) {
+  return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+}
 var app = require('express')();
 var http = require('http').Server(app);
 var express = require('express');
@@ -58,9 +61,9 @@ async function main() {
       db.collection("users").findOne({username: packet.username}, function(err, results) {
         if(results) {
           bcrypt.compare(packet.password, results.password, function(err, result) {
-            if(results)
+            if(result) {
               socket.emit('login_response', results);
-            else {
+            } else {
               console.log("invalid credentials");
               socket.emit('login_response', "Invalid Credentials");
             }
@@ -81,7 +84,15 @@ async function main() {
             else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
-                      var g  = packet.genre.split(",");
+                    //This ignores ending comma if the user entered smthn like "Fantasy, "
+                      var g = packet.genre;
+                      g.trim();
+                      console.log(g, g[g.length-1]);
+                      if(g[g.length-1] == ',') {
+                        g = g.replaceAt(g.length-1, " ");
+                        console.log(g);
+                      }
+                      g.split(",");
                       db.collection("review").insertOne(
                         {
                           title: packet.title,
@@ -291,7 +302,7 @@ async function main() {
         res.json({data: result});
       })
     });
-    //
+    //get books pertaining to a certain genre
     app.get('/genres/genre', function(req, res) {
       db.collection("genres").find({genre: req.query.genre}).toArray(function(err, result) {
         if(err) throw err;
