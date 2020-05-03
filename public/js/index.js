@@ -59,8 +59,9 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
         $scope.logged = true;
         $scope.credentials.userinfo = res;
         if($scope.credentials.userinfo.firstName) {
-          $scope.getLibrary();
           jQuery('#login').modal('hide');
+          $scope.changeActive('books');
+          $scope.getLibrary();
         }
       })
     })
