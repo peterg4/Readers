@@ -61,8 +61,12 @@ async function main() {
       db.collection("users").findOne({username: packet.username}, function(err, results) {
         if(results) {
           bcrypt.compare(packet.password, results.password, function(err, result) {
-            if(result)
+            if(result) {
               socket.emit('login_response', results);
+            } else {
+              console.log("invalid credentials");
+              socket.emit('login_response', "Invalid Credentials");
+            }
           });
         } else {
           console.log("invalid credentials");
@@ -80,6 +84,7 @@ async function main() {
             else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
+                    //This ignores ending comma if the user entered smthn like "Fantasy, "
                       var g = packet.genre;
                       g.trim();
                       console.log(g, g[g.length-1]);
