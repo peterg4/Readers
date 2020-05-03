@@ -63,10 +63,6 @@ async function main() {
           bcrypt.compare(packet.password, results.password, function(err, result) {
             if(result)
               socket.emit('login_response', results);
-            else {
-              console.log("invalid credentials");
-              socket.emit('login_response', "Invalid Credentials");
-            }
           });
         } else {
           console.log("invalid credentials");
@@ -88,8 +84,8 @@ async function main() {
                       g.trim();
                       console.log(g, g[g.length-1]);
                       if(g[g.length-1] == ',') {
-                        g.replaceAt(g.length-1, "");
-                        console.log(g[g.length-1]);
+                        g.replaceAt(g.length-1, " ");
+                        console.log(g);
                       }
                       var g  = packet.genre.split(",");
                       db.collection("review").insertOne(
