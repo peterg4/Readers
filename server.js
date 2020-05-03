@@ -84,10 +84,10 @@ async function main() {
                       g.trim();
                       console.log(g, g[g.length-1]);
                       if(g[g.length-1] == ',') {
-                        g.replaceAt(g.length-1, " ");
+                        g = g.replaceAt(g.length-1, " ");
                         console.log(g);
                       }
-                      var g  = packet.genre.split(",");
+                      g.split(",");
                       db.collection("review").insertOne(
                         {
                           title: packet.title,
