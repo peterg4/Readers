@@ -47,12 +47,16 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     var packet = $scope.book;
     socket.emit('insert', packet);
     socket.on('book_response', function(res) {
+      console.log(res, "1");
       if(res != 'Duplicate Book Entry') {
         $scope.$apply(function () {
           $scope.processing = "css/images/done.png";
         })
       } else {
-        $scope.error = res;
+        $scope.$apply(function () {
+          console.log(res);
+          $scope.error = res;
+        })
       }
     })
   }

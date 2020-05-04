@@ -77,14 +77,15 @@ async function main() {
     //Add a book to review Database
     socket.on('insert', function(packet) {
       db.collection("review").findOne({isbn: packet.isbn}, function(err, results) {
-        if(results || err) console.log('Duplicate Book entry: ISBN found in review');
-        else {
+        if(results || err) {
+          console.log('Duplicate Book entry: ISBN found in items');
+          socket.emit('book_response', 'Duplicate Book Entry')
+        } else {
           db.collection("items").findOne({isbn: packet.isbn}, function(err, results) {
             if(results || err) {
               console.log('Duplicate Book entry: ISBN found in items');
               socket.emit('book_response', 'Duplicate Book Entry')
-            }
-            else {
+            } else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
                     //This ignores ending comma if the user entered smthn like "Fantasy, "
