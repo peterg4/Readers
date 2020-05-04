@@ -56,6 +56,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
         $scope.$apply(function () {
           console.log(res);
           $scope.error = res;
+          $scope.processing = "css/images/error.png";
         })
       }
     })
