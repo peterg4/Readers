@@ -21,6 +21,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
   $scope.genres = [];
   $scope.genreBooks = [];
   $scope.genre = "";
+  $scope.error = false;
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -46,9 +47,13 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
     var packet = $scope.book;
     socket.emit('insert', packet);
     socket.on('book_response', function(res) {
-      $scope.$apply(function () {
-        $scope.processing = "css/images/done.png";
-      })
+      if(res != 'Duplicate Book Entry') {
+        $scope.$apply(function () {
+          $scope.processing = "css/images/done.png";
+        })
+      } else {
+        $scope.error = res;
+      }
     })
   }
   $scope.login = function() {

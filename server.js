@@ -80,7 +80,10 @@ async function main() {
         if(results || err) console.log('Duplicate Book entry: ISBN found in review');
         else {
           db.collection("items").findOne({isbn: packet.isbn}, function(err, results) {
-            if(results || err) console.log('Duplicate Book entry: ISBN found in items');
+            if(results || err) {
+              console.log('Duplicate Book entry: ISBN found in items');
+              socket.emit('book_response', 'Duplicate Book Entry')
+            }
             else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
