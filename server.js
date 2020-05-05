@@ -211,7 +211,18 @@ async function main() {
         console.log("1 document deleted from review");
         socket.emit('denyReview_response');
       });
-    })
+    });
+    //edit a book document in the review database
+    socket.on('edit', function(packet) {
+      var doc = { isbn: packet.isbn }
+      var genres = packet.genres.split(",");
+      var edit = {$set: {author: packet.author, title: packet.title, genres: genres}}
+      db.collection("review").updateOne(doc, edit, function(err, res) {
+        if (err) throw err;
+        console.log("Book entry edited");
+        socket.emit('edit_response');
+      });
+    });
     //delete a book from the items database
     socket.on('delete', function(packet) {
       db.collection("items").deleteOne({isbn: packet.isbn}, function(err, results) {
@@ -252,17 +263,6 @@ async function main() {
         if (err) throw err;
         console.log("Shelf Swapped");
         socket.emit('swap_response');
-      });
-    });
-    //edit a book document in the review database
-    socket.on('edit', function(packet) {
-      var doc = { isbn: packet.isbn }
-      var genres = packet.genres.split(",");
-      var edit = {$set: {author: packet.author, title: packet.title, genres: genres}}
-      db.collection("review").updateOne(doc, edit, function(err, res) {
-        if (err) throw err;
-        console.log("Book entry edited");
-        socket.emit('edit_response');
       });
     });
     //get books and reviews in review
