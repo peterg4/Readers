@@ -162,6 +162,26 @@ async function main() {
         }
       });
     });
+    //publish a review on a book
+    socket.on('publish', function(packet) {
+      packet.reviewed = false;
+      var query =  { isbn: packet.book};
+      var review = { $push: {reviewers: packet} };
+      db.collection("items").updateOne(query, review, function(err, res) {
+        if (err) throw err;
+        console.log("Review added");
+        db.collection("items").findOne(query, function(err, res) {
+          var len = res.reviewers.length;
+          var r = (res.rating*len + packet.rating)/(len+1);
+          var rating = { $set: {rating: r}}
+          db.collection("items").updateOne(query, rating, function(err, res){
+            db.collection("items").findOne(query, function(err, res) {
+              socket.emit('publish_response', res);
+            });
+          });
+        });
+      });
+    });
     //approves a review to be viewed
     socket.on('approveReview', function(packet) {
       console.log(packet);
@@ -198,26 +218,6 @@ async function main() {
         if (err) throw err;
         console.log("1 document deleted from items");
         socket.emit('delete_response', packet.title);
-      });
-    });
-    //publish a review on a book
-    socket.on('publish', function(packet) {
-      packet.reviewed = false;
-      var query =  { isbn: packet.book};
-      var review = { $push: {reviewers: packet} };
-      db.collection("items").updateOne(query, review, function(err, res) {
-        if (err) throw err;
-        console.log("Review added");
-        db.collection("items").findOne(query, function(err, res) {
-          var len = res.reviewers.length;
-          var r = (res.rating*len + packet.rating)/(len+1);
-          var rating = { $set: {rating: r}}
-          db.collection("items").updateOne(query, rating, function(err, res){
-            db.collection("items").findOne(query, function(err, res) {
-              socket.emit('publish_response', res);
-            });
-          });
-        });
       });
     });
     //search for book/author/isbn/genre
