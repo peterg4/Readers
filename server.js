@@ -32,6 +32,9 @@ async function main() {
   }); 
   
   io.on('connection', function(socket) {
+
+    /*  --User Signup Functions --------------------------*/
+
     //Register a user
     socket.on('register', function(packet) {
       db.collection("users").findOne({username: packet.username}, function(err, results) {
@@ -74,6 +77,9 @@ async function main() {
         }
       });
     });
+
+    /* Add And Review Items Functions ------------------*/
+
     //Add a book to review Database
     socket.on('insert', function(packet) {
       db.collection("review").findOne({isbn: packet.isbn}, function(err, results) {
@@ -231,6 +237,9 @@ async function main() {
         socket.emit('delete_response', packet.title);
       });
     });
+
+    /* Search and Library Functions ----------------------*/
+
     //search for book/author/isbn/genre
     socket.on('search', function(query){
       var regex = new RegExp("^.*"+query+".*$", "i");
@@ -265,6 +274,9 @@ async function main() {
         socket.emit('swap_response');
       });
     });
+
+    /*Get Data Functions ----------------------*/
+
     //get books and reviews in review
     app.get('/review', function(req, res) {
       var data = {};
