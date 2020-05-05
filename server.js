@@ -176,16 +176,7 @@ async function main() {
       db.collection("items").updateOne(query, review, function(err, res) {
         if (err) throw err;
         console.log("Review added");
-        db.collection("items").findOne(query, function(err, res) {
-          var len = res.reviewers.length;
-          var r = (res.rating*len + packet.rating)/(len+1);
-          var rating = { $set: {rating: r}}
-          db.collection("items").updateOne(query, rating, function(err, res){
-            db.collection("items").findOne(query, function(err, res) {
-              socket.emit('publish_response', res);
-            });
-          });
-        });
+        socket.emit('publish_response', res);
       });
     });
     //approves a review to be viewed
@@ -195,8 +186,15 @@ async function main() {
       var update = {$set: {"reviewers.$.reviewed": true}};
       db.collection("items").updateOne(query, update, function(err, result){
         if (err) throw err;
-        socket.emit("approveReview_response");
         console.log("review approved");
+        db.collection("items").findOne(query, function(err, res) {
+          var len = res.reviewers.length;
+          var r = (res.rating*len + packet.rating)/(len+1);
+          var rating = { $set: {rating: r}}
+          db.collection("items").updateOne(query, rating, function(err, res){
+              socket.emit("approveReview_response");
+          });
+        });
       })
     })
     //deny a book and delete it from the review database
