@@ -32,6 +32,9 @@ async function main() {
   }); 
   
   io.on('connection', function(socket) {
+
+    /*  --User Signup Functions --------------------------*/
+
     //Register a user
     socket.on('register', function(packet) {
       db.collection("users").findOne({username: packet.username}, function(err, results) {
@@ -74,6 +77,9 @@ async function main() {
         }
       });
     });
+
+    /* Add And Review Items Functions ------------------*/
+
     //Add a book to review Database
     socket.on('insert', function(packet) {
       db.collection("review").findOne({isbn: packet.isbn}, function(err, results) {
@@ -162,15 +168,34 @@ async function main() {
         }
       });
     });
+    //publish a review on a book
+    socket.on('publish', function(packet) {
+      packet.reviewed = false;
+      var query =  { isbn: packet.book};
+      var review = { $push: {reviewers: packet} };
+      db.collection("items").updateOne(query, review, function(err, res) {
+        if (err) throw err;
+        console.log("Review added");
+        socket.emit('publish_response', res);
+      });
+    });
     //approves a review to be viewed
     socket.on('approveReview', function(packet) {
-      console.log(packet);
       var query = {isbn: packet.book, "reviewers.text": packet.text };
       var update = {$set: {"reviewers.$.reviewed": true}};
       db.collection("items").updateOne(query, update, function(err, result){
         if (err) throw err;
-        socket.emit("approveReview_response");
         console.log("review approved");
+        db.collection("items").findOne(query, function(err, res) {
+          var len = res.reviewers.length;
+          console.log(len);
+          var r = (res.rating*(len-1) + packet.rating)/(len);
+          console.log(r);
+          var rating = { $set: {rating: r}}
+          db.collection("items").updateOne(query, rating, function(err, res){
+              socket.emit("approveReview_response");
+          });
+        });
       })
     })
     //deny a book and delete it from the review database
@@ -183,7 +208,6 @@ async function main() {
     });
     //deny a review and delete
     socket.on("denyReview", function(packet) {
-      console.log(packet);
       var query = { isbn: packet.book};
       var update = {$pull: {reviewers: {text: packet.text}}};
       db.collection("items").updateOne(query, update, function(err, results) {
@@ -191,7 +215,18 @@ async function main() {
         console.log("1 document deleted from review");
         socket.emit('denyReview_response');
       });
-    })
+    });
+    //edit a book document in the review database
+    socket.on('edit', function(packet) {
+      var doc = { isbn: packet.isbn }
+      var genres = packet.genres.split(",");
+      var edit = {$set: {author: packet.author, title: packet.title, genres: genres}}
+      db.collection("review").updateOne(doc, edit, function(err, res) {
+        if (err) throw err;
+        console.log("Book entry edited");
+        socket.emit('edit_response');
+      });
+    });
     //delete a book from the items database
     socket.on('delete', function(packet) {
       db.collection("items").deleteOne({isbn: packet.isbn}, function(err, results) {
@@ -200,26 +235,9 @@ async function main() {
         socket.emit('delete_response', packet.title);
       });
     });
-    //publish a review on a book
-    socket.on('publish', function(packet) {
-      packet.reviewed = false;
-      var query =  { isbn: packet.book};
-      var review = { $push: {reviewers: packet} };
-      db.collection("items").updateOne(query, review, function(err, res) {
-        if (err) throw err;
-        console.log("Review added");
-        db.collection("items").findOne(query, function(err, res) {
-          var len = res.reviewers.length;
-          var r = (res.rating*len + packet.rating)/(len+1);
-          var rating = { $set: {rating: r}}
-          db.collection("items").updateOne(query, rating, function(err, res){
-            db.collection("items").findOne(query, function(err, res) {
-              socket.emit('publish_response', res);
-            });
-          });
-        });
-      });
-    });
+
+    /* Search and Library Functions ----------------------*/
+
     //search for book/author/isbn/genre
     socket.on('search', function(query){
       var regex = new RegExp("^.*"+query+".*$", "i");
@@ -254,17 +272,9 @@ async function main() {
         socket.emit('swap_response');
       });
     });
-    //edit a book document in the review database
-    socket.on('edit', function(packet) {
-      var doc = { isbn: packet.isbn }
-      var genres = packet.genres.split(",");
-      var edit = {$set: {author: packet.author, title: packet.title, genres: genres}}
-      db.collection("review").updateOne(doc, edit, function(err, res) {
-        if (err) throw err;
-        console.log("Book entry edited");
-        socket.emit('edit_response');
-      });
-    });
+
+    /*Get Data Functions ----------------------*/
+
     //get books and reviews in review
     app.get('/review', function(req, res) {
       var data = {};
