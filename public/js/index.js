@@ -154,9 +154,7 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       var packet = $scope.review;
       socket.emit('publish', packet);
       socket.on('publish_response', function(res) {
-        $scope.specificBook = res;
         $scope.$apply(function () {
-          $scope.specificBook = res;
           $scope.processing = "css/images/done.png";
         });
       });
