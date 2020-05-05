@@ -181,7 +181,6 @@ async function main() {
     });
     //approves a review to be viewed
     socket.on('approveReview', function(packet) {
-      console.log(packet);
       var query = {isbn: packet.book, "reviewers.text": packet.text };
       var update = {$set: {"reviewers.$.reviewed": true}};
       db.collection("items").updateOne(query, update, function(err, result){
@@ -189,7 +188,9 @@ async function main() {
         console.log("review approved");
         db.collection("items").findOne(query, function(err, res) {
           var len = res.reviewers.length;
-          var r = (res.rating*len + packet.rating)/(len+1);
+          console.log(len);
+          var r = (res.rating*(len-1) + packet.rating)/(len);
+          console.log(r);
           var rating = { $set: {rating: r}}
           db.collection("items").updateOne(query, rating, function(err, res){
               socket.emit("approveReview_response");
@@ -207,7 +208,6 @@ async function main() {
     });
     //deny a review and delete
     socket.on("denyReview", function(packet) {
-      console.log(packet);
       var query = { isbn: packet.book};
       var update = {$pull: {reviewers: {text: packet.text}}};
       db.collection("items").updateOne(query, update, function(err, results) {
