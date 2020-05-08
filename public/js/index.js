@@ -1,8 +1,8 @@
 jQuery.noConflict();
 
-var app = angular.module("myApp", ['base64','ngRateIt']);
+var app = angular.module("myApp", ['ngRateIt']);
 var socket = io();
-app.controller("mainController", ['$scope','$http','$sce','$base64', function($scope, $http, $sce, $base64) {
+app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.view = 0;
   $scope.currid = "home";
   $scope.user = {};
@@ -254,24 +254,5 @@ app.controller("mainController", ['$scope','$http','$sce','$base64', function($s
       }
       console.log($scope.genreBooks);
     });
-  }
-}]);
-
-app.directive("fileread", [function () {
-  return {
-      scope: {
-          fileread: "="
-      },
-      link: function (scope, element, attributes) {
-          element.bind("change", function (changeEvent) {
-              var reader = new FileReader();
-              reader.onload = function (loadEvent) {
-                  scope.$apply(function () {
-                      scope.fileread = loadEvent.target.result;
-                  });
-              }
-              reader.readAsDataURL(changeEvent.target.files[0]);
-          });
-      }
   }
 }]);
