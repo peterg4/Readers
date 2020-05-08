@@ -5,7 +5,6 @@ String.prototype.replaceAt=function(index, replacement) {
 var app = require('express')();
 var http = require('http').Server(app);
 var express = require('express');
-var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var io = require('socket.io')(http);
 var imgur = require('imgur');
@@ -15,7 +14,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 require('dotenv').config();
 const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
 imgur.setClientId(clientId);
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO_URI;
