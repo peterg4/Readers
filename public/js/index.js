@@ -176,6 +176,10 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
       });
     })
   }
+  $scope.genrePrompt = function(query) {
+    console.log("pressed");
+    console.log($scope.book.genre);
+  }
   $scope.saveToLibrary = function(book, saveChoice) {
     if($scope.credentials.username) {
       var packet = {}

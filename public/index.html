@@ -169,7 +169,7 @@
 								<span class="text-muted" ng-show="bookForm.author.$touched && bookForm.author.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" ng-model="book.genre" name="genre" placeholder="Genres (comma separated list)" required>
+								<input class="form-control" type="text" ng-model="book.genre" ng-keyup="genrePrompt()" name="genre" placeholder="Genres (comma separated list)" required>
 								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
