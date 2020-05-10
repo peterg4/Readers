@@ -25,7 +25,7 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.error = false;
 
   $scope.query = "";
-  $scope.genre_prompts = [];
+  $scope.genrePrompts = {};
 
   $scope.genres = [];
   $scope.genreBooks = [];
@@ -190,11 +190,12 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     socket.emit('genre_prompt', $scope.book.genre);
     socket.on('prompt_response', function(res) {
       for(var i = 0; i < res.length; i++) {
-
+        $scope.$apply(function () {
+          $scope.genrePrompts[i] = res[i].genre;
+        })
       }
-      console.log(res);
+      console.log($scope.genrePrompts);
     })
-    //socket emit the regex w/ that and return results from db w/ all existing genres -- no new genres can be gmae
   }
   $scope.saveToLibrary = function(book, saveChoice) {
     if($scope.credentials.username) {
