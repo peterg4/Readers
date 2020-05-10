@@ -5,23 +5,32 @@ var socket = io();
 app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.view = 0;
   $scope.currid = "home";
+
   $scope.user = {};
-  $scope.book = {};
   $scope.credentials = {};
   $scope.logged = false;
+  $scope.taken = 0;
+
+  $scope.book = {};
   $scope.books = [];
+  $scope.specificBook = {};
+
   $scope.reviewsInReview = [];
+
   $scope.reading = [];
   $scope.willRead = [];
   $scope.haveRead = [];
-  $scope.specificBook = {};
+  
   $scope.review = {};
-  $scope.taken = 0;
+  $scope.error = false;
+
   $scope.query = "";
+  $scope.genre_prompts = [];
+
   $scope.genres = [];
   $scope.genreBooks = [];
   $scope.genre = "";
-  $scope.error = false;
+  
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -180,6 +189,9 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     console.log($scope.book.genre);
     socket.emit('genre_prompt', $scope.book.genre);
     socket.on('prompt_response', function(res) {
+      for(var i = 0; i < res.length; i++) {
+
+      }
       console.log(res);
     })
     //socket emit the regex w/ that and return results from db w/ all existing genres -- no new genres can be gmae
