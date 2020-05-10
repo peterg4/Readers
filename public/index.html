@@ -171,7 +171,7 @@
 							<div class="form-group">
 								<input class="form-control" type="text" ng-model="book.genre" ng-keydown="genrePrompt()" name="genre" autocomplete="off" placeholder="Genres (comma separated list)" required>
 								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid">*Required</span>
-								<p>{{genrePrompts}}</p>
+								<p ng-repeat="prompt in genrePrompts">{{prompt}}</p>
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" ng-model="book.isbn" name="isbn" placeholder="ISBN (Use Google Books ISBN for best results)" required>

@@ -186,6 +186,7 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     })
   }
   $scope.genrePrompt = function() {
+    $scope.genrePrompts = {};
     console.log($scope.book.genre);
     socket.emit('genre_prompt', $scope.book.genre);
     socket.on('prompt_response', function(res) {
