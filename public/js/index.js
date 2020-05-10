@@ -187,7 +187,7 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.genrePrompt = function() {
     $scope.genrePrompts = {};
-    console.log($scope.book.genre);
+    //make a json file with the results to query from instead of usin the database beacuse of too many reads
     socket.emit('genre_prompt', $scope.book.genre);
     socket.on('prompt_response', function(res) {
       for(var i = 0; i < res.length; i++) {
@@ -195,7 +195,6 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
           $scope.genrePrompts[i] = res[i].genre;
         })
       }
-      console.log($scope.genrePrompts);
     })
   }
   $scope.saveToLibrary = function(book, saveChoice) {
