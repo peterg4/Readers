@@ -176,9 +176,13 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
       });
     })
   }
-  $scope.genrePrompt = function(query) {
-    console.log("pressed");
+  $scope.genrePrompt = function() {
     console.log($scope.book.genre);
+    socket.emit('genre_prompt', $scope.book.genre);
+    socket.on('prompt_response', function(res) {
+      console.log(res);
+    })
+    //socket emit the regex w/ that and return results from db w/ all existing genres -- no new genres can be gmae
   }
   $scope.saveToLibrary = function(book, saveChoice) {
     if($scope.credentials.username) {

@@ -250,6 +250,17 @@ async function main() {
         socket.emit('search_response', result);
       });
     })
+    //prompt user with existing genre tags when they enter in values
+    socket.on('genre_prompt', function(prompt){
+      var regex = new RegExp("^.*"+prompt+".*$", "i");
+      var search = {$or: [
+        {genre: regex }
+      ]};
+      db.collection("genres").find(search).toArray(function(err, result) {
+      if (err) throw err;
+      socket.emit('prompt_response', result);
+      });
+    })
     //save a book to user
     socket.on('save', function(packet) {
       var user = { username: packet.username }
