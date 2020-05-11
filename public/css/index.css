@@ -54,11 +54,18 @@ p{
 .nav-link{
   color: rgba(0,0,0,.5);
   text-decoration: none;
-  text-transform: uppercase;
   padding: 10px 15px!important;
   letter-spacing: 1px;
-  font-size: 15px;
-  line-height: 50px;
+  font-size: 16px;
+}
+.login{
+  color: rgba(0,0,0,.5);
+  text-decoration: none;
+  text-transform: none;
+  padding: 10px 15px!important;
+  letter-spacing: 1px;
+  font-size: 16px;
+  font-weight: 400;
 }
 a:hover{
   color: black;
@@ -425,5 +432,5 @@ h4{
   display: block;
 }
 #genres{
-  margin-top: 20px;
+  margin-top: 40px;
 }
