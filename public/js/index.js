@@ -17,9 +17,9 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
 
   $scope.reviewsInReview = [];
 
-  $scope.reading = [];
-  $scope.willRead = [];
-  $scope.haveRead = [];
+  $scope.reading = {};
+  $scope.willRead = {};
+  $scope.haveRead = {};
   
   $scope.review = {};
   $scope.error = false;
@@ -225,17 +225,17 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.getLibrary = function() {
     $scope.view = 2;
-    $scope.reading = [];
-    $scope.willRead = [];
-    $scope.haveRead = [];
+    $scope.reading = {};
+    $scope.willRead = {};
+    $scope.haveRead = {};
     $http.get("/library?username="+$scope.credentials.userinfo.username).then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
         if(data.data.data[i].saveChoice === 0)
-          $scope.reading.push(data.data.data[i].book);
+          $scope.reading[i] = data.data.data[i].book;
         else if(data.data.data[i].saveChoice === 1)
-          $scope.willRead.push(data.data.data[i].book)
+          $scope.willRead[i] = data.data.data[i].book;
         else
-          $scope.haveRead.push(data.data.data[i].book)
+          $scope.haveRead[i] = data.data.data[i].book;
       }
     });
   }
