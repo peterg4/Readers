@@ -441,8 +441,13 @@ h4{
 .genre-selected {
   background-color: #0073b1;
   color: white;
+  margin: 2px;
 }
 .genre-selected:hover{
   background-color: #006097;
   color: white;
+  margin: 2px;
+}
+.selected-box{
+  display: inline-block;
 }

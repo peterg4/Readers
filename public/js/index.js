@@ -58,8 +58,14 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
         return;
     }
     $scope.uploadGenres.push(genre);
-    console.log(genre);
     $scope.query = "";
+  }
+  $scope.removeFromGenres = function(genre) {
+    var index = $scope.uploadGenres.indexOf(genre);
+    if (index > -1) {
+      $scope.uploadGenres.splice(index, 1);
+    }
+     console.log("remover",genre);
   }
   $scope.addBook = function() {
     $scope.processing = "css/images/loading.gif";

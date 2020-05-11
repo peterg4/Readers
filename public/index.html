@@ -169,10 +169,10 @@
 								<span class="text-muted" ng-show="bookForm.author.$touched && bookForm.author.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<label ng-if="uploadGenres.length" for="genre"><p class="genre-prompt genre-selected" ng-repeat="genre in uploadGenres">{{genre}}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
+								<label ng-if="uploadGenres.length" for="genre"><div class="selected-box" ng-repeat="genre in uploadGenres"><p class="genre-prompt genre-selected" ng-click="removeFromGenres(genre)">{{genre}}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
 									<path d="M15 3L6.57 13.72A.7.7 0 016 14a.72.72 0 01-.56-.27L1 8.07 2.36 7 6 11.72 13.68 2z"></path>
-								</svg></p></label>
-								<input  id="genre-up" class="form-control" type="text" ng-model="book.genre" ng-keydown="genrePrompt()" name="genre" autocomplete="off" placeholder="Genres (comma separated list)" required>
+								</svg></p></div></label>
+								<input  id="genre-up" class="form-control" type="text" ng-model="book.genre" ng-keydown="genrePrompt()" name="genre" autocomplete="off" placeholder="Genres" required>
 								<div class="genre-prompt-box">
 									<p class="genre-prompt" ng-click="addToGenres(prompt)" ng-repeat="prompt in genrePrompts">{{prompt}}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
 										<path d="M14 9H9v5H7V9H2V7h5V2h2v5h5v2z"></path>
