@@ -53,6 +53,10 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     })
   }
   $scope.addToGenres = function(genre) {
+    for(var i = 0; i < $scope.uploadGenres.length; i++) {
+      if($scope.uploadGenres[i] == genre)
+        return;
+    }
     $scope.uploadGenres.push(genre);
     console.log(genre);
     $scope.query = "";
