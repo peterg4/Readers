@@ -99,14 +99,14 @@
 								<span class="text-muted" ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input class="btn btn-outline-primary" type="submit" value="Register" >
+								<input class="btn btn-primary" type="submit" value="Register" >
 								<span class="text-muted" ng-if="taken">{{taken}}</span>
 							</div>
 						</form>
 
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -141,7 +141,7 @@
 
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -169,7 +169,7 @@
 								<span class="text-muted" ng-show="bookForm.author.$touched && bookForm.author.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" ng-model="book.genre" ng-keydown="genrePrompt()" name="genre" autocomplete="off" placeholder="Genres (comma separated list)" required>
+								<input id="genre-up" class="form-control" type="text" ng-model="book.genre" ng-keydown="genrePrompt()" name="genre" autocomplete="off" placeholder="Genres (comma separated list)" required>
 								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid">*Required</span>
 								<div class="genre-prompt-box">
 									<p class="genre-prompt" ng-repeat="prompt in genrePrompts">{{prompt}}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
@@ -189,7 +189,7 @@
 
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -504,14 +504,14 @@
 							<span class="text-muted" ng-show="editForm.isbn.$touched && editForm.isbn.$invalid">*Required</span>
 						</div>
 						<div class="form-group">
-							<input class="btn btn-outline-primary" type="submit" value="Confirm Edit">
+							<input class="btn btn-primary" type="submit" value="Confirm Edit">
 							<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}></span>
 						</div>
 					</form>
 
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
