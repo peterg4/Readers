@@ -432,6 +432,9 @@ h4{
 #genre-up:focus ~ .genre-prompt-box{
   display: block;
 }
+.genre-prompt-box:focus, .genre-prompt-box:hover{
+  display: block;
+}
 #genres{
   margin-top: 40px;
 }

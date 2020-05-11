@@ -26,6 +26,7 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
 
   $scope.query = "";
   $scope.genrePrompts = {};
+  $scope.uploadGenres = [];
 
   $scope.genres = [];
   $scope.genreBooks = [];
@@ -51,9 +52,15 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
       }
     })
   }
+  $scope.addToGenres = function(genre) {
+    $scope.uploadGenres.push(genre);
+    console.log(genre);
+    $scope.query = "";
+  }
   $scope.addBook = function() {
     $scope.processing = "css/images/loading.gif";
     var packet = $scope.book;
+    packet.genre = $scope.uploadGenres;
     socket.emit('insert', packet);
     socket.on('book_response', function(res) {
       console.log(res, "1");

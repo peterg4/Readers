@@ -92,15 +92,7 @@ async function main() {
             } else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
-                    //This ignores ending comma if the user entered smthn like "Fantasy, "
                       var g = packet.genre;
-                      g.trim();
-                      console.log(g, g[g.length-1]);
-                      if(g[g.length-1] == ',') {
-                        g = g.replaceAt(g.length-1, " ");
-                        console.log(g);
-                      }
-                      g.split(",");
                       db.collection("review").insertOne(
                         {
                           title: packet.title,
