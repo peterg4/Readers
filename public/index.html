@@ -179,7 +179,7 @@
 									</svg></p>
 								</div>
 								
-								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid">*Required</span>
+								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid && uploadGenres.length == 0">*Required</span>
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" ng-model="book.isbn" name="isbn" placeholder="ISBN (Use Google Books ISBN for best results)" required>

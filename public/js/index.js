@@ -59,13 +59,15 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     }
     $scope.uploadGenres.push(genre);
     $scope.query = "";
+    $scope.book.genre="";
+    document.getElementById("genre-up").focus();
   }
   $scope.removeFromGenres = function(genre) {
     var index = $scope.uploadGenres.indexOf(genre);
     if (index > -1) {
       $scope.uploadGenres.splice(index, 1);
     }
-     console.log("remover",genre);
+    document.getElementById("genre-up").focus();
   }
   $scope.addBook = function() {
     $scope.processing = "css/images/loading.gif";
