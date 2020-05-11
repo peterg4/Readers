@@ -207,8 +207,6 @@
 					</form>
 				</div>
 			</div>
-			<h4 ng-if="view==4"> Search Results</h4>
-			<h4 ng-if="view==0"> Recently Added </h4>
 		</div>
 		<div class="row">
 				<div class="col" ng-if="view==0  || view==1 || view==4" ng-repeat="book in books">
@@ -316,7 +314,6 @@
 	<!-- Genres Page  -->
 	<main role="main" ng-if="view==5">
 		<div class="col-sm">
-			<h4>Genres</h4>
 		</div>
 		<div class="row">
 				<div class="col" ng-repeat="genre in genres">
@@ -405,7 +402,6 @@
 					<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}></span>
 				</div>
 			</form>
-			<h4>Reviews</h4>
 			<div class="review-box" ng-repeat="review in specificBook.reviewers" ng-if="review.reviewed">
 				<div ng-if="review.reviewed" class="review-header">
 					<p class="review-username">{{review.username}} <ng-rate-it class="review-rating" ng-model="review.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
@@ -419,7 +415,7 @@
 
 	<!-- Book Review Page -->
 	<main role="main" ng-if="view==1">
-		<h4>Books in Review</h4>
+		<h4 ng-if="books">Books in Review</h4>
 		<div class="container" ng-repeat="book in books">
 			<div class="specific-book-header"> 
 				<img class="cover-img detail" ng-src="{{book.googleData.thumbnail}}">
@@ -443,7 +439,7 @@
 			<button ng-if="view==1" class="btn btn-secondary btn-edit" data-toggle="modal" data-target="#edit">Edit</button>
 			<button ng-if="view==1" class="btn btn-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 		</div>
-		<h4>Reviews in Review</h4>
+		<h4ng-if="books">Reviews in Review</h4>
 		<div class="container" ng-repeat="book in reviewsInReview">
 			<div class="specific-book-header"> 
 				<img class="cover-img detail" ng-src="{{book.googleData.thumbnail}}">
@@ -462,7 +458,6 @@
 					</div>
 				</div>
 			</div>
-			<h4>Reviews</h4>
 			<div class="review-box" ng-repeat="review in book.reviewers" ng-if="!review.reviewed">
 				<div class="review-header">
 					<p class="review-username">{{review.username}} <ng-rate-it class="review-rating" ng-model="review.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
