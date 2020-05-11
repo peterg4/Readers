@@ -99,14 +99,14 @@
 								<span class="text-muted" ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input class="btn btn-outline-primary" type="submit" value="Register" >
+								<input class="btn btn-primary" type="submit" value="Register" >
 								<span class="text-muted" ng-if="taken">{{taken}}</span>
 							</div>
 						</form>
 
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -141,7 +141,7 @@
 
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -169,8 +169,17 @@
 								<span class="text-muted" ng-show="bookForm.author.$touched && bookForm.author.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" ng-model="book.genre" name="genre" placeholder="Genres (comma separated list)" required>
-								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid">*Required</span>
+								<label ng-if="uploadGenres.length" for="genre"><div class="selected-box" ng-repeat="genre in uploadGenres"><p class="genre-prompt genre-selected" ng-click="removeFromGenres(genre)">{{genre}}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
+									<path d="M15 3L6.57 13.72A.7.7 0 016 14a.72.72 0 01-.56-.27L1 8.07 2.36 7 6 11.72 13.68 2z"></path>
+								</svg></p></div></label>
+								<input  id="genre-up" class="form-control" type="text" ng-model="book.genre" ng-keydown="genrePrompt()" name="genre" autocomplete="off" placeholder="Genres" required>
+								<div class="genre-prompt-box">
+									<p class="genre-prompt" ng-click="addToGenres(prompt)" ng-repeat="prompt in genrePrompts">{{prompt}}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
+										<path d="M14 9H9v5H7V9H2V7h5V2h2v5h5v2z"></path>
+									</svg></p>
+								</div>
+								
+								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid && uploadGenres.length == 0">*Required</span>
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="text" ng-model="book.isbn" name="isbn" placeholder="ISBN (Use Google Books ISBN for best results)" required>
@@ -184,7 +193,7 @@
 
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -202,8 +211,6 @@
 					</form>
 				</div>
 			</div>
-			<h4 ng-if="view==4"> Search Results</h4>
-			<h4 ng-if="view==0"> Recently Added </h4>
 		</div>
 		<div class="row">
 				<div class="col" ng-if="view==0  || view==1 || view==4" ng-repeat="book in books">
@@ -309,9 +316,8 @@
 	</main>
 
 	<!-- Genres Page  -->
-	<main role="main" ng-if="view==5">
+	<main id="genres" role="main" ng-if="view==5">
 		<div class="col-sm">
-			<h4>Genres</h4>
 		</div>
 		<div class="row">
 				<div class="col" ng-repeat="genre in genres">
@@ -330,7 +336,7 @@
 		</div>
 	</main>
 
-	<!-- Genres Page  -->
+	<!-- Library Page  -->
 	<main role="main" ng-if="view==6">
 		<div class="col-sm">
 			<h4>{{genre}}</h4>
@@ -400,7 +406,6 @@
 					<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}></span>
 				</div>
 			</form>
-			<h4>Reviews</h4>
 			<div class="review-box" ng-repeat="review in specificBook.reviewers" ng-if="review.reviewed">
 				<div ng-if="review.reviewed" class="review-header">
 					<p class="review-username">{{review.username}} <ng-rate-it class="review-rating" ng-model="review.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
@@ -414,7 +419,7 @@
 
 	<!-- Book Review Page -->
 	<main role="main" ng-if="view==1">
-		<h4>Books in Review</h4>
+		<h4 ng-if="books.length">Books in Review</h4>
 		<div class="container" ng-repeat="book in books">
 			<div class="specific-book-header"> 
 				<img class="cover-img detail" ng-src="{{book.googleData.thumbnail}}">
@@ -438,7 +443,7 @@
 			<button ng-if="view==1" class="btn btn-secondary btn-edit" data-toggle="modal" data-target="#edit">Edit</button>
 			<button ng-if="view==1" class="btn btn-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 		</div>
-		<h4>Reviews in Review</h4>
+		<h4 ng-if="reviewsInReview.length">Reviews in Review</h4>
 		<div class="container" ng-repeat="book in reviewsInReview">
 			<div class="specific-book-header"> 
 				<img class="cover-img detail" ng-src="{{book.googleData.thumbnail}}">
@@ -457,7 +462,6 @@
 					</div>
 				</div>
 			</div>
-			<h4>Reviews</h4>
 			<div class="review-box" ng-repeat="review in book.reviewers" ng-if="!review.reviewed">
 				<div class="review-header">
 					<p class="review-username">{{review.username}} <ng-rate-it class="review-rating" ng-model="review.rating" min="0" max="5" step="0.5" resetable="false" read-only="true"></ng-rate-it></p>
@@ -499,14 +503,14 @@
 							<span class="text-muted" ng-show="editForm.isbn.$touched && editForm.isbn.$invalid">*Required</span>
 						</div>
 						<div class="form-group">
-							<input class="btn btn-outline-primary" type="submit" value="Confirm Edit">
+							<input class="btn btn-primary" type="submit" value="Confirm Edit">
 							<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}></span>
 						</div>
 					</form>
 
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-outline-secondary" type="button" data-dismiss="modal">Close</button>
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>

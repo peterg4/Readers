@@ -92,15 +92,7 @@ async function main() {
             } else {
               books.search(packet.isbn, function(error, results, apiResponse) {
                   if ( ! error ) {
-                    //This ignores ending comma if the user entered smthn like "Fantasy, "
                       var g = packet.genre;
-                      g.trim();
-                      console.log(g, g[g.length-1]);
-                      if(g[g.length-1] == ',') {
-                        g = g.replaceAt(g.length-1, " ");
-                        console.log(g);
-                      }
-                      g.split(",");
                       db.collection("review").insertOne(
                         {
                           title: packet.title,
@@ -248,6 +240,17 @@ async function main() {
       db.collection("items").find(search).toArray(function(err, result) {
         if (err) throw err;
         socket.emit('search_response', result);
+      });
+    })
+    //prompt user with existing genre tags when they enter in values
+    socket.on('genre_prompt', function(prompt){
+      var regex = new RegExp("^.*"+prompt+".*$", "i");
+      var search = {$or: [
+        {genre: regex }
+      ]};
+      db.collection("genres").find(search).toArray(function(err, result) {
+      if (err) throw err;
+      socket.emit('prompt_response', result);
       });
     })
     //save a book to user

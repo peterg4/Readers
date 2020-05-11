@@ -5,23 +5,33 @@ var socket = io();
 app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.view = 0;
   $scope.currid = "home";
+
   $scope.user = {};
-  $scope.book = {};
   $scope.credentials = {};
   $scope.logged = false;
-  $scope.books = [];
-  $scope.reviewsInReview = [];
-  $scope.reading = [];
-  $scope.willRead = [];
-  $scope.haveRead = [];
-  $scope.specificBook = {};
-  $scope.review = {};
   $scope.taken = 0;
+
+  $scope.book = {};
+  $scope.books = [];
+  $scope.specificBook = {};
+
+  $scope.reviewsInReview = [];
+
+  $scope.reading = {};
+  $scope.willRead = {};
+  $scope.haveRead = {};
+  
+  $scope.review = {};
+  $scope.error = false;
+
   $scope.query = "";
+  $scope.genrePrompts = {};
+  $scope.uploadGenres = [];
+
   $scope.genres = [];
   $scope.genreBooks = [];
   $scope.genre = "";
-  $scope.error = false;
+  
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -42,9 +52,27 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
       }
     })
   }
+  $scope.addToGenres = function(genre) {
+    for(var i = 0; i < $scope.uploadGenres.length; i++) {
+      if($scope.uploadGenres[i] == genre)
+        return;
+    }
+    $scope.uploadGenres.push(genre);
+    $scope.query = "";
+    $scope.book.genre="";
+    document.getElementById("genre-up").focus();
+  }
+  $scope.removeFromGenres = function(genre) {
+    var index = $scope.uploadGenres.indexOf(genre);
+    if (index > -1) {
+      $scope.uploadGenres.splice(index, 1);
+    }
+    document.getElementById("genre-up").focus();
+  }
   $scope.addBook = function() {
     $scope.processing = "css/images/loading.gif";
     var packet = $scope.book;
+    packet.genre = $scope.uploadGenres;
     socket.emit('insert', packet);
     socket.on('book_response', function(res) {
       console.log(res, "1");
@@ -176,6 +204,18 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
       });
     })
   }
+  $scope.genrePrompt = function() {
+    $scope.genrePrompts = {};
+    //make a json file with the results to query from instead of usin the database beacuse of too many reads
+    socket.emit('genre_prompt', $scope.book.genre);
+    socket.on('prompt_response', function(res) {
+      for(var i = 0; i < res.length; i++) {
+        $scope.$apply(function () {
+          $scope.genrePrompts[i] = res[i].genre;
+        })
+      }
+    })
+  }
   $scope.saveToLibrary = function(book, saveChoice) {
     if($scope.credentials.username) {
       var packet = {}
@@ -204,17 +244,17 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.getLibrary = function() {
     $scope.view = 2;
-    $scope.reading = [];
-    $scope.willRead = [];
-    $scope.haveRead = [];
+    $scope.reading = {};
+    $scope.willRead = {};
+    $scope.haveRead = {};
     $http.get("/library?username="+$scope.credentials.userinfo.username).then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
         if(data.data.data[i].saveChoice === 0)
-          $scope.reading.push(data.data.data[i].book);
+          $scope.reading[i] = data.data.data[i].book;
         else if(data.data.data[i].saveChoice === 1)
-          $scope.willRead.push(data.data.data[i].book)
+          $scope.willRead[i] = data.data.data[i].book;
         else
-          $scope.haveRead.push(data.data.data[i].book)
+          $scope.haveRead[i] = data.data.data[i].book;
       }
     });
   }
