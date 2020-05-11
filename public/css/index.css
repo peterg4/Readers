@@ -438,3 +438,11 @@ h4{
 #genres{
   margin-top: 40px;
 }
+.genre-selected {
+  background-color: #0073b1;
+  color: white;
+}
+.genre-selected:hover{
+  background-color: #006097;
+  color: white;
+}
