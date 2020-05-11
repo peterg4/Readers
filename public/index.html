@@ -439,7 +439,7 @@
 			<button ng-if="view==1" class="btn btn-secondary btn-edit" data-toggle="modal" data-target="#edit">Edit</button>
 			<button ng-if="view==1" class="btn btn-danger btn-deny" ng-click="deny(book);quickRemove($index, 'Deleted')">Delete</button>
 		</div>
-		<h4ng-if="books">Reviews in Review</h4>
+		<h4 ng-if="reviewsInReview">Reviews in Review</h4>
 		<div class="container" ng-repeat="book in reviewsInReview">
 			<div class="specific-book-header"> 
 				<img class="cover-img detail" ng-src="{{book.googleData.thumbnail}}">
