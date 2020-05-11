@@ -429,7 +429,7 @@ h4{
   vertical-align: -3px;
   margin-left: 4px;
 }
-.genre-prompt-box, #genre-up:focus:active{
+#genre-up:focus ~ .genre-prompt-box{
   display: block;
 }
 #genres{
