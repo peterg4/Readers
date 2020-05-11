@@ -407,6 +407,7 @@ h4{
   border-radius: 12px;
 }
 .genre-prompt {
+  cursor: pointer;
   display: none;
   background-color: rgba(199,209,216,.45);
   color: rgba(0,0,0,.6);
@@ -428,7 +429,7 @@ h4{
   vertical-align: -3px;
   margin-left: 4px;
 }
-.genre-prompt-box #genre-up:focus:active{
+.genre-prompt-box, #genre-up:focus:active{
   display: block;
 }
 #genres{
