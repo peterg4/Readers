@@ -308,6 +308,7 @@ h4{
   flex-wrap: wrap;
   margin-right: auto;
   margin-left: auto;
+  justify-content: center;
 }
 
 .col{
