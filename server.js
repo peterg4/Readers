@@ -30,7 +30,7 @@ async function main() {
   }); 
   
   io.on('connection', function(socket) {
-
+    console.log('cn');
     /*  --User Signup Functions --------------------------*/
 
     //Register a user
