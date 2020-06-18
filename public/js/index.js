@@ -36,7 +36,6 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.genre = "";
   
   window.onpopstate = function(event) {
-    console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
     let urlArray;
     switch(event.state.page_id) {
       case 0: $scope.view = 0; $scope.getBooks(); $scope.changeActive("home"); break;
@@ -330,12 +329,9 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     $scope.genre = genre.genre;
     $scope.genreBooks = [];
     $http.get("/genres/genre?genre="+genre.genre).then(function(data) {
-      console.log(data);
-      console.log(data.data.data.length);
       for(var i = 0; i < data.data.data.length; i++) {
         $scope.genreBooks.push(data.data.data[i]);
       }
-      console.log($scope.genreBooks);
     });
   }
 }]);
