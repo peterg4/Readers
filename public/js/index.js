@@ -1,6 +1,4 @@
 jQuery.noConflict();
-
-
 var state = { 'page_id': 0};
 var title = '';
 var url = 'home';
@@ -41,6 +39,13 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
     switch(event.state.page_id) {
       case 0: $scope.view = 0; $scope.getBooks(); $scope.changeActive("home"); break;
+      case 3: 
+        $scope.view = 3; 
+        var st = String(document.location).split("/");
+        var isbn = st[st.length-1];
+        console.log(st, isbn);
+        $scope.getBookDetails({isbn: isbn});
+        break;
       case 5: $scope.view = 5; $scope.getGenres(); $scope.changeActive("browse"); break;
     }
     $scope.view = event.state.page_id;
@@ -186,6 +191,9 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.getBookDetails = function(book) {
     $scope.view=3;
+    state = { 'page_id': 3};
+    url = book.isbn;
+    history.pushState(state, title, url);
     $scope.processing = 0;
     $http.get("/book/details?isbn="+book.isbn).then(function(data) {
       $scope.specificBook = data.data.data[0];
@@ -293,7 +301,6 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.getGenres = function() {
     state = { 'page_id': 5};
-    title = '';
     url = 'browse';
     history.pushState(state, title, url);
     $scope.view = 5;
