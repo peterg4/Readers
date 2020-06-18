@@ -37,21 +37,32 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   
   window.onpopstate = function(event) {
     console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+    let urlArray;
     switch(event.state.page_id) {
       case 0: $scope.view = 0; $scope.getBooks(); $scope.changeActive("home"); break;
       case 3: 
         $scope.view = 3; 
-        var st = String(document.location).split("/");
-        var isbn = st[st.length-1];
-        console.log(st, isbn);
+        urlArray = String(document.location).split("/");
+        let isbn = urlArray[urlArray.length-1];
         $scope.getBookDetails({isbn: isbn});
         break;
       case 5: $scope.view = 5; $scope.getGenres(); $scope.changeActive("browse"); break;
+      case 6:
+        $scope.view = 6; 
+        urlArray = String(document.location).split("/");
+        let genre = unescape(urlArray[urlArray.length-1]);
+        $scope.getGenre({genre: genre});
+        break;
     }
     $scope.view = event.state.page_id;
   };
 
   $scope.changeActive = function(id) {
+    if(id === 'home') {
+      state = { 'page_id': 0};
+      url = 'home';
+      history.pushState(state, title, url);
+    }
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
     $scope.currid = id;
@@ -313,6 +324,9 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.getGenre = function(genre) {
     $scope.view = 6;
+    state = { 'page_id': 6};
+    url = genre.genre;
+    history.pushState(state, title, url);
     $scope.genre = genre.genre;
     $scope.genreBooks = [];
     $http.get("/genres/genre?genre="+genre.genre).then(function(data) {
