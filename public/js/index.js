@@ -1,9 +1,14 @@
 jQuery.noConflict();
 
+
+var state = { 'page_id': 0};
+var title = '';
+var url = 'home';
+history.pushState(state, title, url);
 var app = angular.module("myApp", ['ngRateIt']);
 var socket = io();
 app.controller("mainController", ['$scope','$http', function($scope, $http) {
-  $scope.view = 0;
+  $scope.view = history.state.page_id;
   $scope.currid = "home";
 
   $scope.user = {};
@@ -32,6 +37,15 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.genreBooks = [];
   $scope.genre = "";
   
+  window.onpopstate = function(event) {
+    console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+    switch(event.state.page_id) {
+      case 0: $scope.view = 0; $scope.getBooks(); $scope.changeActive("home"); break;
+      case 5: $scope.view = 5; $scope.getGenres(); $scope.changeActive("browse"); break;
+    }
+    $scope.view = event.state.page_id;
+  };
+
   $scope.changeActive = function(id) {
     document.getElementById($scope.currid).className = 'nav-link'; 
     document.getElementById(id).className = 'nav-link active';
@@ -109,6 +123,10 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     $scope.logged = false;
   }
   $scope.getInReview = function() {
+    state = { 'page_id': 1};
+    title = '';
+    url = 'review';
+    history.pushState(state, title, url);
     $scope.processing = 0;
     $scope.view = 1;
     $scope.books = [];
@@ -274,6 +292,10 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     });
   }
   $scope.getGenres = function() {
+    state = { 'page_id': 5};
+    title = '';
+    url = 'browse';
+    history.pushState(state, title, url);
     $scope.view = 5;
     $scope.genres = [];
     $http.get("/genres").then(function(data) {

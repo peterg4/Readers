@@ -33,19 +33,19 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home');getBooks()" href="#">Home</a>
+						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home');getBooks()">Home</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="books" ng-if="credentials.userinfo.firstName" ng-click="view=2;changeActive('books');getLibrary()" href="#">My Library</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="browse" ng-click="view=5;changeActive('browse');getGenres()" href="#">Browse</a>
+						<a class="nav-link" id="browse" ng-click="view=5;changeActive('browse');getGenres()" >Browse</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="review" ng-if="credentials.userinfo.admin" ng-click="view=1;changeActive('review');getInReview()" href="#">Review</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="uploader" data-toggle="modal" data-target="#upload" href="#">Upload</a>
+						<a class="nav-link" id="uploader" data-toggle="modal" data-target="#upload">Upload</a>
 					</li>
 				</ul>
 				<span class="pr-2" ng-if="userInfo">Welcome {{credentials.userinfo.firstName}} </span>
