@@ -39,6 +39,8 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     let urlArray;
     switch(event.state.page_id) {
       case 0: $scope.view = 0; $scope.getBooks(); $scope.changeActive("home"); break;
+      case 1: $scope.view = 1; $scope.getInReview(); $scope.changeActive("review"); break;
+      case 2: $scope.view = 2; $scope.getLibrary(); $scope.changeActive("books"); break;
       case 3: 
         $scope.view = 3; 
         urlArray = String(document.location).split("/");
@@ -140,7 +142,7 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.getInReview = function() {
     state = { 'page_id': 1};
     title = '';
-    url = 'review';
+    url = 'admin';
     history.pushState(state, title, url);
     $scope.processing = 0;
     $scope.view = 1;
@@ -280,6 +282,9 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.getLibrary = function() {
     $scope.view = 2;
+    state = { 'page_id': 2};
+    url = 'Mylibrary';
+    history.pushState(state, title, url);
     $scope.reading = {};
     $scope.willRead = {};
     $scope.haveRead = {};

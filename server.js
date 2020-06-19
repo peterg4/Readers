@@ -354,6 +354,9 @@ async function main() {
   app.get('/admin', function(req, res) {
     res.sendFile(path.join(__dirname, 'public') + '/index.html');
   });
+  app.get('/Mylibrary', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+  });
 
   http.listen(PORT, function(){
     console.log('\nServer up on *:3000');
