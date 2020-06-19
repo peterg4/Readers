@@ -158,7 +158,7 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.getBooks = function() {
     $scope.view = 0;
-    $scope.books = [];
+    $scope.books = [];                          ///cahnge to object storag instead of arrays; push is bad
     $http.get("/books").then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
         $scope.books.push(data.data.data[i]);
