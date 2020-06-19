@@ -127,12 +127,12 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
       $scope.$apply(function () {
         $scope.logged = true;
         $scope.credentials.userinfo = res;
-        if($scope.credentials.userinfo.firstName) {
-          jQuery('#login').modal('hide');
-          $scope.changeActive('books');
-          $scope.getLibrary();
-        }
-      })
+      });
+      if($scope.credentials.userinfo.firstName) {
+        jQuery('#login').modal('hide');
+        $scope.changeActive('books');
+        $scope.getLibrary();
+      }
     })
   }
   $scope.logout = function() {
@@ -149,7 +149,6 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     $scope.books = {};
     $scope.reviewsInReview = {};
     $http.get("/review").then(function(data) {
-      console.log(data);
       for(var i = 0; i < data.data.data.books.length; i++) {
         $scope.books[i] = (data.data.data.books[i]);
       }
