@@ -15,10 +15,10 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.taken = 0;
 
   $scope.book = {};
-  $scope.books = [];
+  $scope.books = {};
   $scope.specificBook = {};
 
-  $scope.reviewsInReview = [];
+  $scope.reviewsInReview = {};
 
   $scope.reading = {};
   $scope.willRead = {};
@@ -31,8 +31,8 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.genrePrompts = {};
   $scope.uploadGenres = [];
 
-  $scope.genres = [];
-  $scope.genreBooks = [];
+  $scope.genres = {};
+  $scope.genreBooks = {};
   $scope.genre = "";
   
   window.onpopstate = function(event) {
@@ -144,15 +144,15 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     history.pushState(state, title, url);
     $scope.processing = 0;
     $scope.view = 1;
-    $scope.books = [];
-    $scope.reviewsInReview = [];
+    $scope.books = {};
+    $scope.reviewsInReview = {};
     $http.get("/review").then(function(data) {
       console.log(data);
       for(var i = 0; i < data.data.data.books.length; i++) {
-        $scope.books.push(data.data.data.books[i]);
+        $scope.books[i] = (data.data.data.books[i]);
       }
       for(var i = 0; i < data.data.data.reviews.length; i++) {
-        $scope.reviewsInReview.push(data.data.data.reviews[i]);
+        $scope.reviewsInReview[i] = (data.data.data.reviews[i]);
       }
     });
   }
@@ -314,10 +314,10 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     url = 'browse';
     history.pushState(state, title, url);
     $scope.view = 5;
-    $scope.genres = [];
+    $scope.genres = {};
     $http.get("/genres").then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
-        $scope.genres.push(data.data.data[i]);
+        $scope.genres[i] = (data.data.data[i]);
       }
     });
   }
@@ -327,10 +327,10 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     url = genre.genre;
     history.pushState(state, title, url);
     $scope.genre = genre.genre;
-    $scope.genreBooks = [];
+    $scope.genreBooks = {};
     $http.get("/genres/genre?genre="+genre.genre).then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
-        $scope.genreBooks.push(data.data.data[i]);
+        $scope.genreBooks[i] = (data.data.data[i]);
       }
     });
   }
