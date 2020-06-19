@@ -452,3 +452,15 @@ h4{
 .selected-box{
   display: inline-block;
 }
+.library-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 160px;
+  overflow: auto;
+  width: 90%;
+  margin: 0 auto;
+}
+.library-heading{
+  text-align: left;
+  margin-left: 5.65%;
+}

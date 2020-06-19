@@ -245,10 +245,8 @@
 
 	<!-- My Library -->
 	<main role="main" ng-if="view==2">
-		<div class="row">
-
-			<div class="col-sm">
-				<h4>Currently Reading</h4>
+			<h4 class="library-heading">Currently Reading</h4>
+			<div class="library-grid">		
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
 				<div ng-repeat="book in reading">
 					<div class="card">
@@ -269,8 +267,8 @@
 				</div>
 			</div>
 
-			<div class="col-sm">
-				<h4>Have Read</h4>
+			<h4 class="library-heading">Have Read</h4>
+			<div class="library-grid">
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
 				<div ng-repeat="book in haveRead">
 					<div class="card">
@@ -291,8 +289,8 @@
 				</div>
 			</div>
 
-			<div class="col-sm">
-				<h4>Want to Read</h4>
+			<h4 class="library-heading">Want to Read</h4>
+			<div class="library-grid">
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
 				<div ng-repeat="book in willRead">
 					<div class="card">
@@ -313,7 +311,6 @@
 				</div>
 			</div>
 
-		</div>
 	</main>
 
 	<!-- Genres Page  -->
