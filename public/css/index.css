@@ -57,6 +57,7 @@ p{
   padding: 10px 15px!important;
   letter-spacing: 1px;
   font-size: 16px;
+  cursor: pointer;
 }
 .login{
   color: rgba(0,0,0,.5);
