@@ -539,3 +539,14 @@ h4{
   text-align: left;
   margin-left: 5.65%;
 }
+
+@media screen and (max-width: 1000px) {
+    .title{
+      left:50%;
+      top: calc(50% - 85px);
+      font-size: 56px
+    }
+    .form-search {
+      width: 100%!important;
+    }
+}
