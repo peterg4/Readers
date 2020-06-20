@@ -240,6 +240,10 @@ h4{
   background-repeat: no-repeat;
   background-size: cover;
 }
+.img-browse{
+  height: calc(60vh + 76px);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/browse.jpg");
+}
 .homepage-img{
   object-fit: cover;
   max-width:100%;

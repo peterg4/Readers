@@ -56,8 +56,8 @@
 					</a>
 					<p class="nav-name" ng-if="credentials.userinfo.firstName">
 						Welcome {{credentials.userinfo.firstName}}
-					</p>| 
-					<button class="btn btn-link login" ng-if="!logged" data-toggle="modal" data-target="#login">
+					</p><span class="nav-link">|</span>
+					<button class="btn btn-link nav-link login" ng-if="!logged" data-toggle="modal" data-target="#login">
 						Log in
 					</button>
 					<button class="btn nav-link login" ng-if="logged" ng-click="logout()">
@@ -66,11 +66,11 @@
       </div>
 			</div>
 		</nav>
-		<div ng-if="view==0 || view==4 || view==5" class="homepage-img-wrapper">
-			<div ng-if="view==0 || view==4" class="title-box"></div>
-			<h1 ng-if="view==0 || view==4" class="title">Rea<span id="title-d">d</span>sy</h1>
-			<h1 ng-if="view==5" class="title">Gen<span id="title-d">r</span>es</h1>
-			<div ng-if="view==0 || view==4 || view==5" class="card header">
+
+		<div ng-if="view==0 || view==4" class="homepage-img-wrapper">
+			<div class="title-box"></div>
+			<h1 class="title">Rea<span id="title-d">d</span>sy</h1>
+			<div class="card header">
 				<div class="card-body">
 					<form ng-submit="search(query)" class="form-group form-inline form-search">
 						<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">
@@ -79,6 +79,11 @@
 				</div>
 			</div>
 		</div>
+
+		<div ng-if="view==5" class="homepage-img-wrapper img-browse">
+			<h1 class="title">Gen<span id="title-d">r</span>es</h1>
+		</div>
+
 		<!--Register Modal-->
 		<div class="modal fade" id="register" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">

@@ -91,8 +91,8 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
       url = 'home';
       history.pushState(state, title, url);
     }
-    document.getElementById($scope.currid).className = 'nav-link'; 
-    document.getElementById(id).className = 'nav-link active';
+    document.getElementById($scope.currid).className = 'nav-link nav-link-light'; 
+    document.getElementById(id).className = 'nav-link nav-link-light active';
     $scope.currid = id;
   }
   $scope.register = function() {
