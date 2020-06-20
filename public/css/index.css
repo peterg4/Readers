@@ -221,14 +221,27 @@ h4{
   left: calc(25% + -31px);
   transform: translate(-50%, -50%);
   color: transparent;
-  width: 360px;
+  width: 352px;
   height: 144px;
   font-size: 130px;
   display: block;
   border: 8px white solid;
 }
+.small-title{
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  width: fit-content;
+  display: block;
+  margin: auto;
+  margin-top: 7%;
+  text-align: center;
+  font-size: 65px;
+  letter-spacing: 3px;
+}
 #title-d {
+  font-family: 'Roboto', sans-serif;
   color: #58CCED;
+  padding-left: 1px;
 }
 .homepage-img-wrapper{
   position: relative;
@@ -244,12 +257,25 @@ h4{
   height: calc(60vh + 76px);
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/browse.jpg");
 }
+.img-genre{
+  height: calc(30vh + 76px);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/genre.jpg");
+}
+.img-book{
+  height: calc(30vh + 76px);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/book.jpg");
+}
+.img-library{
+  height: calc(30vh + 76px);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/library.jpg");
+}
 .homepage-img{
   object-fit: cover;
   max-width:100%;
   height:auto;
 }
 .book-data{
+  margin-top: 3px;
   text-align: center;
 }
 .review-link:hover{

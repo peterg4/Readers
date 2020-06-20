@@ -14,8 +14,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:800&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&family=Roboto:wght@300&display=swap" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 	<link rel="stylesheet" href="css/ng-rateit.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -82,6 +82,18 @@
 
 		<div ng-if="view==5" class="homepage-img-wrapper img-browse">
 			<h1 class="title">Gen<span id="title-d">r</span>es</h1>
+		</div>
+
+		<div ng-if="view==6" class="homepage-img-wrapper img-genre">
+			<h1 class="small-title">{{genre}}</h1>
+		</div>
+
+		<div ng-if="view==2" class="homepage-img-wrapper img-library">
+			<h1 class="small-title">Welcome, {{credentials.userinfo.firstName}}</h1>
+		</div>
+
+		<div ng-if="view==3" class="homepage-img-wrapper img-book">
+			<h1 class="small-title">{{specificBook.title}}</h1>
 		</div>
 
 		<!--Register Modal-->
