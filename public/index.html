@@ -15,7 +15,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:800&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 	<link rel="stylesheet" href="css/ng-rateit.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -25,7 +25,7 @@
 </head>
 <body ng-controller="mainController" class="bg-light" ng-init="getBooks()">
 	<!-- Navigation bar -->
-		<nav class="navbar sticky-top navbar-expand-lg navbar-light">
+		<nav id="navigator" class="navbar fixed-top navbar-expand-lg navbar-light nav-transparent">
 			<p class="navbar-brand" ng-click="view=0;changeActive('home');getBooks()"><img class="brand" src="css/images/favicon.png"></p>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -34,24 +34,24 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home');getBooks()">Home</a>
+						<a class="nav-link nav-link-light active" id="home" ng-click="view=0;changeActive('home');getBooks()">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="books" ng-if="credentials.userinfo.firstName" ng-click="view=2;changeActive('books');getLibrary()">My Library</a>
+						<a class="nav-link nav-link-light" id="books" ng-if="credentials.userinfo.firstName" ng-click="view=2;changeActive('books');getLibrary()">My Library</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="browse" ng-click="view=5;changeActive('browse');getGenres()" >Browse</a>
+						<a class="nav-link nav-link-light" id="browse" ng-click="view=5;changeActive('browse');getGenres()" >Browse</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="review" ng-if="credentials.userinfo.admin" ng-click="view=1;changeActive('review');getInReview()">Review</a>
+						<a class="nav-link nav-link-light" id="review" ng-if="credentials.userinfo.admin" ng-click="view=1;changeActive('review');getInReview()">Review</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="uploader" data-toggle="modal" data-target="#upload">Upload</a>
+						<a class="nav-link nav-link-light" id="uploader" data-toggle="modal" data-target="#upload">Upload</a>
 					</li>
 				</ul>
 				<span class="pr-2" ng-if="userInfo">Welcome {{credentials.userinfo.firstName}} </span>
 				<div class="form-inline my-2 my-lg-0 right text">
-          <a ng-if="!credentials.userinfo.firstName" href="#" data-toggle="modal" data-target="#register" class="nav-link">
+          <a ng-if="!credentials.userinfo.firstName" href="#" data-toggle="modal" data-target="#register" class="nav-link nav-link-light">
 						Sign Up
 					</a>
 					<p class="nav-name" ng-if="credentials.userinfo.firstName">
@@ -66,9 +66,11 @@
       </div>
 			</div>
 		</nav>
-		<div ng-if="view==0 || view==4" class="homepage-img-wrapper">
-			<h1 class="title">Readsy</h1>
-			<div ng-if="view==0 || view==4" class="card header">
+		<div ng-if="view==0 || view==4 || view==5" class="homepage-img-wrapper">
+			<div ng-if="view==0 || view==4" class="title-box"></div>
+			<h1 ng-if="view==0 || view==4" class="title">Rea<span id="title-d">d</span>sy</h1>
+			<h1 ng-if="view==5" class="title">Gen<span id="title-d">r</span>es</h1>
+			<div ng-if="view==0 || view==4 || view==5" class="card header">
 				<div class="card-body">
 					<form ng-submit="search(query)" class="form-group form-inline form-search">
 						<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">

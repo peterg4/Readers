@@ -6,16 +6,20 @@ body {
   color: #111111;
   background-color: #f8f9fa;
 }
-nav{
-  box-shadow: 0 2px 4px rgba(0,0,0,.08);
+.nav-transparent{
+  transition: background-color .5s;
+  background-color: transparent;
+}
+.nav-solid{
+  transition: background-color .5s;
   background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,.08);
+}
+.right{
+  color:white;
 }
 .bg-dark{
   background-color: #141414!important;
-}
-.active{
-  font-weight: bold;
-  color: #0033a0 !important;
 }
 p{
   margin: 0;
@@ -77,16 +81,17 @@ p{
 .btn-link:focus{
   text-decoration: none;
 }
-.nav-link{
-  color:  #777777;
+.nav-link{ 
   text-decoration: none;
   padding: 10px 15px!important;
   letter-spacing: 1px;
   font-size: 16px;
   cursor: pointer;
 }
+.nav-link-light {color: white!important; }
+.nav-link-dark  {color: #777777!important; }
 .login{
-  color: #777777;
+  color: white;
   text-decoration: none;
   text-transform: none;
   padding: 10px 15px!important;
@@ -104,12 +109,12 @@ h5{
   font-weight: 400;
 }
 .navbar-nav .nav-link {
-   color:  #777777;
+   color:  white;
    padding-right: 10px;
    padding-left: 10px;
 }
 a:hover{
-  color:  #d0d0d0;
+  color:  #d0d0d0!important;
 }
 .navbar-nav .nav-link:hover { 
   color:  #d0d0d0;
@@ -183,7 +188,7 @@ h4{
 .header{
   width: 50%;
   position: absolute;
-  top: 50%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -200,25 +205,35 @@ h4{
   backface-visibility: hidden;
 }
 .title{
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   color: white;
-  font-weight: 800;
   width: fit-content;
   position: absolute;
-  top: calc(50% - 128px);
+  top: calc(65% - 128px);
   left: calc(25% + 61px);
   transform: translate(-50%, -50%);
   font-size: 130px;
+  letter-spacing: 3px;
 }
-.title::before{
-  border: 1px white solid;
-  width: 100px;
-  height: 100px;
+.title-box{
+  position: absolute;
+  top: calc(65% - 128px);
+  left: calc(25% + -31px);
+  transform: translate(-50%, -50%);
+  color: transparent;
+  width: 360px;
+  height: 144px;
+  font-size: 130px;
+  display: block;
+  border: 8px white solid;
+}
+#title-d {
+  color: #58CCED;
 }
 .homepage-img-wrapper{
   position: relative;
   width: calc(100vw - (100vw - 100%));
-  height: calc(50vh + 76px);
+  height: calc(60vh + 76px);
   overflow: hidden;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/home.jpg");
   background-position: center;
@@ -359,7 +374,7 @@ input[type=radio] {
   text-decoration: underline;
 }
 .card-title:hover{
-  color: #0033a0 !important;
+  color: #58CCED !important;
   text-decoration: underline;
 }
 .btn-save{
@@ -539,14 +554,21 @@ h4{
   text-align: left;
   margin-left: 5.65%;
 }
-
+.active{
+  font-weight: bold;
+  color: #58CCED !important;
+  border: 2px solid #58CCED!important;
+}
 @media screen and (max-width: 1000px) {
     .title{
       left:50%;
-      top: calc(50% - 85px);
+      top: calc(60% - 85px);
       font-size: 56px
     }
     .form-search {
       width: 100%!important;
+    }
+    .title-box{
+      display: none;
     }
 }

@@ -1,4 +1,28 @@
 jQuery.noConflict();
+
+var nav = document.getElementById('navigator');
+var navLinks = document.getElementsByClassName('nav-link');
+var i =0;
+window.onscroll = function () { 
+    "use strict";
+    if (document.body.scrollTop >= 20 || document.documentElement.scrollTop >= 20 ) {
+      nav.classList.add("nav-solid");
+      nav.classList.remove("nav-transparent");
+      for(i = 0; i < navLinks.length; i++) {
+        navLinks[i].classList.add("nav-link-dark");
+        navLinks[i].classList.remove("nav-link-light");
+      }
+    } 
+    else {
+      nav.classList.add("nav-transparent");
+      nav.classList.remove("nav-solid");
+      for(i = 0; i < navLinks.length; i++) {
+        navLinks[i].classList.remove("nav-link-dark");
+        navLinks[i].classList.add("nav-link-light");
+      }
+    }
+};
+
 var state = { 'page_id': 0};
 var title = '';
 var url = 'home';
