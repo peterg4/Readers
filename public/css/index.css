@@ -200,6 +200,7 @@ h4{
   backface-visibility: hidden;
 }
 .title{
+  font-family: 'Playfair Display', serif;
   color: white;
   font-weight: 800;
   width: fit-content;
@@ -209,12 +210,17 @@ h4{
   transform: translate(-50%, -50%);
   font-size: 130px;
 }
+.title::before{
+  border: 1px white solid;
+  width: 100px;
+  height: 100px;
+}
 .homepage-img-wrapper{
   position: relative;
-  width: 100vw;
+  width: calc(100vw - (100vw - 100%));
   height: calc(50vh + 76px);
   overflow: hidden;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("images/home.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/home.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
