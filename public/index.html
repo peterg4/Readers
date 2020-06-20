@@ -139,22 +139,21 @@
 
 						<form name="loginForm" ng-submit="login()">
 							<div class="form-group">
+								<label for="firstName">Username</label>
 								<input class="form-control" type="text" ng-model="credentials.username" name="username" placeholder="Username" required>
 								<span class="text-muted" ng-show="loginForm.username.$touched && loginForm.username.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
+								<label for="password">Password</label>
 								<input class="form-control" type="password" ng-model="credentials.password" name="password" placeholder="Password" required>
 								<span class="text-muted" ng-show="loginForm.password.$touched && loginForm.password.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="Login">
+							<div class="form-group submit-group">
+								<input class="btn btn-primary form-submit" type="submit" value="Login">
 								<span class="text-muted" ng-if="!credentials.userinfo.firstName && logged">Invalid Credentials</span>
 							</div>
 						</form>
 
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -174,14 +173,17 @@
 
 						<form name="bookForm" ng-submit="addBook()">
 							<div class="form-group">
+								<label for="title">Title</label>
 								<input class="form-control" type="text" ng-model="book.title" name="title" placeholder="Title" required>
 								<span class="text-muted" ng-show="bookForm.title.$touched && bookForm.title.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
+								<label for="author">Author</label>
 								<input class="form-control" type="text" ng-model="book.author" name="author" placeholder="Author" required>
 								<span class="text-muted" ng-show="bookForm.author.$touched && bookForm.author.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
+								<label for="genre">Genres</label>
 								<label ng-if="uploadGenres.length" for="genre"><div class="selected-box" ng-repeat="genre in uploadGenres"><p class="genre-prompt genre-selected" ng-click="removeFromGenres(genre)">{{genre}}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
 									<path d="M15 3L6.57 13.72A.7.7 0 016 14a.72.72 0 01-.56-.27L1 8.07 2.36 7 6 11.72 13.68 2z"></path>
 								</svg></p></div></label>
@@ -195,18 +197,16 @@
 								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid && uploadGenres.length == 0">*Required</span>
 							</div>
 							<div class="form-group">
+								<label for="isbn">ISBN</label>
 								<input class="form-control" type="text" ng-model="book.isbn" name="isbn" placeholder="ISBN (Use Google Books ISBN for best results)" required>
 								<span class="text-muted" ng-show="bookForm.isbn.$touched && bookForm.isbn.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="Upload">
+							<div class="form-group submit-group">
+								<input class="btn btn-primary form-submit" type="submit" value="Upload">
 								<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}><span ng-if="error"> {{error}}</span></span>
 							</div>
 						</form>
 
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
