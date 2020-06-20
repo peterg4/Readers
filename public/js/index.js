@@ -8,6 +8,7 @@ var socket = io();
 app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.view = history.state.page_id;
   $scope.currid = "home";
+  $scope.formPage = 0;
 
   $scope.user = {};
   $scope.credentials = {};
@@ -57,7 +58,9 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     }
     $scope.view = event.state.page_id;
   };
-
+  $scope.next = () => $scope.formPage += 1;
+  $scope.back = () => $scope.formPage -= 1;
+  $scope.formSelect = i => $scope.formPage = i;
   $scope.changeActive = function(id) {
     if(id === 'home') {
       state = { 'page_id': 0};

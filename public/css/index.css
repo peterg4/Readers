@@ -44,6 +44,17 @@ p{
 .form-group{
   padding: 0px 10px;
 }
+.form-circles{
+  width: fit-content;
+  margin: 12px auto 0px auto;
+}
+.fa-circle-o{
+  color: rgba(0,0,0,.5);
+  cursor: pointer;
+}
+.fa-circle{
+  color: rgba(0,0,0,.7);
+}
 .submit-group{
   display: flex;
 }

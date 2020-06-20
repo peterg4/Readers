@@ -9,9 +9,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:800&display=swap" rel="stylesheet">
@@ -76,36 +75,46 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					<div class="form-page-indicator">
+						<div class="form-circles">
+							<i class="fa fa-circle-o" ng-if="formPage != 0" ng-click="formSelect(0)" aria-hidden="true"></i>
+							<i class="fa fa-circle" ng-if="formPage == 0" aria-hidden="true"></i>
+							<i class="fa fa-circle-o" ng-if="formPage != 1" ng-click="formSelect(1)" aria-hidden="true"></i>
+							<i class="fa fa-circle" ng-if="formPage == 1" aria-hidden="true"></i>
+						</div>
+					</div>
 					<div class="modal-body">
 
 						<form name="registerForm" ng-submit="register()">
-							<div class="form-group">
+							<div ng-if = "formPage == 0" class="form-group">
 								<label for="firstName">First Name</label>
 								<input class="form-control" type="text" ng-model="user.firstName" name="firstName" placeholder="First name" required>
 								<span class="text-muted" ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
+							<div ng-if = "formPage == 0" class="form-group">
 								<label for="lastName">Last Name</label>
 								<input class="form-control" type="text" ng-model="user.lastName" name="lastName" placeholder="Last name" required>
 								<span class="text-muted" ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
+							<div ng-if = "formPage == 0" class="form-group">
 								<label for="email">Email</label>
 								<input class="form-control" type="email" ng-model="user.email" name="email" placeholder="Email" required>
 								<span class="text-muted" ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
 							</div>
-							<div class="form-group"></div>
-							<div class="form-group">
+							<div ng-if = "formPage == 1" class="form-group">
 								<label for="username">Username</label>
 								<input class="form-control" type="text" ng-model="user.username" name= "username" placeholder="Username" required>
 								<span class="text-muted" ng-show="registerForm.username.$touched && registerForm.username.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
+							<div ng-if = "formPage == 1" class="form-group">
 								<label for="password">Password</label>
 								<input class="form-control" type="password" ng-model="user.password" name="password" placeholder="Password" required>
 								<span class="text-muted" ng-show="registerForm.password.$touched && registerForm.password.$invalid">*Required</span>
 							</div>
-							<div class="form-group submit-group">
+							<div ng-if="formPage == 0" class="form-group submit-group" ng-click="next()">
+								<input class="btn btn-primary form-submit" type="button" value="Next" >
+							</div>
+							<div ng-if = "formPage == 1" class="form-group submit-group">
 								<input class="btn btn-primary form-submit" type="submit" value="Register" >
 								<span class="text-muted" ng-if="taken">{{taken}}</span>
 							</div>
