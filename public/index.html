@@ -65,7 +65,14 @@
 			</div>
 		</nav>
 		<div class="homepage-img-wrapper">
-
+			<div ng-if="view==0 || view==4" class="card header">
+				<div class="card-body">
+					<form ng-submit="search(query)" class="form-group form-inline form-search">
+						<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
+					</form>
+				</div>
+			</div>
 		</div>
 		<!--Register Modal-->
 		<div class="modal fade" id="register" tabindex="-1" role="dialog">
@@ -226,17 +233,7 @@
 		</div>
 
 	<!-- Home Page  -->
-	<main role="main" ng-if="view==0 || view==4">
-		<div class="col-sm">
-			<div ng-if="view==0 || view==4" class="card header">
-				<div class="card-body">
-					<form ng-submit="search(query)" class="form-group form-inline form-search">
-						<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
-					</form>
-				</div>
-			</div>
-		</div>
+	<main class="home-main" role="main" ng-if="view==0 || view==4">
 		<div class="row">
 				<div class="col" ng-if="view==0  || view==1 || view==4" ng-repeat="book in books">
 					<div class="card">

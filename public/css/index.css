@@ -177,8 +177,13 @@ h4{
 }
 .header{
   width: 50%;
-  margin-top: 7%;
-  margin-bottom: 11%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.home-main{
+  margin-top: 25px;
 }
 .cover-img{
   width: 148px;
@@ -190,9 +195,7 @@ h4{
   backface-visibility: hidden;
 }
 .homepage-img-wrapper{
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100vw;
   height: 50vh;
   overflow: hidden;
