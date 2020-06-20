@@ -54,7 +54,7 @@
           <a ng-if="!credentials.userinfo.firstName" href="#" data-toggle="modal" data-target="#register" class="nav-link nav-link-light">
 						Sign Up
 					</a>
-					<p class="nav-name" ng-if="credentials.userinfo.firstName">
+					<p class="nav-name nav-link" ng-if="credentials.userinfo.firstName">
 						Welcome {{credentials.userinfo.firstName}}
 					</p><span class="nav-link">|</span>
 					<button class="btn btn-link nav-link login" ng-if="!logged" data-toggle="modal" data-target="#login">
