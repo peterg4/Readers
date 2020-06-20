@@ -7,7 +7,7 @@ body {
   background-color: #f8f9fa;
 }
 nav{
-/*  box-shadow: 0 2px 4px rgba(0,0,0,.08); */
+  box-shadow: 0 2px 4px rgba(0,0,0,.08);
   background-color: white;
 }
 .bg-dark{
@@ -67,6 +67,7 @@ p{
   text-transform: uppercase;
   padding: 10px 15px;
   letter-spacing: 1px;
+  font-weight: bold;
   font-size: 15px;
 }
 .btn-link:hover{
@@ -198,10 +199,20 @@ h4{
   transition: .5s ease;
   backface-visibility: hidden;
 }
+.title{
+  color: white;
+  font-weight: 800;
+  width: fit-content;
+  position: absolute;
+  top: calc(50% - 128px);
+  left: calc(25% + 61px);
+  transform: translate(-50%, -50%);
+  font-size: 130px;
+}
 .homepage-img-wrapper{
   position: relative;
   width: 100vw;
-  height: 50vh;
+  height: calc(50vh + 76px);
   overflow: hidden;
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("images/home.jpg");
   background-position: center;

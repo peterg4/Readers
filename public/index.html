@@ -65,7 +65,8 @@
       </div>
 			</div>
 		</nav>
-		<div ng-if="view==0" class="homepage-img-wrapper">
+		<div ng-if="view==0 || view==4" class="homepage-img-wrapper">
+			<h1 class="title">Readsy</h1>
 			<div ng-if="view==0 || view==4" class="card header">
 				<div class="card-body">
 					<form ng-submit="search(query)" class="form-group form-inline form-search">
