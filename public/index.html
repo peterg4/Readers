@@ -25,7 +25,7 @@
 <body ng-controller="mainController" class="bg-light" ng-init="getBooks()">
 	<!-- Navigation bar -->
 		<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" ng-click="view=0;changeActive('home');getBooks()" href="#"><img class="brand" src="css/images/favicon.png"></a>
+			<p class="navbar-brand" ng-click="view=0;changeActive('home');getBooks()"><img class="brand" src="css/images/favicon.png"></p>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -80,34 +80,37 @@
 
 						<form name="registerForm" ng-submit="register()">
 							<div class="form-group">
+								<label for="firstName">First Name</label>
 								<input class="form-control" type="text" ng-model="user.firstName" name="firstName" placeholder="First name" required>
 								<span class="text-muted" ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
+								<label for="lastName">Last Name</label>
 								<input class="form-control" type="text" ng-model="user.lastName" name="lastName" placeholder="Last name" required>
 								<span class="text-muted" ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
+								<label for="email">Email</label>
+								<input class="form-control" type="email" ng-model="user.email" name="email" placeholder="Email" required>
+								<span class="text-muted" ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
+							</div>
+							<div class="form-group"></div>
+							<div class="form-group">
+								<label for="username">Username</label>
 								<input class="form-control" type="text" ng-model="user.username" name= "username" placeholder="Username" required>
 								<span class="text-muted" ng-show="registerForm.username.$touched && registerForm.username.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
+								<label for="password">Password</label>
 								<input class="form-control" type="password" ng-model="user.password" name="password" placeholder="Password" required>
 								<span class="text-muted" ng-show="registerForm.password.$touched && registerForm.password.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
-								<input class="form-control" type="email" ng-model="user.email" name="email" placeholder="Email" required>
-								<span class="text-muted" ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
-							</div>
-							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="Register" >
+							<div class="form-group submit-group">
+								<input class="btn btn-primary form-submit" type="submit" value="Register" >
 								<span class="text-muted" ng-if="taken">{{taken}}</span>
 							</div>
 						</form>
 
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>

@@ -36,6 +36,17 @@ p{
   background-color: #0073b1;
   color: #fff;
 }
+.form-submit{
+  width:80%;
+  margin: 0 auto;
+  text-align: center;
+}
+.form-group{
+  padding: 0px 10px;
+}
+.submit-group{
+  display: flex;
+}
 .btn-link{
   color: rgba(0,0,0,.5);
   text-decoration: none;
@@ -136,6 +147,7 @@ h5{
   margin-bottom: 1px;
 }
 .brand{
+  cursor: pointer;
   margin-left: 18px;
   height: 50px;
   width: 50px;
