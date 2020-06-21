@@ -358,6 +358,10 @@ async function main() {
     res.sendFile(path.join(__dirname, 'public') + '/index.html');
   });
 
+  app.get( /[0-9]/, function(req, res) {
+    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+  });
+
   http.listen(PORT, function(){
     console.log('\nServer up on *:3000');
   });

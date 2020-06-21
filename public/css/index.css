@@ -218,7 +218,7 @@ h4{
 .title-box{
   position: absolute;
   top: calc(65% - 128px);
-  left: calc(25% + -31px);
+  left: calc(25% + -54px);
   transform: translate(-50%, -50%);
   color: transparent;
   width: 352px;
@@ -242,6 +242,7 @@ h4{
   font-family: 'Roboto', sans-serif;
   color: #58CCED;
   padding-left: 1px;
+  font-size: 136px;
 }
 .homepage-img-wrapper{
   position: relative;
