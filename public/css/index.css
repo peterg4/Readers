@@ -260,7 +260,7 @@ h4{
 }
 .img-genre{
   height: calc(30vh + 76px);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/genre.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7));
 }
 .img-book{
   height: calc(30vh + 76px);
