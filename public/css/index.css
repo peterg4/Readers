@@ -596,6 +596,9 @@ h4{
       top: calc(60% - 85px);
       font-size: 56px
     }
+    #title-d {
+      font-size: 56px;
+    }
     .form-search {
       width: 100%!important;
     }
