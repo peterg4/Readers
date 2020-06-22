@@ -264,11 +264,11 @@ h4{
 }
 .img-book{
   height: calc(30vh + 76px);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/book.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7));
 }
 .img-library{
   height: calc(30vh + 76px);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("images/library.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7));
 }
 .homepage-img{
   object-fit: cover;
