@@ -221,7 +221,7 @@ h4{
 }
 .title-box{
   position: absolute;
-  top: calc(65% - 128px);
+  top: calc(65% - 127px);
   left: calc(25% + -54px);
   transform: translate(-50%, -50%);
   color: transparent;
