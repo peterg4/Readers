@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+.homepage-img-wrapper{
+  position: relative;
+  width: calc(100vw - (100vw - 100%));
+  height: calc(60vh + 76px);
+  overflow: hidden;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url("../../assets/images/home.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.title{
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  width: fit-content;
+  position: absolute;
+  top: calc(65% - 128px);
+  left: calc(25% + 61px);
+  transform: translate(-50%, -50%);
+  font-size: 130px;
+  margin: 0;
+  letter-spacing: 3px;
+}
+.title-box{
+  position: absolute;
+  top: calc(65% - 127px);
+  left: calc(25% + -54px);
+  transform: translate(-50%, -50%);
+  color: transparent;
+  width: 352px;
+  height: 144px;
+  font-size: 130px;
+  display: block;
+  border: 8px white solid;
+}
+#title-d {
+  color: #58CCED;
+  padding-left: 1px;
+  font-size: 136px;
+}
+.search-bar{
+  width: 50%;
+  position: absolute;
+  top: 65%;
+  background-color: white;
+  height: 75px;
+  border-radius: 3px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.prefix{
+  color: #888888;
+}
+
+ /* label focus color */
+ .input-field input[type=text]:focus + label {
+  color: #58CCED;
+}
+
+.input-field .prefix.active {
+  color: #58CCED;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #58CCED;
+  box-shadow: 0 0 0 0 #58CCED;
+}
+.input-field>label:not(.label-icon).active {
+  transform: translateY(-10px) scale(0.85);
+}
+
+@media screen and (max-width: 1000px) {
+  .title{
+    left:50%;
+    top: calc(60% - 85px);
+    font-size: 56px
+  }
+  #title-d {
+    font-size: 56px;
+  }
+  .title-box{
+    display: none;
+  }
+}
