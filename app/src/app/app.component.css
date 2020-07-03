@@ -1,0 +1,15 @@
+a.brand-logo{
+  margin-left: 25px;
+}
+a.brand-logo img {
+  display: inline-block;
+  margin-top: 4px;
+  height: 52px;
+}
+a.brand-logo p {
+  display: inline-block;
+  margin: 0;
+  vertical-align: 15px;
+  color: white;
+
+}
