@@ -1,10 +1,38 @@
 jQuery.noConflict();
 
+var nav = document.getElementById('navigator');
+var navLinks = document.getElementsByClassName('nav-link');
+var i =0;
+window.onscroll = function () { 
+    "use strict";
+    if (document.body.scrollTop >= 20 || document.documentElement.scrollTop >= 20 ) {
+      nav.classList.add("nav-solid");
+      nav.classList.remove("nav-transparent");
+      for(i = 0; i < navLinks.length; i++) {
+        navLinks[i].classList.add("nav-link-dark");
+        navLinks[i].classList.remove("nav-link-light");
+      }
+    } 
+    else {
+      nav.classList.add("nav-transparent");
+      nav.classList.remove("nav-solid");
+      for(i = 0; i < navLinks.length; i++) {
+        navLinks[i].classList.remove("nav-link-dark");
+        navLinks[i].classList.add("nav-link-light");
+      }
+    }
+};
+
+var state = { 'page_id': 0};
+var title = '';
+var url = 'home';
+history.pushState(state, title, url);
 var app = angular.module("myApp", ['ngRateIt']);
 var socket = io();
 app.controller("mainController", ['$scope','$http', function($scope, $http) {
-  $scope.view = 0;
+  $scope.view = history.state.page_id;
   $scope.currid = "home";
+  $scope.formPage = 0;
 
   $scope.user = {};
   $scope.credentials = {};
@@ -12,10 +40,10 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.taken = 0;
 
   $scope.book = {};
-  $scope.books = [];
+  $scope.books = {};
   $scope.specificBook = {};
 
-  $scope.reviewsInReview = [];
+  $scope.reviewsInReview = {};
 
   $scope.reading = {};
   $scope.willRead = {};
@@ -28,13 +56,43 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   $scope.genrePrompts = {};
   $scope.uploadGenres = [];
 
-  $scope.genres = [];
-  $scope.genreBooks = [];
+  $scope.genres = {};
+  $scope.genreBooks = {};
   $scope.genre = "";
   
+  window.onpopstate = function(event) {
+    let urlArray;
+    switch(event.state.page_id) {
+      case 0: $scope.view = 0; $scope.getBooks(); $scope.changeActive("home"); break;
+      case 1: $scope.view = 1; $scope.getInReview(); $scope.changeActive("review"); break;
+      case 2: $scope.view = 2; $scope.getLibrary(); $scope.changeActive("books"); break;
+      case 3: 
+        $scope.view = 3; 
+        urlArray = String(document.location).split("/");
+        let isbn = urlArray[urlArray.length-1];
+        $scope.getBookDetails({isbn: isbn});
+        break;
+      case 5: $scope.view = 5; $scope.getGenres(); $scope.changeActive("browse"); break;
+      case 6:
+        $scope.view = 6; 
+        urlArray = String(document.location).split("/");
+        let genre = unescape(urlArray[urlArray.length-1]);
+        $scope.getGenre({genre: genre});
+        break;
+    }
+    $scope.view = event.state.page_id;
+  };
+  $scope.next = () => $scope.formPage += 1;
+  $scope.back = () => $scope.formPage -= 1;
+  $scope.formSelect = i => $scope.formPage = i;
   $scope.changeActive = function(id) {
-    document.getElementById($scope.currid).className = 'nav-link'; 
-    document.getElementById(id).className = 'nav-link active';
+    if(id === 'home') {
+      state = { 'page_id': 0};
+      url = 'home';
+      history.pushState(state, title, url);
+    }
+    document.getElementById($scope.currid).className = 'nav-link nav-link-light'; 
+    document.getElementById(id).className = 'nav-link nav-link-light active';
     $scope.currid = id;
   }
   $scope.register = function() {
@@ -96,12 +154,12 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
       $scope.$apply(function () {
         $scope.logged = true;
         $scope.credentials.userinfo = res;
-        if($scope.credentials.userinfo.firstName) {
-          jQuery('#login').modal('hide');
-          $scope.changeActive('books');
-          $scope.getLibrary();
-        }
-      })
+      });
+      if($scope.credentials.userinfo.firstName) {
+        jQuery('#login').modal('hide');
+        $scope.changeActive('books');
+        $scope.getLibrary();
+      }
     })
   }
   $scope.logout = function() {
@@ -109,23 +167,26 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     $scope.logged = false;
   }
   $scope.getInReview = function() {
+    state = { 'page_id': 1};
+    title = '';
+    url = 'admin';
+    history.pushState(state, title, url);
     $scope.processing = 0;
     $scope.view = 1;
-    $scope.books = [];
-    $scope.reviewsInReview = [];
+    $scope.books = {};
+    $scope.reviewsInReview = {};
     $http.get("/review").then(function(data) {
-      console.log(data);
       for(var i = 0; i < data.data.data.books.length; i++) {
-        $scope.books.push(data.data.data.books[i]);
+        $scope.books[i] = (data.data.data.books[i]);
       }
       for(var i = 0; i < data.data.data.reviews.length; i++) {
-        $scope.reviewsInReview.push(data.data.data.reviews[i]);
+        $scope.reviewsInReview[i] = (data.data.data.reviews[i]);
       }
     });
   }
   $scope.getBooks = function() {
     $scope.view = 0;
-    $scope.books = [];
+    $scope.books = [];                          ///cahnge to object storag instead of arrays; push is bad
     $http.get("/books").then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
         $scope.books.push(data.data.data[i]);
@@ -168,6 +229,9 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.getBookDetails = function(book) {
     $scope.view=3;
+    state = { 'page_id': 3};
+    url = book.isbn;
+    history.pushState(state, title, url);
     $scope.processing = 0;
     $http.get("/book/details?isbn="+book.isbn).then(function(data) {
       $scope.specificBook = data.data.data[0];
@@ -244,6 +308,9 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
   }
   $scope.getLibrary = function() {
     $scope.view = 2;
+    state = { 'page_id': 2};
+    url = 'Mylibrary';
+    history.pushState(state, title, url);
     $scope.reading = {};
     $scope.willRead = {};
     $scope.haveRead = {};
@@ -274,25 +341,28 @@ app.controller("mainController", ['$scope','$http', function($scope, $http) {
     });
   }
   $scope.getGenres = function() {
+    state = { 'page_id': 5};
+    url = 'browse';
+    history.pushState(state, title, url);
     $scope.view = 5;
-    $scope.genres = [];
+    $scope.genres = {};
     $http.get("/genres").then(function(data) {
       for(var i = 0; i < data.data.data.length; i++) {
-        $scope.genres.push(data.data.data[i]);
+        $scope.genres[i] = (data.data.data[i]);
       }
     });
   }
   $scope.getGenre = function(genre) {
     $scope.view = 6;
+    state = { 'page_id': 6};
+    url = genre.genre;
+    history.pushState(state, title, url);
     $scope.genre = genre.genre;
-    $scope.genreBooks = [];
+    $scope.genreBooks = {};
     $http.get("/genres/genre?genre="+genre.genre).then(function(data) {
-      console.log(data);
-      console.log(data.data.data.length);
       for(var i = 0; i < data.data.data.length; i++) {
-        $scope.genreBooks.push(data.data.data[i]);
+        $scope.genreBooks[i] = (data.data.data[i]);
       }
-      console.log($scope.genreBooks);
     });
   }
 }]);

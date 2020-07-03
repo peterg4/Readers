@@ -5,6 +5,7 @@ String.prototype.replaceAt=function(index, replacement) {
 var app = require('express')();
 var http = require('http').Server(app);
 var express = require('express');
+var path = require('path');
 var bodyParser = require('body-parser');
 var io = require('socket.io')(http);
 var imgur = require('imgur');
@@ -30,7 +31,6 @@ async function main() {
   }); 
   
   io.on('connection', function(socket) {
-
     /*  --User Signup Functions --------------------------*/
 
     //Register a user
@@ -345,7 +345,22 @@ async function main() {
     res.sendFile('/index.html');
   });
 
-  app.use(express.static('public'));
+  app.get('/home', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+  });
+  app.get('/browse', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+  });
+  app.get('/admin', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+  });
+  app.get('/Mylibrary', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+  });
+
+  app.get( /[0-9]/, function(req, res) {
+    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+  });
 
   http.listen(PORT, function(){
     console.log('\nServer up on *:3000');

@@ -3,17 +3,19 @@
 	<title>Readsy</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=0.86" />
 	<meta charset="utf-8">
 	<!-- Angular, bootstrap, jquery, fonts, and style -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.0.4/popper.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&family=Roboto:wght@300&display=swap" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 	<link rel="stylesheet" href="css/ng-rateit.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -23,8 +25,8 @@
 </head>
 <body ng-controller="mainController" class="bg-light" ng-init="getBooks()">
 	<!-- Navigation bar -->
-		<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" ng-click="view=0;changeActive('home');getBooks()" href="#"><img class="brand" src="css/images/favicon.png"></a>
+		<nav id="navigator" class="navbar fixed-top navbar-expand-lg navbar-light nav-transparent">
+			<p class="navbar-brand" ng-click="view=0;changeActive('home');getBooks()"><img class="brand" src="css/images/favicon.png"></p>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -32,30 +34,30 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link active" id="home" ng-click="view=0;changeActive('home');getBooks()" href="#">Home</a>
+						<a class="nav-link nav-link-light active" id="home" ng-click="view=0;changeActive('home');getBooks()">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="books" ng-if="credentials.userinfo.firstName" ng-click="view=2;changeActive('books');getLibrary()" href="#">My Library</a>
+						<a class="nav-link nav-link-light" id="books" ng-if="credentials.userinfo.firstName" ng-click="view=2;changeActive('books');getLibrary()">My Library</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="browse" ng-click="view=5;changeActive('browse');getGenres()" href="#">Browse</a>
+						<a class="nav-link nav-link-light" id="browse" ng-click="view=5;changeActive('browse');getGenres()" >Browse</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="review" ng-if="credentials.userinfo.admin" ng-click="view=1;changeActive('review');getInReview()" href="#">Review</a>
+						<a class="nav-link nav-link-light" id="review" ng-if="credentials.userinfo.admin" ng-click="view=1;changeActive('review');getInReview()">Review</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="uploader" data-toggle="modal" data-target="#upload" href="#">Upload</a>
+						<a class="nav-link nav-link-light" id="uploader" data-toggle="modal" data-target="#upload">Upload</a>
 					</li>
 				</ul>
 				<span class="pr-2" ng-if="userInfo">Welcome {{credentials.userinfo.firstName}} </span>
 				<div class="form-inline my-2 my-lg-0 right text">
-          <a ng-if="!credentials.userinfo.firstName" href="#" data-toggle="modal" data-target="#register" class="nav-link">
+          <a ng-if="!credentials.userinfo.firstName" href="#" data-toggle="modal" data-target="#register" class="nav-link nav-link-light">
 						Sign Up
 					</a>
-					<p class="nav-name" ng-if="credentials.userinfo.firstName">
+					<p class="nav-name nav-link" ng-if="credentials.userinfo.firstName">
 						Welcome {{credentials.userinfo.firstName}}
-					</p>| 
-					<button class="btn btn-link login" ng-if="!logged" data-toggle="modal" data-target="#login">
+					</p><span class="nav-link">|</span>
+					<button class="btn btn-link nav-link login" ng-if="!logged" data-toggle="modal" data-target="#login">
 						Log in
 					</button>
 					<button class="btn nav-link login" ng-if="logged" ng-click="logout()">
@@ -64,6 +66,35 @@
       </div>
 			</div>
 		</nav>
+
+		<div ng-if="view==0 || view==4" class="homepage-img-wrapper">
+			<div class="title-box"></div>
+			<h1 class="title">Rea<span id="title-d">d</span>sy</h1>
+			<div class="card header">
+				<div class="card-body">
+					<form ng-submit="search(query)" class="form-group form-inline form-search">
+						<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="view==5" class="homepage-img-wrapper img-browse">
+			<h1 class="title">Gen<span id="title-d">r</span>es</h1>
+		</div>
+
+		<div ng-if="view==6" class="homepage-img-wrapper img-genre">
+			<h1 class="small-title">{{genre}}</h1>
+		</div>
+
+		<div ng-if="view==2" class="homepage-img-wrapper img-library">
+			<h1 class="small-title">Welcome, {{credentials.userinfo.firstName}}</h1>
+		</div>
+
+		<div ng-if="view==3" class="homepage-img-wrapper img-book">
+			<h1 class="small-title">{{specificBook.title}}</h1>
+		</div>
 
 		<!--Register Modal-->
 		<div class="modal fade" id="register" tabindex="-1" role="dialog">
@@ -75,38 +106,51 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					<div class="form-page-indicator">
+						<div class="form-circles">
+							<i class="fa fa-circle-o" ng-if="formPage != 0" ng-click="formSelect(0)" aria-hidden="true"></i>
+							<i class="fa fa-circle" ng-if="formPage == 0" aria-hidden="true"></i>
+							<i class="fa fa-circle-o" ng-if="formPage != 1" ng-click="formSelect(1)" aria-hidden="true"></i>
+							<i class="fa fa-circle" ng-if="formPage == 1" aria-hidden="true"></i>
+						</div>
+					</div>
 					<div class="modal-body">
 
 						<form name="registerForm" ng-submit="register()">
-							<div class="form-group">
+							<div ng-if = "formPage == 0" class="form-group">
+								<label for="firstName">First Name</label>
 								<input class="form-control" type="text" ng-model="user.firstName" name="firstName" placeholder="First name" required>
 								<span class="text-muted" ng-show="registerForm.firstName.$touched && registerForm.firstName.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
+							<div ng-if = "formPage == 0" class="form-group">
+								<label for="lastName">Last Name</label>
 								<input class="form-control" type="text" ng-model="user.lastName" name="lastName" placeholder="Last name" required>
 								<span class="text-muted" ng-show="registerForm.lastName.$touched && registerForm.lastName.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
-								<input class="form-control" type="text" ng-model="user.username" name= "username" placeholder="Username" required>
-								<span class="text-muted" ng-show="registerForm.username.$touched && registerForm.username.$invalid">*Required</span>
-							</div>
-							<div class="form-group">
-								<input class="form-control" type="password" ng-model="user.password" name="password" placeholder="Password" required>
-								<span class="text-muted" ng-show="registerForm.password.$touched && registerForm.password.$invalid">*Required</span>
-							</div>
-							<div class="form-group">
+							<div ng-if = "formPage == 0" class="form-group">
+								<label for="email">Email</label>
 								<input class="form-control" type="email" ng-model="user.email" name="email" placeholder="Email" required>
 								<span class="text-muted" ng-show="registerForm.email.$touched && registerForm.email.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="Register" >
+							<div ng-if = "formPage == 1" class="form-group">
+								<label for="username">Username</label>
+								<input class="form-control" type="text" ng-model="user.username" name= "username" placeholder="Username" required>
+								<span class="text-muted" ng-show="registerForm.username.$touched && registerForm.username.$invalid">*Required</span>
+							</div>
+							<div ng-if = "formPage == 1" class="form-group">
+								<label for="password">Password</label>
+								<input class="form-control" type="password" ng-model="user.password" name="password" placeholder="Password" required>
+								<span class="text-muted" ng-show="registerForm.password.$touched && registerForm.password.$invalid">*Required</span>
+							</div>
+							<div ng-if="formPage == 0" class="form-group submit-group" ng-click="next()">
+								<input class="btn btn-primary form-submit" type="button" value="Next" >
+							</div>
+							<div ng-if = "formPage == 1" class="form-group submit-group">
+								<input class="btn btn-primary form-submit" type="submit" value="Register" >
 								<span class="text-muted" ng-if="taken">{{taken}}</span>
 							</div>
 						</form>
 
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -126,22 +170,21 @@
 
 						<form name="loginForm" ng-submit="login()">
 							<div class="form-group">
+								<label for="firstName">Username</label>
 								<input class="form-control" type="text" ng-model="credentials.username" name="username" placeholder="Username" required>
 								<span class="text-muted" ng-show="loginForm.username.$touched && loginForm.username.$invalid">*Required</span>
 							</div>
 							<div class="form-group">
+								<label for="password">Password</label>
 								<input class="form-control" type="password" ng-model="credentials.password" name="password" placeholder="Password" required>
 								<span class="text-muted" ng-show="loginForm.password.$touched && loginForm.password.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="Login">
+							<div class="form-group submit-group">
+								<input class="btn btn-primary form-submit" type="submit" value="Login">
 								<span class="text-muted" ng-if="!credentials.userinfo.firstName && logged">Invalid Credentials</span>
 							</div>
 						</form>
 
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
@@ -157,22 +200,33 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					<div class="form-page-indicator">
+						<div class="form-circles">
+							<i class="fa fa-circle-o" ng-if="formPage != 0" ng-click="formSelect(0)" aria-hidden="true"></i>
+							<i class="fa fa-circle" ng-if="formPage == 0" aria-hidden="true"></i>
+							<i class="fa fa-circle-o" ng-if="formPage != 1" ng-click="formSelect(1)" aria-hidden="true"></i>
+							<i class="fa fa-circle" ng-if="formPage == 1" aria-hidden="true"></i>
+						</div>
+					</div>
 					<div class="modal-body">
 
 						<form name="bookForm" ng-submit="addBook()">
-							<div class="form-group">
+							<div ng-if="formPage == 0" class="form-group">
+								<label for="title">Title</label>
 								<input class="form-control" type="text" ng-model="book.title" name="title" placeholder="Title" required>
 								<span class="text-muted" ng-show="bookForm.title.$touched && bookForm.title.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
+							<div ng-if="formPage == 0" class="form-group">
+								<label for="author">Author</label>
 								<input class="form-control" type="text" ng-model="book.author" name="author" placeholder="Author" required>
 								<span class="text-muted" ng-show="bookForm.author.$touched && bookForm.author.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
+							<div ng-if="formPage == 1" class="form-group">
+								<label for="genre">Genres</label>
 								<label ng-if="uploadGenres.length" for="genre"><div class="selected-box" ng-repeat="genre in uploadGenres"><p class="genre-prompt genre-selected" ng-click="removeFromGenres(genre)">{{genre}}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
 									<path d="M15 3L6.57 13.72A.7.7 0 016 14a.72.72 0 01-.56-.27L1 8.07 2.36 7 6 11.72 13.68 2z"></path>
 								</svg></p></div></label>
-								<input  id="genre-up" class="form-control" type="text" ng-model="book.genre" ng-keydown="genrePrompt()" name="genre" autocomplete="off" placeholder="Genres" required>
+								<input  id="genre-up" class="form-control" type="text" ng-model="book.genre" ng-keydown="genrePrompt()" name="genre" autocomplete="off" placeholder="Genres">
 								<div class="genre-prompt-box">
 									<p class="genre-prompt" ng-click="addToGenres(prompt)" ng-repeat="prompt in genrePrompts">{{prompt}}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" data-supported-dps="16x16" fill="currentColor" width="16" height="16" focusable="false">
 										<path d="M14 9H9v5H7V9H2V7h5V2h2v5h5v2z"></path>
@@ -181,37 +235,27 @@
 								
 								<span class="text-muted" ng-show="bookForm.genre.$touched && bookForm.genre.$invalid && uploadGenres.length == 0">*Required</span>
 							</div>
-							<div class="form-group">
+							<div ng-if="formPage == 1" class="form-group">
+								<label for="isbn">ISBN</label>
 								<input class="form-control" type="text" ng-model="book.isbn" name="isbn" placeholder="ISBN (Use Google Books ISBN for best results)" required>
 								<span class="text-muted" ng-show="bookForm.isbn.$touched && bookForm.isbn.$invalid">*Required</span>
 							</div>
-							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="Upload">
+							<div ng-if="formPage == 0" class="form-group submit-group" ng-click="next()">
+								<input class="btn btn-primary form-submit" type="button" value="Next" >
+							</div>
+							<div ng-if="formPage == 1" class="form-group submit-group">
+								<input class="btn btn-primary form-submit" type="submit" value="Upload">
 								<span class="text-muted" ng-if="processing"><img class="loader" ng-src={{processing}}><span ng-if="error"> {{error}}</span></span>
 							</div>
 						</form>
 
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
 
 	<!-- Home Page  -->
-	<main role="main" ng-if="view==0 || view==4">
-		<div class="col-sm">
-			<div ng-if="view==0 || view==4" class="card header">
-				<div class="card-body">
-					<p class="card-text text-center mb-2">Get started by searching for authors, books, genres, or ISBNs!</p>
-					<form ng-submit="search(query)" class="form-group form-inline form-search">
-						<input class="form-control mr-sm-2 form-search" ng-model="query" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-search" type="submit"><i class="fa fa-search"></i></button>
-					</form>
-				</div>
-			</div>
-		</div>
+	<main class="home-main" role="main" ng-if="view==0 || view==4">
 		<div class="row">
 				<div class="col" ng-if="view==0  || view==1 || view==4" ng-repeat="book in books">
 					<div class="card">
@@ -244,10 +288,8 @@
 
 	<!-- My Library -->
 	<main role="main" ng-if="view==2">
-		<div class="row">
-
-			<div class="col-sm">
-				<h4>Currently Reading</h4>
+			<h4 class="library-heading">Currently Reading</h4>
+			<div class="library-grid">		
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
 				<div ng-repeat="book in reading">
 					<div class="card">
@@ -268,8 +310,8 @@
 				</div>
 			</div>
 
-			<div class="col-sm">
-				<h4>Have Read</h4>
+			<h4 class="library-heading">Have Read</h4>
+			<div class="library-grid">
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
 				<div ng-repeat="book in haveRead">
 					<div class="card">
@@ -290,8 +332,8 @@
 				</div>
 			</div>
 
-			<div class="col-sm">
-				<h4>Want to Read</h4>
+			<h4 class="library-heading">Want to Read</h4>
+			<div class="library-grid">
 				<p ng-if="!credentials.userinfo.username" class="text-center">login and start building your library!</p>
 				<div ng-repeat="book in willRead">
 					<div class="card">
@@ -312,7 +354,6 @@
 				</div>
 			</div>
 
-		</div>
 	</main>
 
 	<!-- Genres Page  -->
@@ -336,7 +377,7 @@
 		</div>
 	</main>
 
-	<!-- Library Page  -->
+	<!-- Specific Genre Page  -->
 	<main role="main" ng-if="view==6">
 		<div class="col-sm">
 			<h4>{{genre}}</h4>
