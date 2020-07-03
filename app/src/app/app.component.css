@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
 a.brand-logo{
   margin-left: 25px;
 }
@@ -7,9 +8,16 @@ a.brand-logo img {
   height: 52px;
 }
 a.brand-logo p {
+  font-family: 'Montserrat', sans-serif;
   display: inline-block;
   margin: 0;
   vertical-align: 15px;
   color: white;
-
+}
+nav {
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  box-shadow: 0 0 0 0 #58CCED;
 }
