@@ -69,3 +69,17 @@
 .input-field>label:not(.label-icon).active {
   transform: translateY(-10px) scale(0.85);
 }
+
+@media screen and (max-width: 1000px) {
+  .title{
+    left:50%;
+    top: calc(60% - 85px);
+    font-size: 56px
+  }
+  #title-d {
+    font-size: 56px;
+  }
+  .title-box{
+    display: none;
+  }
+}

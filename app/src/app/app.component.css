@@ -21,3 +21,17 @@ nav {
   z-index: 1;
   box-shadow: 0 0 0 0 #58CCED;
 }
+a.side.brand-logo {
+  display: block;
+  margin: 5px auto;
+  width: fit-content;
+}
+.sidenav a p {
+  font-family: 'Montserrat', sans-serif;
+  color: black;
+}
+@media screen and (max-width: 1000px) {
+  a.brand-logo{
+    margin-left: 0px;
+  }
+}
