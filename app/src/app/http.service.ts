@@ -15,6 +15,6 @@ export class HttpService {
  // rootURL = '/api';
 
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>('http://localhost:3000/api/books');
+    return this.http.get<Book[]>('/api/books');
   }
 }
