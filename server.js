@@ -2,13 +2,16 @@
 String.prototype.replaceAt=function(index, replacement) {
   return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }
-var app = require('express')();
-var http = require('http').Server(app);
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var io = require('socket.io')(http);
-var imgur = require('imgur');
+const app = require('express')();
+const http = require('http').Server(app);
+const bodyParser = require('body-parser');
+const io = require('socket.io')(http);
+const cors = require('cors');
+var corsOptions = {
+  origin: ['http://localhost:4200', "http://localhost:4000"]
+}
+app.use(cors(corsOptions));
+const imgur = require('imgur');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 app.use(bodyParser.json());
@@ -18,9 +21,12 @@ const clientId = process.env.CLIENT_ID;
 imgur.setClientId(clientId);
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGO_URI;
-var books = require('google-books-search');
+const books = require('google-books-search');
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const PORT = process.env.PORT || 3000;
+app.get("/ghosts", (req, res) => {
+  res.send("GEge");
+});
 main();
 async function main() { 
   var db;
@@ -226,143 +232,145 @@ async function main() {
       });
     });
 
-    /* Search and Library Functions ----------------------*/
+  /* Search and Library Functions ----------------------*/
 
-    //search for book/author/isbn/genre
-    socket.on('search', function(query){
-      var regex = new RegExp("^.*"+query+".*$", "i");
-      var search = {$or: [
-                      {title: regex },
-                      {author: regex },
-                      {genres: regex },
-                      {isbn: query}
-                   ]};
-      db.collection("items").find(search).toArray(function(err, result) {
-        if (err) throw err;
-        socket.emit('search_response', result);
-      });
-    })
-    //prompt user with existing genre tags when they enter in values
-    socket.on('genre_prompt', function(prompt){
-      var regex = new RegExp("^.*"+prompt+".*$", "i");
-      var search = {$or: [
-        {genre: regex }
-      ]};
-      db.collection("genres").find(search).toArray(function(err, result) {
+  //search for book/author/isbn/genre
+  socket.on('search', function(query){
+    var regex = new RegExp("^.*"+query+".*$", "i");
+    var search = {$or: [
+                    {title: regex },
+                    {author: regex },
+                    {genres: regex },
+                    {isbn: query}
+                  ]};
+    db.collection("items").find(search).toArray(function(err, result) {
       if (err) throw err;
-      socket.emit('prompt_response', result);
-      });
-    })
-    //save a book to user
-    socket.on('save', function(packet) {
-      var user = { username: packet.username }
-      var book = { $push: {saved: packet} }
-      db.collection("users").updateOne(user, book, function(err, res) {
-        if (err) throw err;
-        console.log("Book saved");
-        socket.emit('save_response');
-      });
+      socket.emit('search_response', result);
     });
-    //swap a library shelf
-    socket.on('librarySwap', function(packet) {
-      var user = { username: packet.username, "saved.book.isbn": packet.isbn}
-      var book = { $set: {"saved.$.saveChoice": packet.saveChoice} }
-      db.collection("users").updateOne(user, book, function(err, res) {
-        if (err) throw err;
-        console.log("Shelf Swapped");
-        socket.emit('swap_response');
-      });
+  })
+  //prompt user with existing genre tags when they enter in values
+  socket.on('genre_prompt', function(prompt){
+    var regex = new RegExp("^.*"+prompt+".*$", "i");
+    var search = {$or: [
+      {genre: regex }
+    ]};
+    db.collection("genres").find(search).toArray(function(err, result) {
+    if (err) throw err;
+    socket.emit('prompt_response', result);
     });
-
-    /*Get Data Functions ----------------------*/
-
-    //get books and reviews in review
-    app.get('/review', function(req, res) {
-      var data = {};
-      db.collection("review").find({}).toArray(function(err, result) {
-        if(err) throw err;
-        data.books = result;
-        db.collection("items").find({reviewers: {$elemMatch: {reviewed: false}}}).toArray(function(err, result) {
-          if(err) throw err;
-          data.reviews = result;
-          res.json({data: data});
-        });
-      })
-    })
-    //get books in public db
-    app.get('/books', function(req, res) {
-      db.collection("items").find({}).toArray(function(err, result) {
-        if(err) throw err;
-        res.json({data: result});
-      })
-    })
-    //get a specific book
-    app.get('/book/details', function(req, res) {
-      db.collection("items").find({isbn: req.query.isbn}).toArray(function(err, result) {
-        if(err) throw err;
-        res.json({data: result});
-      })
-    })
-    //get books from library
-    app.get('/library', function(req, res) {
-      db.collection("users").find({username: req.query.username}).toArray(function(err, result) {
-        if(err) throw err;
-        res.json({data: result[0].saved});
-      })
-    })
-    //get all genres data
-    app.get('/genres', function(req, res) {
-      db.collection("genres").find({}).toArray(function(err, result) {
-        if(err) throw err;
-        res.json({data: result});
-      })
-    });
-    //get books pertaining to a certain genre
-    app.get('/genres/genre', function(req, res) {
-      db.collection("genres").find({genre: req.query.genre}).toArray(function(err, result) {
-        if(err) throw err;
-        var data = {};
-        var req_c = 0;
-        data.length = result[0].books.length;
-        for(var i = 0; i < result[0].books.length; i++) {
-          db.collection("items").find({isbn: result[0].books[i]}).toArray(function(err, resu) {
-            if(err) throw err
-            data[req_c] = resu[0];
-            req_c++;
-            if(req_c == result[0].books.length) {
-              res.json({data: data});
-            } 
-          });
-        }
-      })
+  })
+  //save a book to user
+  socket.on('save', function(packet) {
+    var user = { username: packet.username }
+    var book = { $push: {saved: packet} }
+    db.collection("users").updateOne(user, book, function(err, res) {
+      if (err) throw err;
+      console.log("Book saved");
+      socket.emit('save_response');
     });
   });
+  //swap a library shelf
+  socket.on('librarySwap', function(packet) {
+    var user = { username: packet.username, "saved.book.isbn": packet.isbn}
+    var book = { $set: {"saved.$.saveChoice": packet.saveChoice} }
+    db.collection("users").updateOne(user, book, function(err, res) {
+      if (err) throw err;
+      console.log("Shelf Swapped");
+      socket.emit('swap_response');
+    });
+  });
+});
+  /*Get Data Functions ----------------------*/
 
-
-  app.use(express.static('public'));
-
+  //get books and reviews in review
+  app.get('/review', function(req, res) {
+    var data = {};
+    db.collection("review").find({}).toArray(function(err, result) {
+      if(err) throw err;
+      data.books = result;
+      db.collection("items").find({reviewers: {$elemMatch: {reviewed: false}}}).toArray(function(err, result) {
+        if(err) throw err;
+        data.reviews = result;
+        res.json({data: data});
+      });
+    })
+  })
+  //get books in public db
+  app.get('/api/books', function(req, res) {
+    db.collection("items").find({}).toArray(function(err, result) {
+      if(err) throw err;
+      console.log("called");
+      res.json({data: result});
+    })
+  })
+  //get a specific book
+  app.get('/book/details', function(req, res) {
+    db.collection("items").find({isbn: req.query.isbn}).toArray(function(err, result) {
+      if(err) throw err;
+      res.json({data: result});
+    })
+  })
+  //get books from library
+  app.get('/library', function(req, res) {
+    db.collection("users").find({username: req.query.username}).toArray(function(err, result) {
+      if(err) throw err;
+      res.json({data: result[0].saved});
+    })
+  })
+  //get all genres data
+  app.get('/genres', function(req, res) {
+    db.collection("genres").find({}).toArray(function(err, result) {
+      if(err) throw err;
+      res.json({data: result});
+    })
+  });
+  //get books pertaining to a certain genre
+  app.get('/genres/genre', function(req, res) {
+    db.collection("genres").find({genre: req.query.genre}).toArray(function(err, result) {
+      if(err) throw err;
+      var data = {};
+      var req_c = 0;
+      data.length = result[0].books.length;
+      for(var i = 0; i < result[0].books.length; i++) {
+        db.collection("items").find({isbn: result[0].books[i]}).toArray(function(err, resu) {
+          if(err) throw err
+          data[req_c] = resu[0];
+          req_c++;
+          if(req_c == result[0].books.length) {
+            res.json({data: data});
+          } 
+        });
+      }
+    })
+  });
   app.get('/', function(req, res){
-    res.sendFile('/index.html');
+    res.send("Running");
+  });
+
+//  app.use(app.static('public'));
+/*
+  app.get('/', function(req, res){
+    res.sendFile(path.join(__dirname, 'app/src') + '/index.html');
   });
 
   app.get('/home', function(req, res) {
-    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+    res.sendFile(path.join(__dirname, 'app/src') + '/index.html');
   });
   app.get('/browse', function(req, res) {
-    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+    res.sendFile(path.join(__dirname, 'app/src') + '/index.html');
   });
   app.get('/admin', function(req, res) {
-    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+    res.sendFile(path.join(__dirname, 'app/src') + '/index.html');
   });
   app.get('/Mylibrary', function(req, res) {
-    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+    res.sendFile(path.join(__dirname, 'app/src') + '/index.html');
   });
 
   app.get( /[0-9]/, function(req, res) {
-    res.sendFile(path.join(__dirname, 'public') + '/index.html');
+    res.sendFile(path.join(__dirname, 'app/src') + '/index.html');
   });
-
-  http.listen(PORT, function(){
+*/
+  app.listen(PORT, () => {
     console.log('\nServer up on *:3000');
   });
 }

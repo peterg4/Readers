@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { SigninComponent } from './signin/signin.component';
 import { BookComponent } from './book/book.component';
 import { GenreComponent } from './genre/genre.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GenreComponent } from './genre/genre.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
