@@ -16,16 +16,18 @@
 
 <main>
   <div class="grid">
-    <div class="card" *ngFor="let book of books">
-      <div class="card-body">
-        <div class="icontainer">
-          <img class="cover-img" src="{{book.googleData.thumbnail}}">
+    <div class="col s12 m7" *ngFor="let book of books">
+      <h2 class="header truncate">{{book.title}}</h2>
+      <div class="card horizontal">
+        <div class="card-image">
+          <img src="{{book.googleData.thumbnail}}">
         </div>
-        <div class="book-data">
-          <header ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</header>
-          <div class="card-rating">
-            <star-rating-comp [starType]="'svg'" [rating]="book.googleData.averageRating"></star-rating-comp>
-            <p ng-click="view=3;getBookDetails(book)" class="card-rating-text rate-num">{{book.googleData.ratingsCount}}</p>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p class="description">{{book.googleData.description}}</p>
+          </div>
+          <div class="card-action">
+            <a href="#">More details...</a>
           </div>
         </div>
       </div>

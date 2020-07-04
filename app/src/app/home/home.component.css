@@ -77,103 +77,35 @@
   background-color: transparent;
   border: 0px;
 }
-.card-body{
-  text-align: center;
-  padding: 0px;
-}
-.card-subtitle{
-  color: rgba(0,0,0,.5);
-  margin-top: 5px;
-}
-.card-title{
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-  border-bottom: 1px solid transparent;
-  cursor: pointer;
-  font-size: 16px;
-  margin-bottom: 1px;
-  padding: 0px 5px;
-  white-space: nowrap;
-  width: 120px;
-}
-
-.card-rating-text:hover{
-  color:black;
-  text-decoration: underline;
-}
-.card-title:hover{
-  color: #58CCED !important;
-  text-decoration: underline;
-}
-.card-title-detail{
-  text-align: left;
-}
-.card-rating-detail{
-  width: auto;
-  margin-bottom: -5px;
-}
-.card-rating-entry{
-  width: fit-content;
-  margin: 0;
-  margin-bottom: 14px;
-}
-.card-rating-text-detail{
-  cursor: normal;
-}
-.card-rating-text-detail:hover{
-  text-decoration: none;
-  color: grey;
-}
-.icontainer {
-  position: relative;
-}
-.imiddle {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 20%;
-  left: 57px;
-  text-align: center;
-}
-
-.icontainer:hover .overlay {
-  opacity: 1;
-}
-
-.icontainer:hover .imiddle {
-  opacity: 1;
-}
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: .5s ease;
-  color:white;
-  background-color: rgba(0,0,0,.7);
-}
-
-.cover-img{
-  width: 120px;
-  height: 187px;
-  display: inline-block;
-  opacity: 1;
-  display: block;
-  transition: .5s ease;
-  backface-visibility: hidden;
-}
 
 .grid{
   width: 90%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 130px);
+  grid-template-columns: repeat(auto-fit, 380px);
   margin: 0 auto;
   justify-content: center;
+}
+
+.card.horizontal{
+  width: 370px;
+}
+
+.description {
+  display: block;
+  height: 94px;
+  overflow: hidden;
+}
+
+img {
+  width: 128px!important;
+  height: 199px!important;
+}
+.header{
+  font-family: 'Montserrat', sans-serif;
+  width: 85%;
+  font-size: 20px;
+  line-height: 26px;
+  padding-left: 7px;
 }
 main{
   margin-top: 25px;
