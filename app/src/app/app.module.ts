@@ -12,6 +12,8 @@ import { BookComponent } from './book/book.component';
 import { GenreComponent } from './genre/genre.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { StarRatingModule } from 'angular-star-rating';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StarRatingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

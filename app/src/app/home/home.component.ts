@@ -8,7 +8,7 @@ import { HttpService } from '../http.service';
 })
 export class HomeComponent implements OnInit {
   
-  books: object = {}; 
+  books: Array<object> = []; 
 
   constructor(private _http: HttpService) { }
 
@@ -16,11 +16,6 @@ export class HomeComponent implements OnInit {
     this._http.getBooks().subscribe(data => {
       this.books = data;
       console.log(this.books);
-    });
-    
-  }
- 
-  getBooks() {
-    console.log(this._http.getBooks());
+    });    
   }
 }

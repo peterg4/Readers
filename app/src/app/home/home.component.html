@@ -14,5 +14,21 @@
   </div>
 </div>
 
-
-<h1 (click)="getBooks()">Get bBoooks</h1>
+<main>
+  <div class="grid">
+    <div class="card" *ngFor="let book of books">
+      <div class="card-body">
+        <div class="icontainer">
+          <img class="cover-img" src="{{book.googleData.thumbnail}}">
+        </div>
+        <div class="book-data">
+          <header ng-click="view=3;getBookDetails(book)" class="card-title">{{book.title}}</header>
+          <div class="card-rating">
+            <star-rating-comp [starType]="'svg'" [rating]="book.googleData.averageRating"></star-rating-comp>
+            <p ng-click="view=3;getBookDetails(book)" class="card-rating-text rate-num">{{book.googleData.ratingsCount}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

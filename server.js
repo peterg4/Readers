@@ -299,8 +299,7 @@ async function main() {
   app.get('/api/books', function(req, res) {
     db.collection("items").find({}).toArray(function(err, result) {
       if(err) throw err;
-      console.log("called");
-      res.json({data: result});
+      res.json(result);
     })
   })
   //get a specific book

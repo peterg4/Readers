@@ -12,8 +12,6 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
- // rootURL = '/api';
-
   getBooks(): Observable<Book[]> {
     return this.http.get<Book[]>('/api/books');
   }
