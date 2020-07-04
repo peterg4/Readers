@@ -14,8 +14,17 @@ const routes: Routes = [
  // { path: 'library', component: LibraryComponent }          
   { path: 'genre', component: GenreComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'upload', component: UploadComponent },  
-  { path: 'book', component: BookComponent },
+  { path: 'upload', component: UploadComponent },
+  {
+    path: 'book',
+    component: BookComponent,
+    children:[
+               {
+                 path:':type',
+                 component:BookComponent
+               }
+             ]
+  }
 ];
 
 @NgModule({
