@@ -20,7 +20,7 @@
       <h2 class="header truncate">{{book.title}}</h2>
       <div class="card horizontal">
         <div class="card-image">
-          <img src="{{book.googleData.thumbnail}}">
+          <img routerLink="/book/{{book.isbn}}" src="{{book.googleData.thumbnail}}">
         </div>
         <div class="card-stacked">
           <div class="card-content">

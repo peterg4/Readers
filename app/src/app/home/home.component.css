@@ -96,9 +96,19 @@
   overflow: hidden;
 }
 
+.card-action a {
+  color: #039be5!important;
+  text-transform: none!important;
+}
+.card-action a:hover {
+  color: #4b03e5!important;
+  text-transform: none!important;
+}
+
 img {
   width: 128px!important;
   height: 199px!important;
+  cursor: pointer;
 }
 .header{
   font-family: 'Montserrat', sans-serif;
