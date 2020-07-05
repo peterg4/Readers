@@ -303,10 +303,10 @@ async function main() {
     })
   })
   //get a specific book
-  app.get('/book/details', function(req, res) {
+  app.get('/api/book/details', function(req, res) {
     db.collection("items").find({isbn: req.query.isbn}).toArray(function(err, result) {
       if(err) throw err;
-      res.json({data: result});
+      res.json(result[0]);
     })
   })
   //get books from library

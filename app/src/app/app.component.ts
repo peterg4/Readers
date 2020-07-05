@@ -1,22 +1,16 @@
-import { Component, HostListener, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common'; 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'app';
 
   @ViewChild('navbar') nav: ElementRef;
 
-  ngAfterViewInit() {
-    console.log(this.nav.nativeElement.innerHTML);
-  }
   @HostListener('document:scroll', ['$event']) onScrollEvent($event){
-    console.log(this.nav)
-    console.log($event);
-    console.log("scrolling");
     window.onscroll = () => { 
       "use strict";
       if (document.body.scrollTop >= 20 || document.documentElement.scrollTop >= 20 ) {

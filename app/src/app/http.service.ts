@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Observer } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Book } from './book';
 
@@ -14,5 +14,9 @@ export class HttpService {
 
   getBooks(): Observable<Book[]> {
     return this.http.get<Book[]>('/api/books');
+  }
+
+  getBook(isbn: number): Observable<Book> {
+    return this.http.get<Book>('/api/book/details?isbn=' + isbn);
   }
 }
