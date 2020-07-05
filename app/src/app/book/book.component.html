@@ -1,1 +1,17 @@
-<h1 *ngIf="book != undefined">{{book.title}}</h1>
+
+<div *ngIf="book != undefined" class="col s12 m7">
+  <h2 class="header truncate">{{book.title}}</h2>
+  <div class="card horizontal">
+    <div class="card-image">
+      <img src="{{book.googleData.thumbnail}}">
+    </div>
+    <div class="card-stacked">
+      <div class="card-content">
+        <p class="description">{{book.googleData.description}}</p>
+      </div>
+      <div class="card-action">
+        <textarea name="review" id="" cols="30" rows="10"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
