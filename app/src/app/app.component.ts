@@ -1,5 +1,4 @@
 import { Component, HostListener, ElementRef, ViewChild } from '@angular/core';
-import { DOCUMENT } from '@angular/common'; 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

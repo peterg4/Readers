@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
-:host(nav) {
-  position: relative!important;
+
+.head-box{
+  background-color: #333;
+  position: absolute;
+  top: 0;
+  height: 66px;
+  width: 100%;
 }
 
 .header{
@@ -12,7 +17,7 @@
 }
 
 .col{
-  margin-top: 70px;
+  margin-top: 90px;
 }
 
 .card-image {
@@ -29,7 +34,6 @@
 .card.horizontal {
   width: 80%;
   margin: 0 auto;
-  box-shadow: 0 0 0 0 black;
   border: 1px #ddd solid;
   border-radius: 1px;
 }
@@ -42,7 +46,10 @@ textarea{
 .card {
   border-radius: 2px;
   border: 1px solid #ddd;
-  box-shadow: 0 0 0 0 black;
+}
+
+.row .col {
+  padding: 0;
 }
 
 .row{
