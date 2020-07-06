@@ -5,45 +5,34 @@
   height: 66px;
   width: 100%;
 }
-.col{
-  margin-top: 90px;
+
+.cover-img {
+  height: 130px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.card-image {
-  max-width: 50%;
-  margin: 10px 0px 10px 10px;
-  /* height: fit-content; */
-  display: flex;
+.card-title{
+  text-align: center;
 }
 
-.card-image img {
+.icontainer{
+  position: relative;
+  height: 180px;
+  width: 180px;
+  border-radius: 50%;
   margin: auto;
+  background-color: #DDD;
 }
-
-.card.horizontal {
-  width: 80%;
-  margin: 0 auto;
-  border: 1px #ddd solid;
-  border-radius: 1px;
+.col{
+  margin-top: 25px;
 }
-
-.card {
-  border-radius: 2px;
-  border: 1px solid #ddd;
-}
-
-.row .col {
-  padding: 0;
-}
-
-.row{
-  width: 80%;
-}
-
 .grid{
   width: 90%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 380px);
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, 280px);
+  margin: 120px auto;
   justify-content: center;
 }
