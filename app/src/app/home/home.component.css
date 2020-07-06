@@ -81,13 +81,14 @@
 .grid{
   width: 90%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 380px);
+  grid-template-columns: repeat(auto-fit, 406px);
   margin: 0 auto;
   justify-content: center;
 }
 
 .card.horizontal{
-  width: 370px;
+  width: 396px;
+  padding: 13px;
 }
 
 .description {
@@ -115,7 +116,7 @@ img {
   padding: 14px 10px 5px;
 }
 .card-action{
-  padding: 5px 24px 15px 24px;
+  padding: 9px 24px 15px 24px;
 }
 .card-stacked{
   height: 199px;
