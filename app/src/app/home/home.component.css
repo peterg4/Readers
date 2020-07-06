@@ -79,7 +79,7 @@
 }
 
 .grid{
-  width: 90%;
+  width: 95%;
   display: grid;
   grid-template-columns: repeat(auto-fit, 406px);
   margin: 0 auto;
