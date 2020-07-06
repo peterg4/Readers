@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 .homepage-img-wrapper{
   position: relative;
   width: calc(100vw - (100vw - 100%));
@@ -125,6 +125,7 @@ img {
   font-family: 'Montserrat', sans-serif;
   font-size: 20px;
   margin: 0px 0px 5px 0px;
+  font-weight: 600;
   width: 210px;
 }
 .subtitle{
