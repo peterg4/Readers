@@ -19,4 +19,8 @@ export class HttpService {
   getBook(isbn: number): Observable<Book> {
     return this.http.get<Book>('/api/book/details?isbn=' + isbn);
   }
+
+  getGenres(): Observable<any> {
+    return this.http.get('/api/genres');
+  }
 }

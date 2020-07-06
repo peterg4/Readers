@@ -1,1 +1,16 @@
-<p>browse works!</p>
+<div class="head-box"></div>
+
+<div class="grid">
+  <div class="col" *ngFor="let genre of genres">
+    <div class="card">
+      <div class="card-body">
+        <div routerLink="" class="icontainer igenre">
+          <img class="cover-img" src="{{genre.thumbnail}}">
+        </div>
+        <div class="book-data">
+          <h5 routerLink="" class="card-title">{{genre.genre}} ({{genre.books.length}})</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

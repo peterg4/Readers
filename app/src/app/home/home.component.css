@@ -110,12 +110,27 @@ img {
   height: 199px!important;
   cursor: pointer;
 }
+
+.card-content{
+  padding: 14px 10px 5px;
+}
+.card-action{
+  padding: 5px 24px 15px 24px;
+}
+.card-stacked{
+  height: 199px;
+}
 .header{
   font-family: 'Montserrat', sans-serif;
-  width: 85%;
   font-size: 20px;
-  line-height: 26px;
-  padding-left: 7px;
+  margin: 0px 0px 5px 0px;
+  width: 210px;
+}
+.subtitle{
+  font-size: 15px;
+  margin: 0px 0px 5px 0px;
+  width: 210px;
+  line-height: 17px;
 }
 main{
   margin-top: 25px;

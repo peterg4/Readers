@@ -17,17 +17,18 @@
 <main>
   <div class="grid">
     <div class="col s12 m7" *ngFor="let book of books">
-      <h2 class="header truncate">{{book.title}}</h2>
       <div class="card horizontal">
         <div class="card-image">
           <img routerLink="/book/{{book.isbn}}" src="{{book.googleData.thumbnail}}">
         </div>
         <div class="card-stacked">
           <div class="card-content">
+            <h2 class="header truncate">{{book.title}}</h2>
+            <h3 class="subtitle truncate">by {{book.author}}</h3>
             <p class="description">{{book.googleData.description}}</p>
           </div>
           <div class="card-action">
-            <a href="#" routerLink="/book/{{book.isbn}}">More details &raquo;</a>
+            <a href="#" routerLink="/book/{{book.isbn}}">Reviews &raquo;</a>
           </div>
         </div>
       </div>

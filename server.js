@@ -317,10 +317,10 @@ async function main() {
     })
   })
   //get all genres data
-  app.get('/genres', function(req, res) {
+  app.get('/api/genres', function(req, res) {
     db.collection("genres").find({}).toArray(function(err, result) {
       if(err) throw err;
-      res.json({data: result});
+      res.json(result);
     })
   });
   //get books pertaining to a certain genre
