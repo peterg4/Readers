@@ -6,7 +6,7 @@ import { Component, HostListener, ElementRef, ViewChild } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-
+  modalActive = false;
   @ViewChild('navbar') nav: ElementRef;
 
   @HostListener('document:scroll', ['$event']) onScrollEvent($event){
@@ -20,6 +20,10 @@ export class AppComponent {
       }
     } 
   }
+
+  modalTrigger() {
+    this.modalActive = !this.modalActive;
+  }
 }
 document.addEventListener('DOMContentLoaded', function() {
   let elems = document.querySelectorAll('.sidenav');
@@ -29,16 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Sidenav.init(elems, options);
 });
 
-
-/*
-var nav = document.getElementsByClassName("nav-wrapper");
-console.log(nav);
-window.onscroll = function () { 
-  "use strict";
-  if (document.body.scrollTop >= 20 || document.documentElement.scrollTop >= 20 ) {
-    nav.classList.remove("scolled-nav");
-  } 
-  else {
-    nav.classList.add("scolled-nav");
+document.addEventListener('DOMContentLoaded', function() {
+  let elems = document.querySelectorAll('.modal');
+  let options = {
+    
   }
-};*/
+  let instances = M.Modal.init(elems, options);
+});
