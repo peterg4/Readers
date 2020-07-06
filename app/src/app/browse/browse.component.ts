@@ -13,7 +13,6 @@ export class BrowseComponent implements OnInit {
 
   ngOnInit(): void {
     this._http.getGenres().subscribe(data => {
-      console.log(data);
       this.genres = data;
     });  
   }

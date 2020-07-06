@@ -324,10 +324,10 @@ async function main() {
     })
   });
   //get books pertaining to a certain genre
-  app.get('/genres/genre', function(req, res) {
+  app.get('/api/genres/genre', function(req, res) {
     db.collection("genres").find({genre: req.query.genre}).toArray(function(err, result) {
       if(err) throw err;
-      var data = {};
+      var data = [];
       var req_c = 0;
       data.length = result[0].books.length;
       for(var i = 0; i < result[0].books.length; i++) {
@@ -336,7 +336,7 @@ async function main() {
           data[req_c] = resu[0];
           req_c++;
           if(req_c == result[0].books.length) {
-            res.json({data: data});
+            res.json(data);
           } 
         });
       }

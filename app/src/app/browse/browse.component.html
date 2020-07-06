@@ -2,11 +2,11 @@
 
 <div class="grid">
   <div class="col" *ngFor="let genre of genres">
-    <div routerLink="" class="icontainer">
+    <div routerLink="/genre/{{genre.genre}}" class="icontainer">
       <img class="cover-img" src="{{genre.thumbnail}}">
     </div>
     <div class="book-data">
-      <h5 routerLink="" class="card-title">{{genre.genre}}</h5>
+      <h5 routerLink="/genre/{{genre.genre}}" class="card-title">{{genre.genre}}</h5>
     </div>
   </div>
 </div>

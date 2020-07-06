@@ -23,4 +23,8 @@ export class HttpService {
   getGenres(): Observable<any> {
     return this.http.get('/api/genres');
   }
+
+  getGenre(genre): Observable<any> {
+    return this.http.get('/api/genres/genre?genre=' + genre);
+  }
 }

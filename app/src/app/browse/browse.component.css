@@ -16,6 +16,7 @@
 
 .card-title{
   text-align: center;
+  cursor: pointer;
 }
 
 .icontainer{
@@ -25,12 +26,13 @@
   border-radius: 50%;
   margin: auto;
   background-color: #DDD;
+  cursor: pointer;
 }
 .col{
   margin-top: 25px;
 }
 .grid{
-  width: 90%;
+  width: 95%;
   display: grid;
   grid-template-columns: repeat(auto-fit, 280px);
   margin: 120px auto;

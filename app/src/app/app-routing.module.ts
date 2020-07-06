@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'browse', component: BrowseComponent },
  // { path: 'library', component: LibraryComponent }          
-  { path: 'genre', component: GenreComponent },
   { path: 'login', component: LoginComponent },
   { path: 'upload', component: UploadComponent },
   {
@@ -22,6 +21,16 @@ const routes: Routes = [
                {
                  path:':type',
                  component:BookComponent
+               }
+             ]
+  },
+  {
+    path: 'genre',
+    component: GenreComponent,
+    children:[
+               {
+                 path:':type',
+                 component:GenreComponent
                }
              ]
   }
