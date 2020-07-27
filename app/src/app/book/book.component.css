@@ -55,3 +55,11 @@ textarea{
 .row{
   width: 80%;
 }
+
+.review-box .header{
+  margin-top: 40px;
+}
+
+.review-box .col{
+  margin-top: 10px;
+}
