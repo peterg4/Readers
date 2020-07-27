@@ -38,11 +38,6 @@
   border-radius: 1px;
 }
 
-textarea{
-  resize: vertical;
-  min-height: 100px;
-}
-
 .card {
   border-radius: 2px;
   border: 1px solid #ddd;
@@ -62,4 +57,18 @@ textarea{
 
 .review-box .col{
   margin-top: 10px;
+}
+.btn {
+  text-transform: none;
+  width: fit-content;
+  margin-left: 25px;
+  margin-bottom: 20px;
+}
+textarea{
+  min-height: 50px;
+}
+.input-field{
+  width: 95.5%;
+  margin-left: auto;
+  margin-right: auto;
 }
