@@ -37,7 +37,9 @@
   border: 1px #ddd solid;
   border-radius: 1px;
 }
-
+.card-title{
+  font-weight: bold;
+}
 .card {
   border-radius: 2px;
   border: 1px solid #ddd;
@@ -71,4 +73,7 @@ textarea{
   width: 95.5%;
   margin-left: auto;
   margin-right: auto;
+}
+.description{
+  font-size: 1.2em;
 }
