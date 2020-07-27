@@ -38,5 +38,5 @@ document.addEventListener('DOMContentLoaded', function() {
   let options = {
     
   }
-  let instances = M.Modal.init(elems, options);
+  M.Modal.init(elems, options);
 });
