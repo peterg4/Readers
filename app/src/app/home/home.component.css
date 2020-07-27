@@ -89,6 +89,7 @@
 .card.horizontal{
   width: 396px;
   padding: 13px;
+  border-radius: 8px;
 }
 
 .description {
@@ -106,10 +107,10 @@
   text-transform: none!important;
   text-decoration: underline;
 }
-
 img {
   width: 128px!important;
   height: 199px!important;
+  border-radius: 5px!important;
   cursor: pointer;
 }
 .card {
