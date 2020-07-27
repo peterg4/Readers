@@ -81,7 +81,7 @@
 .grid{
   width: 95%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 406px);
+  grid-template-columns: repeat(auto-fit, 417px);
   margin: 0 auto;
   justify-content: center;
 }
