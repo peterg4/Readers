@@ -102,8 +102,9 @@
   text-transform: none!important;
 }
 .card-action a:hover {
-  color: #4b03e5!important;
+  color: #26a69a!important;
   text-transform: none!important;
+  text-decoration: underline;
 }
 
 img {
@@ -111,7 +112,9 @@ img {
   height: 199px!important;
   cursor: pointer;
 }
-
+.card {
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.1);
+}
 .card-content{
   padding: 14px 10px 5px;
 }
