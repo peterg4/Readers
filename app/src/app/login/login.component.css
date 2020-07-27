@@ -1,9 +1,24 @@
-.modal{
-  display: block!important;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999!important;
-  will-change: auto;
+h4{
+  line-height: 50px;
+}
+.modal-content{
+  min-height: 460px;
+}
+.row{
+  margin-bottom: 0px;
+}
+.side-img{
+  width: 150px;
+  background-image: url(../../assets/images/browse.jpg);
+  background-size: cover;
+}
+.modal-content{
+  display: flex;
+  padding: 0px;
+}
+.row.col.s12{
+  width: calc(100% - 200px);
+}
+.header{
+  margin-top: 15px;
 }

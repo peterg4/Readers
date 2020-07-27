@@ -47,6 +47,10 @@ a.side.brand-logo {
   font-family: 'Montserrat', sans-serif;
   color: black;
 }
+
+.modal{
+  border-radius: 8px;
+}
 @media screen and (max-width: 1000px) {
   a.brand-logo{
     margin-left: 0px;
